@@ -1,0 +1,45 @@
+{
+  "$schema": "../schemas/evidence-run.schema.json",
+  "id": "20260627-221500-source-viability-review",
+  "timestamp": "2026-06-27T22:15:00-05:00",
+  "work_item": "003",
+  "result": "passed",
+  "commands": [
+    {
+      "command": "python scripts\\validate_repo.py",
+      "exit_code": 0,
+      "summary": "Confirmed RepoPact validation passed after adding the source viability review, host checker, and required-document validation."
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "summary": "Ran four ROM lab safety/profile tests successfully."
+    },
+    {
+      "command": "Get-ChildItem -Recurse -File | Where-Object { large/forbidden firmware artifact scan }",
+      "exit_code": 0,
+      "summary": "Confirmed no large binaries, firmware images, archives, vendor blobs, or ROM artifacts were present."
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File rom_lab\\scripts\\check_android_build_host.ps1",
+      "exit_code": 0,
+      "summary": "Read-only host check reported Windows 10 Pro, 276.59 GB free on C:, 31.54 GB RAM, 8 logical cores, WSL binary present without a usable distro, and no Docker."
+    },
+    {
+      "command": "GitHub API, raw file, and git ls-remote inspections of def/sm6150/AOSP/Lineage/GSI candidates",
+      "exit_code": 0,
+      "summary": "Verified candidate branch, commit, content, license-status, and relevance metadata without cloning large source trees."
+    }
+  ],
+  "artifacts": [
+    "rom_lab/research/source_viability_review_20260627.md",
+    "rom_lab/research/sources_matrix.md",
+    "rom_lab/reports/rom_lab_status_20260627.md",
+    "rom_lab/scripts/check_android_build_host.ps1",
+    "scripts/validate_repo.py"
+  ],
+  "environment": {
+    "platform": "win32",
+    "python": "3.12"
+  }
+}

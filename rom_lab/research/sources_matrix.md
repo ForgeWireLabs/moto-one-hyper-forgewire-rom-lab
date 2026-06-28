@@ -18,3 +18,24 @@ current stock build `RPFS31.Q1-21-20-1-7-3`.
 | Android Cuttlefish docs | https://source.android.com/docs/devices/cuttlefish | Official virtual device docs | Best generic virtual-device path for modern Android images | Live docs | AOSP docs | Live docs | Yes for planning | Host setup may require Linux/KVM, not Windows-native | Prefer Linux build machine or WSL/Linux host with virtualization support |
 | Android Emulator docs | https://developer.android.com/studio/run/emulator | Official emulator docs | Generic boot and adb validation path | Live docs | Android docs | Live docs | Yes | Generic emulator is not phone hardware | Use for userspace/ForgeLink command-path smoke tests |
 
+## Verification notes from 2026-06-27 source viability pass
+
+Do not remove the original broad leads above; this section narrows them with
+observed branch, commit, and content status.
+
+| Source | Category | Observed branch/ref | Last observed commit/date | Content observed | Viability status | Notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| `sorenlyulf/android_device_motorola_def` | True def device tree | `lineage-20` | `f65a1836d66e`, 2026-06-13 | `BoardConfig.mk`, `device.mk`, `AndroidProducts.mk`, `lineage_def.mk`, `lineage.dependencies`, `proprietary-files.txt`, `extract-files.sh`, rootdir init, vendor sepolicy | Best def bring-up lead | Blob list says `def RPFS31.Q1-21-20-5`; installed phone is `RPFS31.Q1-21-20-1-7-3` |
+| `sm6150-motorola/android_device_motorola_def` | True def device tree | `lineage-18.1` | `df1f85a155a5`, 2021-08-30 | Full Lineage 18.1 tree shape with BoardConfig/product/proprietary/sepolicy/extract files | Historical reference | Android 11-era but stale |
+| `omnirom/android_device_motorola_def` | Older def device tree | `android-10`, `android-11` | default `05ea21b6c7f2`, 2020-08-29 | Omni product files, fstab, recovery dynamic fstab, sepolicy, proprietary lists, extract script | Reference only | Omni-specific and stale |
+| `ixmoe/android_device_motorola_def_twrp` | Recovery-only def tree | `android-10` | `a5ad58ff0bd7`, 2021-01-15 | Recovery BoardConfig/product files, recovery fstab, recovery init | Recovery/fstab reference only | Not a full ROM tree |
+| `Deivid21/android_device_motorola_def` | Def repo shell | `main` | metadata updated 2026-06-02 | Tree API returned 409 conflict | Not viable | Treat as empty/uninspectable until content appears |
+| `motorola-sm6150-devs/android_device_motorola_sm6150-common` | SM6150 common device tree | `lineage-20` | `1f893f87a75a`, 2023-10-24 | `BoardConfigCommon.mk`, `common.mk`, fstab dynamic, init scripts, sepolicy, configs, proprietary list, extract script | Needed for Lineage 20 path | Common blobs reference Hanoip `S2RI32.32-20-7`, not def |
+| `motorola-sm6150-devs/android_kernel_motorola_sm6150` | Community kernel | `lineage-20` | `5b04fac0cb2a`, 2023-10-24 | Kernel tree, Hanoip DTS/config content, `hanoip_defconfig` | Likely dependency, not proven sufficient | Def tree expects `vendor/def_defconfig`; this mismatch needs inspection |
+| MotorolaMobilityLLC `kernel-msm` | OEM kernel reference | tag `MMI-RPF31.Q1-21-20` found | repo pushed 2026-06-26 | Official MSM kernel refs | Stock-family reference | No exact `RPFS31.Q1-21-20-1-7-3` ref found in lightweight ref scan |
+| `LineageOS/android` | Modern ROM manifest | default `lineage-23.2`; branches include `lineage-22.2`, `lineage-23.2`, `lineage-24.0` | `02b3ba6a1790`, 2026-06-12 | Manifest repo | Long-term ROM base | Def tree is Lineage 20, so forward-porting is required for latest |
+| `AndyCGYan/lineage_build_unified` | Community GSI build scripts | branches through `lineage-22-light` | `301f406f6d0f`, 2026-01-26 | Unified GSI/device build scripts | GSI research path | Verify release assets and hashes before use |
+| AOSP source setup | Documentation/reference | `android-latest-release` recommended by docs | docs last updated 2026-06-17 | Official repo init/sync guidance | Best official generic source target | Requires huge source sync; do outside repo |
+| Android GSI docs | Documentation/reference | live docs | docs current in 2026 source tree | Defines GSI purpose and limits | Reference | GSI is not proof of device HAL/kernel compatibility |
+| Cuttlefish docs | Documentation/reference | live docs | docs current in 2026 source tree | Virtual Android device guidance | Best source-built virtual target | Needs Linux/KVM-capable environment |
+| Android Emulator docs | Documentation/reference | live docs | docs last updated 2026-03-06 | AVD/emulator setup and requirements | Best low-cost smoke test | Not phone hardware |

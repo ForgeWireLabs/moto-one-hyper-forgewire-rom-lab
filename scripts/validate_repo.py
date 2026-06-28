@@ -43,8 +43,10 @@ ROM_LAB_REQUIRED = (
     "rom_lab/device_def/risk_register.md",
     "rom_lab/scripts/rom_lab_inventory.ps1",
     "rom_lab/scripts/search_sources.ps1",
+    "rom_lab/scripts/check_android_build_host.ps1",
     "rom_lab/scripts/verify_no_large_binaries.ps1",
     "rom_lab/reports/rom_lab_status_20260627.md",
+    "rom_lab/research/source_viability_review_20260627.md",
 )
 ROM_LAB_PROFILE_FIELDS = {
     "model", "sku", "codename", "target", "carrier", "soc", "storage", "ram",

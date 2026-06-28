@@ -1,0 +1,70 @@
+{
+  "$schema": "../../../schemas/work-item.schema.json",
+  "id": "003",
+  "title": "Review Moto One Hyper ROM source viability",
+  "status": "completed",
+  "owner_scope": "governance",
+  "affected_scopes": [
+    "governance",
+    "tooling"
+  ],
+  "depends_on": [],
+  "provenance": "concrete",
+  "preflight": {
+    "created_before_work_started": true,
+    "created_at": "2026-06-27T00:00:00Z",
+    "note": "Stamped by `repopact new`; the work item was recorded before implementation began."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-1",
+      "text": "Source candidates are reviewed and ranked by type, branch, commit freshness, content, license status, blocker, and next action.",
+      "state": "satisfied",
+      "evidence": [
+        "20260627-221500-source-viability-review"
+      ]
+    },
+    {
+      "id": "AC-2",
+      "text": "The sources matrix and ROM lab status report are updated with the source viability pass and first build/test recommendation.",
+      "state": "satisfied",
+      "evidence": [
+        "20260627-221500-source-viability-review"
+      ]
+    },
+    {
+      "id": "AC-3",
+      "text": "A read-only Android build host checker is added and validation requires the new viability records.",
+      "state": "satisfied",
+      "evidence": [
+        "20260627-221500-source-viability-review"
+      ]
+    },
+    {
+      "id": "AC-4",
+      "text": "RepoPact validation and ROM lab tests pass after the review.",
+      "state": "satisfied",
+      "evidence": [
+        "20260627-221500-source-viability-review"
+      ]
+    },
+    {
+      "id": "AC-5",
+      "text": "No Android source tree, firmware, images, blobs, zips, bins, serials, IMEIs, unlock keys, or large binaries are committed.",
+      "state": "satisfied",
+      "evidence": [
+        "20260627-221500-source-viability-review"
+      ]
+    },
+    {
+      "id": "AC-6",
+      "text": "No destructive or firmware-write action is performed on the physical phone.",
+      "state": "satisfied",
+      "evidence": [
+        "20260627-221500-source-viability-review"
+      ]
+    }
+  ],
+  "created": "2026-06-27",
+  "updated": "2026-06-27"
+}
