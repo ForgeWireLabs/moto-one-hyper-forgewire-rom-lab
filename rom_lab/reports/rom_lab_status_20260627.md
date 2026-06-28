@@ -150,3 +150,29 @@ for a comfortable full AOSP/Lineage build.
 3. `sorenlyulf/android_device_motorola_def` Lineage 20 source inspection.
 4. Only after vendor blobs and kernel config questions are resolved, attempt a
    `lineage_def-userdebug` build.
+
+## Emulator smoke-test attempt
+
+Date attempted: 2026-06-27
+
+Verdict:
+
+- Toolchain install: success.
+- AVD creation: success.
+- Emulator boot: blocked/crashed.
+- Physical phone mutation: none.
+- Next recommended path: capture host evidence, update the GPU driver or try the
+  Android Studio managed emulator path, then move emulator boot to a better host
+  if the Windows graphics/backend crash remains.
+
+The failed boot attempt used the generic AVD
+`forge_moto_one_hyper_lab_api35`. Console output showed emulator `36.6.11`,
+WHPX available on Windows `10.0.19045`, NVIDIA Quadro M1200 / Intel HD Graphics
+530 host GPUs, an unsupported NVIDIA driver version `528.79.0`, unsupported
+host Vulkan, SwiftShader/lavapipe fallback paths, and
+`Failed to load opengl32sw`. Treat this as a host emulator graphics/backend
+blocker, not as evidence against the emulator/GSI-first ROM lab path.
+
+The physical Motorola One Hyper remains blocked for any firmware-write or
+destructive action unless Jeremy explicitly approves the exact action in the
+current session.

@@ -1,0 +1,131 @@
+﻿Android Emulator Host Evidence
+Captured: 2026-06-28T09:47:05.5002406-05:00
+Repository: C:\Projects\moto-one-hyper
+SDK root: C:\Android\Sdk
+AVD name: forge_moto_one_hyper_lab_api35
+
+Read-only capture. This script does not contact, modify, or write firmware to a phone.
+Large emulator crash databases and AVD disk images are indexed only; they are not copied.
+
+## Java version
+openjdk version "17.0.19" 2026-04-21
+OpenJDK Runtime Environment Temurin-17.0.19+10 (build 17.0.19+10)
+OpenJDK 64-Bit Server VM Temurin-17.0.19+10 (build 17.0.19+10, mixed mode, sharing)
+
+
+## sdkmanager installed packages
+Installed packages:
+  Path                                    | Version | Description                    | Location                               
+  -------                                 | ------- | -------                        | -------                                
+  emulator                                | 36.6.11 | Android Emulator               | emulator                               
+  platform-tools                          | 37.0.0  | Android SDK Platform-Tools     | platform-tools                         
+  system-images;android-35;default;x86_64 | 2       | Intel x86_64 Atom System Image | system-images\android-35\default\x86_64
+
+
+
+## Emulator version
+Android emulator version 36.6.11.0 (build_id 15507667) (CL:N/A)
+Copyright (C) 2006-2024 The Android Open Source Project and many others.
+This program is a derivative of the QEMU CPU emulator (www.qemu.org).
+
+  This software is licensed under the terms of the GNU General Public
+  License version 2, as published by the Free Software Foundation, and
+  may be copied, distributed, and modified under those terms.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+INFO         | Android emulator version 36.6.11.0 (build_id 15507667) (CL:N/A)
+INFO         | Graphics backend: gfxstream
+
+
+## ADB version
+Android Debug Bridge version 1.0.41
+Version 37.0.0-14910828
+Installed as C:\Android\Sdk\platform-tools\adb.exe
+Running on Windows 10.0.19045
+
+
+## AVD inventory
+Available Android Virtual Devices:
+    Name: forge_moto_one_hyper_lab_api35
+  Device: pixel_6 (Google)
+    Path: C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd
+  Target: Default Android System Image
+          Based on: Android 15.0 ("VanillaIceCream") Tag/ABI: default/x86_64
+  Sdcard: 512 MB
+
+
+## Windows version
+
+Caption                  Version    BuildNumber OSArchitecture
+-------                  -------    ----------- --------------
+Microsoft Windows 10 Pro 10.0.19045 19045       64-bit        
+
+
+
+
+## GPU and driver inventory
+
+
+Name           : NVIDIA Quadro M1200
+DriverVersion  : 31.0.15.2879
+DriverDate     : 3/8/2023 6:00:00 PM
+AdapterRAM     : 4293918720
+VideoProcessor : Quadro M1200
+
+Name           : Intel(R) HD Graphics 530
+DriverVersion  : 27.20.100.9664
+DriverDate     : 5/31/2021 7:00:00 PM
+AdapterRAM     : 1073741824
+VideoProcessor : Intel(R) HD Graphics Family
+
+
+
+
+
+## Recent emulator temp evidence index
+
+FullName                                                                            Length LastWriteTime        
+--------                                                                            ------ -------------        
+C:\Users\jerem\AppData\Local\Temp\AndroidEmulator\emu-crash-36.6.11.db\settings.dat     40 6/28/2026 9:47:07 AM 
+C:\Users\jerem\AppData\Local\Temp\AndroidEmulator\emu-crash-36.6.11.db\metadata          0 6/27/2026 10:59:36 PM
+
+
+
+
+## Recent AVD file index
+
+FullName                                                                                                                          Length LastWriteTime        
+--------                                                                                                                          ------ -------------        
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\modem_simulator\iccprofile_for_sim0.xml                             14920 6/28/2026 12:05:05 AM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\modem_simulator\modem_nvram.json                                      175 6/28/2026 12:05:05 AM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\emulator-user.ini                                                     119 6/28/2026 12:05:05 AM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\data\misc\pstore\pstore.bin                                         65536 6/28/2026 12:05:04 AM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\quickbootChoice.ini                                                    19 6/28/2026 12:05:03 AM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\userdata-qemu.img.qcow2                                         527630336 6/28/2026 12:05:03 AM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\bootcompleted.ini                                                       0 6/28/2026 12:04:59 AM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\encryptionkey.img.qcow2                                           2031616 6/28/2026 12:03:53 AM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\read-snapshot.txt                                                       0 6/28/2026 12:03:35 AM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\hardware-qemu.ini                                                    4364 6/28/2026 12:03:35 AM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\initrd                                                            2143776 6/28/2026 12:03:35 AM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\multiinstance.lock                                                      0 6/28/2026 12:03:34 AM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\emu-launch-params.txt                                                 227 6/28/2026 12:03:32 AM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\AVD.conf                                                              192 6/28/2026 12:03:08 AM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\netsim.ini                                                             38 6/27/2026 11:49:17 PM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\snapshots\default_boot\ram.img                                 2684420096 6/27/2026 11:49:14 PM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\version_num.cache                                                      10 6/27/2026 11:49:14 PM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\cache.img.qcow2                                                    197120 6/27/2026 11:49:14 PM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\cache.img                                                        69206016 6/27/2026 11:49:11 PM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\userdata-qemu.img                                                 6356992 6/27/2026 11:49:10 PM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\qemu-version.txt                                                        1 6/27/2026 11:49:05 PM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\config.ini                                                           3588 6/27/2026 11:41:11 PM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\modem_simulator\etc\modem_simulator\files\numeric_operator.xml        297 6/27/2026 11:35:37 PM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\modem_simulator\iccprofile_for_sim_tel_alaska.xml                   14474 6/27/2026 11:35:37 PM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\modem_simulator\iccprofile_for_carrierapitests.xml                  16537 6/27/2026 11:35:37 PM
+C:\Users\jerem\.android\avd\forge_moto_one_hyper_lab_api35.avd\encryptionkey.img                                                18874368 6/27/2026 11:35:26 PM
+
+
+

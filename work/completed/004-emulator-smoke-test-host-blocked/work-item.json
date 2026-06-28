@@ -1,0 +1,72 @@
+{
+  "$schema": "../../../schemas/work-item.schema.json",
+  "id": "004",
+  "title": "Record emulator smoke test host blocker",
+  "status": "completed",
+  "owner_scope": "governance",
+  "affected_scopes": [
+    "governance",
+    "tooling"
+  ],
+  "depends_on": [
+    "003"
+  ],
+  "provenance": "concrete",
+  "preflight": {
+    "created_before_work_started": true,
+    "created_at": "2026-06-28T09:05:00-05:00",
+    "note": "Created before this documentation and evidence-hardening pass began."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-1",
+      "text": "The emulator smoke-test attempt records SDK install success, AVD creation success, emulator launch crash, probable Windows graphics/backend blocker, and no phone writes.",
+      "state": "satisfied",
+      "evidence": [
+        "20260628-091500-emulator-host-blocker"
+      ]
+    },
+    {
+      "id": "AC-2",
+      "text": "The ROM lab has a dedicated emulator smoke-test report, crash-log index guidance, and updated status/plan documents.",
+      "state": "satisfied",
+      "evidence": [
+        "20260628-091500-emulator-host-blocker"
+      ]
+    },
+    {
+      "id": "AC-3",
+      "text": "Read-only host evidence capture and experimental safe emulator launch helper scripts are added without phone mutation commands.",
+      "state": "satisfied",
+      "evidence": [
+        "20260628-091500-emulator-host-blocker"
+      ]
+    },
+    {
+      "id": "AC-4",
+      "text": "Repository validation and ROM lab tests pass after the records are added.",
+      "state": "satisfied",
+      "evidence": [
+        "20260628-091500-emulator-host-blocker"
+      ]
+    },
+    {
+      "id": "AC-5",
+      "text": "No emulator crash database binaries, firmware, images, vendor blobs, archives, serials, IMEIs, unlock keys, local SDK files, or AVD disk images are committed.",
+      "state": "satisfied",
+      "evidence": [
+        "20260628-091500-emulator-host-blocker"
+      ]
+    },
+    {
+      "id": "AC-6",
+      "text": "No destructive or firmware-write action is performed on the physical phone.",
+      "state": "satisfied",
+      "evidence": [
+        "20260628-091500-emulator-host-blocker"
+      ]
+    }
+  ],
+  "created": "2026-06-28",
+  "updated": "2026-06-28"
+}

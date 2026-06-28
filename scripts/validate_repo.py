@@ -44,8 +44,12 @@ ROM_LAB_REQUIRED = (
     "rom_lab/scripts/rom_lab_inventory.ps1",
     "rom_lab/scripts/search_sources.ps1",
     "rom_lab/scripts/check_android_build_host.ps1",
+    "rom_lab/scripts/capture_emulator_host_evidence.ps1",
     "rom_lab/scripts/verify_no_large_binaries.ps1",
+    "rom_lab/scripts/start_emulator_safe.ps1",
     "rom_lab/reports/rom_lab_status_20260627.md",
+    "rom_lab/reports/emulator_smoke_test_20260627.md",
+    "rom_lab/reports/emulator_crash_logs/README.md",
     "rom_lab/research/source_viability_review_20260627.md",
 )
 ROM_LAB_PROFILE_FIELDS = {
