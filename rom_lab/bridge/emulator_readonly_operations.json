@@ -1,0 +1,122 @@
+{
+  "name": "emulator-readonly-operations",
+  "version": 1,
+  "runner": "rom_lab/bridge/run_readonly_bridge.ps1",
+  "contract": "rom_lab/bridge/emulator_readonly_contract.json",
+  "target": "emulator-only",
+  "operations": [
+    {
+      "mode": "devices",
+      "description": "List attached ADB devices for visibility; target-specific actions still require emulator serial selection.",
+      "read_only": true,
+      "requires_running_emulator": false,
+      "parameters": {}
+    },
+    {
+      "mode": "boot",
+      "description": "Read sys.boot_completed from the selected emulator.",
+      "read_only": true,
+      "requires_running_emulator": true,
+      "parameters": {}
+    },
+    {
+      "mode": "identity",
+      "description": "Read Android release, SDK, ABI, model, hardware, and build fingerprint from the emulator.",
+      "read_only": true,
+      "requires_running_emulator": true,
+      "parameters": {}
+    },
+    {
+      "mode": "packages",
+      "description": "List installed packages from the emulator.",
+      "read_only": true,
+      "requires_running_emulator": true,
+      "parameters": {}
+    },
+    {
+      "mode": "logcat-tail",
+      "description": "Read a bounded tail of emulator logcat.",
+      "read_only": true,
+      "requires_running_emulator": true,
+      "parameters": {
+        "LogLines": {
+          "type": "integer",
+          "default": 100,
+          "minimum": 1,
+          "maximum": 1000
+        }
+      }
+    },
+    {
+      "mode": "prop-read",
+      "description": "Read one Android system property from the emulator.",
+      "read_only": true,
+      "requires_running_emulator": true,
+      "parameters": {
+        "PropName": {
+          "type": "string",
+          "default": "ro.build.fingerprint"
+        }
+      }
+    },
+    {
+      "mode": "settings-read",
+      "description": "Read Android settings from system, secure, or global namespace.",
+      "read_only": true,
+      "requires_running_emulator": true,
+      "parameters": {
+        "SettingsNamespace": {
+          "type": "enum",
+          "allowed": ["system", "secure", "global"],
+          "default": "global"
+        },
+        "SettingsKey": {
+          "type": "string",
+          "default": ""
+        }
+      }
+    },
+    {
+      "mode": "activity-list",
+      "description": "Read current user and top activity state from the emulator.",
+      "read_only": true,
+      "requires_running_emulator": true,
+      "parameters": {}
+    },
+    {
+      "mode": "storage-read",
+      "description": "Read emulator filesystem usage with df -h.",
+      "read_only": true,
+      "requires_running_emulator": true,
+      "parameters": {}
+    },
+    {
+      "mode": "network-read",
+      "description": "Read emulator network interface and DNS state.",
+      "read_only": true,
+      "requires_running_emulator": true,
+      "parameters": {}
+    },
+    {
+      "mode": "process-list",
+      "description": "Read a bounded process list from the emulator.",
+      "read_only": true,
+      "requires_running_emulator": true,
+      "parameters": {}
+    },
+    {
+      "mode": "all",
+      "description": "Run the combined read-only inspection bundle.",
+      "read_only": true,
+      "requires_running_emulator": true,
+      "parameters": {
+        "LogLines": {
+          "type": "integer",
+          "default": 100,
+          "minimum": 1,
+          "maximum": 1000
+        }
+      }
+    }
+  ]
+}
