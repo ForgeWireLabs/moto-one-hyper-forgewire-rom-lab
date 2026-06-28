@@ -28,7 +28,6 @@ Completed:
 
 - completed/001-project-state-and-work-ledger/README.md
 - completed/002-emulator-bridge-json-wrapper/README.md
-- completed/003-forgelink-adapter-stub/README.md
 
 Blocked:
 
@@ -42,6 +41,14 @@ Proposed:
 Deferred:
 
 - none
+
+## Notes
+
+The ForgeLink adapter stub was implemented and recorded as a completion report here:
+
+- ../reports/forgelink_adapter_stub_completion.md
+
+It is not currently represented as a RepoPact work item because the next numeric work item id is already occupied by existing imported work.
 
 ## Safety rule
 
