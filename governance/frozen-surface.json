@@ -1,0 +1,16 @@
+{
+  "$schema": "../schemas/frozen-surface.schema.json",
+  "version": 1,
+  "protected": [
+    {
+      "glob": "governance/invariants.json",
+      "reason": "Invariants are the pact; weakening requires operator approval.",
+      "symbols": []
+    },
+    {
+      "glob": "AGENTS.md",
+      "reason": "The root agent contract defines safe operating boundaries for attached devices.",
+      "symbols": []
+    }
+  ]
+}

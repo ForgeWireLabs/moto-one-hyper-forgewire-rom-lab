@@ -1,0 +1,24 @@
+{
+  "$schema": "../../schemas/evidence-run.schema.json",
+  "id": "20260627-193623-adopt",
+  "timestamp": "2026-06-27T19:36:23-05:00",
+  "work_item": "000",
+  "result": "passed",
+  "provenance": "inferred",
+  "commands": [
+    {
+      "command": "git rev-list --count HEAD",
+      "exit_code": 0,
+      "summary": "None commits of history adopted."
+    },
+    {
+      "command": "repopact adopt",
+      "exit_code": 0,
+      "summary": "Adopted RepoPact into an existing repository: None commits, 0 CI workflow(s), 0 CODEOWNERS handle(s), 0 nested contract(s)."
+    }
+  ],
+  "artifacts": [],
+  "environment": {
+    "platform": "win32"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "model": "motorola one hyper",
+  "sku": "XT2027-1",
+  "codename": "def",
+  "target": "def_retail",
+  "carrier": "retus",
+  "soc": "sm6150",
+  "storage": "128GB UFS",
+  "ram": "4GB",
+  "android_stock": "11",
+  "build": "RPFS31.Q1-21-20-1-7-3",
+  "active_slot": "_a",
+  "bootloader_unlocked": true,
+  "stock_boot_verified": false,
+  "root_available": false,
+  "partitions": [
+    "boot_a",
+    "boot_b",
+    "recovery_a",
+    "recovery_b",
+    "dtbo_a",
+    "dtbo_b",
+    "vbmeta_a",
+    "vbmeta_b",
+    "super",
+    "userdata"
+  ]
+}
+

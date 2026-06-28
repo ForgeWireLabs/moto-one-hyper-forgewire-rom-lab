@@ -1,0 +1,49 @@
+{
+  "$schema": "../../../schemas/work-item.schema.json",
+  "id": "001",
+  "title": "Acquire exact Motorola One Hyper stock boot image",
+  "status": "active",
+  "owner_scope": "governance",
+  "affected_scopes": [
+    "governance"
+  ],
+  "depends_on": [],
+  "provenance": "concrete",
+  "preflight": {
+    "created_before_work_started": true,
+    "created_at": "2026-06-27T00:00:00Z",
+    "note": "Stamped by `repopact new`; the work item was recorded before implementation began."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-1",
+      "text": "A firmware source for XT2027-1 / def_retail / retus / RPFS31.Q1-21-20-1-7-3 is identified and recorded with provenance.",
+      "state": "satisfied",
+      "evidence": [
+        "20260627-204300-firmware-source-candidates"
+      ]
+    },
+    {
+      "id": "AC-2",
+      "text": "The source package is verified to contain a stock boot.img matching the installed build before any patching or flashing is attempted.",
+      "state": "pending",
+      "evidence": []
+    },
+    {
+      "id": "AC-3",
+      "text": "The verified stock boot image is copied to images/boot_stock_RPFS31.Q1-21-20-1-7-3.img and its SHA256 is recorded.",
+      "state": "pending",
+      "evidence": []
+    },
+    {
+      "id": "AC-4",
+      "text": "No rescue, repair, flash, erase, relock, wipe, or firmware-write action is run without explicit operator approval.",
+      "state": "satisfied",
+      "evidence": [
+        "20260627-204300-firmware-source-candidates"
+      ]
+    }
+  ],
+  "created": "2026-06-27",
+  "updated": "2026-06-27"
+}

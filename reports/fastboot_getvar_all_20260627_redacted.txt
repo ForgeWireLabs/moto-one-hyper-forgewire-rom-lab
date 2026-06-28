@@ -1,0 +1,76 @@
+(bootloader) kernel: uefi
+(bootloader) version-bootloader: MBM-3.0-def_retail-80f0a5d6dd-220105
+(bootloader) product: def
+(bootloader) board: def
+(bootloader) secure: yes
+(bootloader) hwrev: PVT
+(bootloader) radio: LATAM
+(bootloader) storage-type: UFS
+(bootloader) emmc: N/A
+(bootloader) ufs: 128GB SAMSUNG KM5V7001DM-B621 FV=0800 WB=0
+(bootloader) ram: 4GB SAMSUNG LP4x DIE=16Gb M5-M8=01 06 10 12
+(bootloader) cpu: SM6150 1.1
+(bootloader) serialno: REDACTED
+(bootloader) cid: 0x0032
+(bootloader) channelid: 0x8d
+(bootloader) uid: REDACTED
+(bootloader) securestate: flashing_unlocked
+(bootloader) factory-modes: disabled
+(bootloader) verity-state: enforcing (0)
+(bootloader) iswarrantyvoid: yes
+(bootloader) max-download-size: 805306368
+(bootloader) reason: Reboot mode set to fastboot
+(bootloader) imei: REDACTED
+(bootloader) imei2: REDACTED
+(bootloader) meid: REDACTED
+(bootloader) date: 06-22-2020
+(bootloader) sku: XT2027-1
+(bootloader) carrier_sku: XT2027-1
+(bootloader) battid: SB18C54570
+(bootloader) battery-voltage: 4384
+(bootloader) iccid: 
+(bootloader) cust_md5: 
+(bootloader) max-sparse-size: 268435456
+(bootloader) poweroffalarm: 0
+(bootloader) ro.carrier: retus
+(bootloader) ro.build.fingerprint[0]: motorola/def_retail/def:11/RPFS31.
+(bootloader) ro.build.fingerprint[1]: Q1-21-20-1-7-3/37074e:user/release
+(bootloader) ro.build.fingerprint[2]: -keys
+(bootloader) ro.build.version.qcom: LA.UM.9.1.r1-07700-SMxxx0.0
+(bootloader) version-baseband: M6150_09.297.01.68R DEF_LATAMDSDS_CUST
+(bootloader) kernel.version[0]: Linux version 4.14.190-perf+ (nobody@and
+(bootloader) kernel.version[1]: roid-build) (clang version 10.0.7 for An
+(bootloader) kernel.version[2]: droid NDK, GNU ld (binutils-2.27-bd24d23
+(bootloader) kernel.version[3]: f) 2.27.0.20170315) #1 SMP PREEMPT Wed J
+(bootloader) kernel.version[4]: an 5 08:46:03 CST 2022
+(bootloader) git:xbl: MBM-3.0-def_retail-ddf947084-220105
+(bootloader) git:xbl_config: MBM-3.0-def_retail-ddf947084-220105
+(bootloader) git:aop: MBM-3.0-def_retail-4bfd5e5-220105
+(bootloader) git:tz: MBM-3.0-def_retail-8e9432f39-220105
+(bootloader) git:hyp: MBM-3.0-def_retail-8e9432f39-220105
+(bootloader) git:devcfg: MBM-3.0-def_retail-8e9432f39-220105
+(bootloader) git:cmnlib: MBM-3.0-def_retail-8e9432f39-220105
+(bootloader) git:keymaster: MBM-3.0-def_retail-ef81046-220105
+(bootloader) git:storsec: MBM-3.0-def_retail-8e9432f39-220105
+(bootloader) git:prov: MBM-3.0-def_retail-8e9432f39-220105
+(bootloader) git:abl: MBM-3.0-def_retail-80f0a5d6dd-220105
+(bootloader) git:uefisecapp: MBM-3.0-def_retail-8e9432f39-220105
+(bootloader) frp-state: no protection (0)
+(bootloader) current-slot: a
+(bootloader) running-bl-slot: _a/_a
+(bootloader) running-boot-lun: 2
+(bootloader) slot-count: 2
+(bootloader) slot-successful:_a: yes
+(bootloader) slot-successful:_b: yes
+(bootloader) slot-unbootable:_a: no
+(bootloader) slot-unbootable:_b: no
+(bootloader) slot-retry-count:_a: 6
+(bootloader) slot-retry-count:_b: 6
+(bootloader) logical-block-size: 0x1000
+(bootloader) erase-block-size: 0x1000
+(bootloader) is-userspace: no
+(bootloader) pcb-part-no: SB28C50622
+(bootloader) primary-display: dsi_ft8756_focal_1080P_vid_display
+(bootloader) secondary-display: 
+all: listed above
+Finished. Total time: 0.048s

@@ -1,0 +1,40 @@
+{
+  "$schema": "../schemas/evidence-run.schema.json",
+  "id": "20260627-213000-rom-lab-scaffold",
+  "timestamp": "2026-06-27T21:30:00-05:00",
+  "work_item": "002",
+  "result": "passed",
+  "commands": [
+    {
+      "command": "python scripts\\validate_repo.py",
+      "exit_code": 0,
+      "summary": "Confirmed RepoPact and ROM lab validation passed with required lab docs, device profile checks, safety invariant checks, and artifact guardrails."
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "summary": "Ran four ROM lab safety/profile tests successfully."
+    },
+    {
+      "command": "Get-ChildItem -Recurse -File | Where-Object { $_.Length -gt 5MB -or $_.Extension -match forbidden firmware suffixes }",
+      "exit_code": 0,
+      "summary": "Confirmed no large binary artifacts or firmware/image/archive files are present in the repository."
+    }
+  ],
+  "artifacts": [
+    "rom_lab/README.md",
+    "rom_lab/research/sources_matrix.md",
+    "rom_lab/emulator/gsi_boot_test_plan.md",
+    "rom_lab/build/lineage_plan.md",
+    "rom_lab/device_def/device_profile.json",
+    "rom_lab/device_def/bringup_checklist.md",
+    "rom_lab/reports/rom_lab_status_20260627.md",
+    "scripts/validate_repo.py",
+    "tests/test_rom_lab_profile.py",
+    "tests/test_rom_lab_safety.py"
+  ],
+  "environment": {
+    "platform": "win32",
+    "python": "3.12"
+  }
+}

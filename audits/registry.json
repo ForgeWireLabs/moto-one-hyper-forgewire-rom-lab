@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "scopes": [
+    {
+      "path": ".",
+      "owner": "governance-owner",
+      "contract": "AGENTS.md",
+      "last_reviewed": "2026-06-27",
+      "next_review": "2026-09-25",
+      "alignment": "current",
+      "notes": "Adopted repository root contract."
+    },
+    {
+      "path": "scripts",
+      "owner": "tooling-owner",
+      "contract": "scripts/AGENTS.md",
+      "last_reviewed": "2026-06-27",
+      "next_review": "2026-09-25",
+      "alignment": "current",
+      "notes": "RepoPact validation, dashboard, and record-stamping tooling."
+    }
+  ]
+}

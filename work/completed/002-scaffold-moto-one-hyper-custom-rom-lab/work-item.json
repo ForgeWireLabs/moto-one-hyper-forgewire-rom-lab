@@ -1,0 +1,62 @@
+{
+  "$schema": "../../../schemas/work-item.schema.json",
+  "id": "002",
+  "title": "Scaffold Moto One Hyper custom ROM lab",
+  "status": "completed",
+  "owner_scope": "governance",
+  "affected_scopes": [
+    "governance",
+    "tooling"
+  ],
+  "depends_on": [],
+  "provenance": "concrete",
+  "preflight": {
+    "created_before_work_started": true,
+    "created_at": "2026-06-27T00:00:00Z",
+    "note": "Stamped by `repopact new`; the work item was recorded before implementation began."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-1",
+      "text": "ROM lab directory structure and required planning documents exist under rom_lab/.",
+      "state": "satisfied",
+      "evidence": [
+        "20260627-213000-rom-lab-scaffold"
+      ]
+    },
+    {
+      "id": "AC-2",
+      "text": "Device profile records Motorola One Hyper def facts without claiming verified stock boot or root.",
+      "state": "satisfied",
+      "evidence": [
+        "20260627-213000-rom-lab-scaffold"
+      ]
+    },
+    {
+      "id": "AC-3",
+      "text": "Source matrix, emulator/GSI plan, Lineage/AOSP build plan, and feasibility report are recorded.",
+      "state": "satisfied",
+      "evidence": [
+        "20260627-213000-rom-lab-scaffold"
+      ]
+    },
+    {
+      "id": "AC-4",
+      "text": "Validation and tests enforce ROM lab presence, safety invariants, and no committed firmware/image artifacts.",
+      "state": "satisfied",
+      "evidence": [
+        "20260627-213000-rom-lab-scaffold"
+      ]
+    },
+    {
+      "id": "AC-5",
+      "text": "No destructive or firmware-write action is performed on the physical phone.",
+      "state": "satisfied",
+      "evidence": [
+        "20260627-213000-rom-lab-scaffold"
+      ]
+    }
+  ],
+  "created": "2026-06-27",
+  "updated": "2026-06-27"
+}

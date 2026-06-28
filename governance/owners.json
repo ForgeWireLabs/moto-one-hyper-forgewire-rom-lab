@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "scopes": [
+    {
+      "id": "governance",
+      "paths": ["AGENTS.md", "governance/**", "schemas/**"],
+      "owner": "governance-owner"
+    },
+    {
+      "id": "tooling",
+      "paths": ["scripts/**", "requirements.txt"],
+      "owner": "tooling-owner"
+    }
+  ],
+  "roles": [
+    {
+      "id": "governance-owner",
+      "description": "Maintains the pact and schemas.",
+      "scopes": [
+        "governance"
+      ]
+    },
+    {
+      "id": "tooling-owner",
+      "description": "Maintains RepoPact validation, dashboard, and record-stamping tooling.",
+      "scopes": ["tooling"]
+    }
+  ],
+  "concurrency": {
+    "enforce_disjoint_active_scopes": false
+  },
+  "preflight": {
+    "enabled": true,
+    "required_from_date": "2026-06-27"
+  }
+}

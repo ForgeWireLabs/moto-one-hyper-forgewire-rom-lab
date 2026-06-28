@@ -1,0 +1,20 @@
+{
+  "$schema": "../schemas/invariants.schema.json",
+  "version": 1,
+  "invariants": [
+    {
+      "id": "INV-1",
+      "statement": "No critical state exists only in conversation; it lives in versioned files.",
+      "rationale": "State must be recoverable without a prior conversation.",
+      "escalation": "If a task would leave load-bearing state only in chat, record it as a file first.",
+      "enforced_by": null
+    },
+    {
+      "id": "INV-2",
+      "statement": "Phone-destructive operations require explicit operator approval before execution.",
+      "rationale": "Firmware rescue, repair, flashing, erasing, relocking, or wiping can permanently alter the Motorola One Hyper and may destroy data or bootability.",
+      "escalation": "Stop and obtain explicit Jeremy approval before running any command or GUI action that rescues, repairs, flashes, erases, relocks, wipes, or otherwise writes firmware to the phone.",
+      "enforced_by": null
+    }
+  ]
+}
