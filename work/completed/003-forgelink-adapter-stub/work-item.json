@@ -1,0 +1,30 @@
+{
+  "$schema": "../../../schemas/work-item.schema.json",
+  "id": "003-forgelink-adapter-stub",
+  "title": "ForgeLink Adapter Stub",
+  "status": "complete",
+  "summary": "Create a thin ForgeLink-facing adapter stub for the emulator-only Android bridge.",
+  "source": "manual",
+  "owner": "Jeremy Shows",
+  "evidence": [
+    "rom_lab/bridge/forgelink_adapter_stub.py",
+    "tests/test_forgelink_adapter_stub.py",
+    "work/completed/003-forgelink-adapter-stub/README.md"
+  ],
+  "acceptance": [
+    "adapter reads protocol fields",
+    "adapter rejects forbidden fields",
+    "adapter rejects unknown modes",
+    "adapter accepts mode or operation",
+    "adapter supports params for allowed wrapper fields",
+    "adapter delegates to the JSON wrapper",
+    "adapter does not call subprocess during unit tests",
+    "python -m unittest discover -s tests -v passes"
+  ],
+  "safety": [
+    "No physical device targeting",
+    "No arbitrary ADB exposure",
+    "No arbitrary shell exposure",
+    "No firmware mutation"
+  ]
+}
