@@ -1,6 +1,6 @@
 # WI-003 - ForgeLink Adapter Stub
 
-Status: proposed
+Status: active
 
 ## Goal
 
@@ -17,7 +17,7 @@ In scope:
 - adapter interface definition
 - request validation against emulator_readonly_protocol.json
 - operation lookup from emulator_readonly_operations.json
-- command construction for the existing contract-gated runner
+- command construction through the JSON wrapper
 - tests that do not execute a live emulator
 
 Out of scope:
@@ -39,7 +39,7 @@ Out of scope:
 - adapter reads protocol and operations files
 - adapter rejects forbidden fields
 - adapter rejects unknown modes
-- adapter produces a safe runner invocation
+- adapter produces or delegates to a safe wrapper invocation
 - adapter does not call subprocess during unit tests unless explicitly mocked
 
 ## Safety
