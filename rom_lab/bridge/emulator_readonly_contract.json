@@ -1,92 +1,93 @@
 {
-  "name": "moto-one-hyper-rom-lab-emulator-readonly-bridge",
-  "version": 1,
-  "status": "active",
-  "purpose": "Provide a safe, named-mode, read-only ADB inspection surface for the Android API 35 emulator used by the Moto One Hyper ROM lab.",
-  "target": {
-    "type": "android-emulator",
-    "avd_name": "forge_moto_one_hyper_lab_api35",
-    "required_serial_pattern": "^emulator-[0-9]+$",
-    "physical_device_allowed": false
-  },
-  "entrypoints": {
-    "start_emulator": "rom_lab/scripts/start_api35_working_emulator.ps1",
-    "readonly_bridge": "rom_lab/scripts/invoke_emulator_adb_readonly.ps1"
-  },
-  "allowed_modes": [
-    "devices",
-    "boot",
-    "identity",
-    "packages",
-    "logcat-tail",
-    "prop-read",
-    "settings-read",
-    "activity-list",
-    "storage-read",
-    "network-read",
-    "process-list",
-    "all"
-  ],
-  "allowed_command_families": [
-    "adb devices",
-    "adb -s emulator-* shell getprop",
-    "adb -s emulator-* shell pm list packages",
-    "adb -s emulator-* shell settings list",
-    "adb -s emulator-* shell settings get",
-    "adb -s emulator-* shell cmd activity get-current-user",
-    "adb -s emulator-* shell dumpsys activity top",
-    "adb -s emulator-* shell df -h",
-    "adb -s emulator-* shell ip addr show",
-    "adb -s emulator-* shell ps -A",
-    "adb -s emulator-* logcat -d -t"
-  ],
-  "forbidden_command_families": [
-    "adb push",
-    "adb pull",
-    "adb install",
-    "adb uninstall",
-    "adb shell with arbitrary user-provided command strings",
-    "adb reboot",
-    "adb reboot bootloader",
-    "adb reboot recovery",
-    "adb remount",
-    "adb root",
-    "adb unroot",
-    "adb disable-verity",
-    "adb enable-verity",
-    "adb sideload",
-    "fastboot flash",
-    "fastboot erase",
-    "fastboot format",
-    "fastboot update",
-    "fastboot boot",
-    "fastboot oem",
-    "fastboot flashing lock",
-    "fastboot flashing unlock",
-    "rescue",
-    "repair",
-    "wipe",
-    "factory reset",
-    "dd to block devices",
-    "mkfs",
-    "mount -o remount,rw"
-  ],
-  "safety_invariants": [
-    "The bridge must select an emulator serial matching ^emulator-[0-9]+$ before issuing target-specific ADB commands.",
-    "The bridge must not select or operate on a physical Android device serial.",
-    "The bridge must expose named read-only modes instead of arbitrary shell execution.",
-    "The physical Motorola One Hyper must not be flashed, erased, wiped, relocked, sideloaded, repaired, rescued, or otherwise written to without explicit current-session approval from Jeremy.",
-    "Evidence reports must describe emulator state as generic emulator evidence, not as Moto One Hyper hardware boot evidence."
-  ],
-  "current_evidence": [
-    "rom_lab/reports/emulator_api35_smoke_test_success_20260627.md",
-    "rom_lab/reports/working_emulator_launch_command_20260628.md",
-    "rom_lab/reports/emulator_adb_readonly_bridge_20260628-154600.txt",
-    "rom_lab/reports/emulator_adb_readonly_bridge_v2_20260628-161507.txt"
-  ],
-  "notes": [
-    "The API 35 emulator target is ranchu/x86_64 and is not a Motorola One Hyper hardware emulation.",
-    "The bridge is intended as a future ForgeLink-safe adapter boundary.",
-    "This contract intentionally favors conservative read-only inspection over broad ADB control."
-  ]
+    "name":  "moto-one-hyper-rom-lab-emulator-readonly-bridge",
+    "version":  1,
+    "status":  "active",
+    "purpose":  "Provide a safe, named-mode, read-only ADB inspection surface for the Android API 35 emulator used by the Moto One Hyper ROM lab.",
+    "target":  {
+                   "type":  "android-emulator",
+                   "avd_name":  "forge_moto_one_hyper_lab_api35",
+                   "required_serial_pattern":  "^emulator-[0-9]+$",
+                   "physical_device_allowed":  false
+               },
+    "entrypoints":  {
+                        "start_emulator":  "rom_lab/scripts/start_api35_working_emulator.ps1",
+                        "readonly_bridge":  "rom_lab/scripts/invoke_emulator_adb_readonly.ps1",
+                        "contract_runner":  "rom_lab/bridge/run_readonly_bridge.ps1"
+                    },
+    "allowed_modes":  [
+                          "devices",
+                          "boot",
+                          "identity",
+                          "packages",
+                          "logcat-tail",
+                          "prop-read",
+                          "settings-read",
+                          "activity-list",
+                          "storage-read",
+                          "network-read",
+                          "process-list",
+                          "all"
+                      ],
+    "allowed_command_families":  [
+                                     "adb devices",
+                                     "adb -s emulator-* shell getprop",
+                                     "adb -s emulator-* shell pm list packages",
+                                     "adb -s emulator-* shell settings list",
+                                     "adb -s emulator-* shell settings get",
+                                     "adb -s emulator-* shell cmd activity get-current-user",
+                                     "adb -s emulator-* shell dumpsys activity top",
+                                     "adb -s emulator-* shell df -h",
+                                     "adb -s emulator-* shell ip addr show",
+                                     "adb -s emulator-* shell ps -A",
+                                     "adb -s emulator-* logcat -d -t"
+                                 ],
+    "forbidden_command_families":  [
+                                       "adb push",
+                                       "adb pull",
+                                       "adb install",
+                                       "adb uninstall",
+                                       "adb shell with arbitrary user-provided command strings",
+                                       "adb reboot",
+                                       "adb reboot bootloader",
+                                       "adb reboot recovery",
+                                       "adb remount",
+                                       "adb root",
+                                       "adb unroot",
+                                       "adb disable-verity",
+                                       "adb enable-verity",
+                                       "adb sideload",
+                                       "fastboot flash",
+                                       "fastboot erase",
+                                       "fastboot format",
+                                       "fastboot update",
+                                       "fastboot boot",
+                                       "fastboot oem",
+                                       "fastboot flashing lock",
+                                       "fastboot flashing unlock",
+                                       "rescue",
+                                       "repair",
+                                       "wipe",
+                                       "factory reset",
+                                       "dd to block devices",
+                                       "mkfs",
+                                       "mount -o remount,rw"
+                                   ],
+    "safety_invariants":  [
+                              "The bridge must select an emulator serial matching ^emulator-[0-9]+$ before issuing target-specific ADB commands.",
+                              "The bridge must not select or operate on a physical Android device serial.",
+                              "The bridge must expose named read-only modes instead of arbitrary shell execution.",
+                              "The physical Motorola One Hyper must not be flashed, erased, wiped, relocked, sideloaded, repaired, rescued, or otherwise written to without explicit current-session approval from Jeremy.",
+                              "Evidence reports must describe emulator state as generic emulator evidence, not as Moto One Hyper hardware boot evidence."
+                          ],
+    "current_evidence":  [
+                             "rom_lab/reports/emulator_api35_smoke_test_success_20260627.md",
+                             "rom_lab/reports/working_emulator_launch_command_20260628.md",
+                             "rom_lab/reports/emulator_adb_readonly_bridge_20260628-154600.txt",
+                             "rom_lab/reports/emulator_adb_readonly_bridge_v2_20260628-161507.txt"
+                         ],
+    "notes":  [
+                  "The API 35 emulator target is ranchu/x86_64 and is not a Motorola One Hyper hardware emulation.",
+                  "The bridge is intended as a future ForgeLink-safe adapter boundary.",
+                  "This contract intentionally favors conservative read-only inspection over broad ADB control."
+              ]
 }

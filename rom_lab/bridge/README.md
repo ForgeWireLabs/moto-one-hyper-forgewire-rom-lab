@@ -94,3 +94,12 @@ Machine-readable contract:
     rom_lab/bridge/emulator_readonly_contract.json
 
 Future ForgeLink integration should consume the contract before invoking bridge actions.
+
+## Contract-gated runner
+
+The preferred adapter entrypoint is:
+
+    powershell -ExecutionPolicy Bypass -File .\rom_lab\bridge\run_readonly_bridge.ps1 -Mode identity
+
+The runner loads emulator_readonly_contract.json before invoking the lower-level bridge script.
+It refuses to run if the contract no longer requires emulator-only targeting.
