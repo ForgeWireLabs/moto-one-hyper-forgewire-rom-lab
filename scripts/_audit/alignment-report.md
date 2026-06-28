@@ -1,5 +1,13 @@
 # Tooling Alignment Report
 
+## 2026-06-28 ROM lab required surface
+
+- Validator required-file coverage now includes the emulator host evidence,
+  GPU/CUDA context capture, Windows graphics strategy, and safe emulator launch
+  helpers added for the Moto One Hyper ROM lab. The validator remains read-only
+  and continues to block large/binary firmware-style artifacts and destructive
+  script terms.
+
 ## 2026-06-15 adoption surface and hardening (003)
 
 - Records are now validated against `schemas/*.json` via `jsonschema` (decision

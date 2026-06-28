@@ -1,0 +1,61 @@
+{
+  "$schema": "../schemas/evidence-run.schema.json",
+  "id": "20260628-101500-emulator-gpu-cuda-review",
+  "timestamp": "2026-06-28T10:15:00-05:00",
+  "work_item": "005",
+  "result": "passed",
+  "commands": [
+    {
+      "command": "python scripts\\validate_repo.py",
+      "exit_code": 0,
+      "summary": "Confirmed RepoPact validation passed after adding the GPU/CUDA environment review records and required ROM lab files."
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "summary": "Ran the ROM lab profile and safety tests successfully."
+    },
+    {
+      "command": "Get-ChildItem -LiteralPath C:\\Projects -Directory -Filter .venv-torch-cu102 -Recurse -ErrorAction SilentlyContinue",
+      "exit_code": 0,
+      "summary": "Located ForgeWire CUDA/PyTorch venv at C:\\Projects\\forgewire\\.venv-torch-cu102 without modifying ForgeWire."
+    },
+    {
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File rom_lab\\scripts\\capture_gpu_cuda_context.ps1",
+      "exit_code": 0,
+      "summary": "Read-only host capture recorded Windows, GPU, NVIDIA, CUDA, Android Emulator, AVD text config, and ForgeWire PyTorch/CUDA evidence."
+    },
+    {
+      "command": "Get-ChildItem -Recurse -File | Where-Object { large/forbidden artifact scan }",
+      "exit_code": 0,
+      "summary": "Confirmed no large binaries, firmware images, archives, vendor blobs, AVD disk images, or crash databases were added."
+    }
+  ],
+  "artifacts": [
+    "rom_lab/reports/emulator_gpu_cuda_environment_review_20260627.md",
+    "rom_lab/reports/gpu_cuda_context_20260628-095826.txt",
+    "rom_lab/emulator/windows_graphics_strategy.md",
+    "rom_lab/scripts/capture_gpu_cuda_context.ps1",
+    "rom_lab/scripts/start_emulator_intel_or_cpu_safe.ps1",
+    "rom_lab/reports/emulator_smoke_test_20260627.md",
+    "rom_lab/reports/rom_lab_status_20260627.md",
+    "work/completed/005-emulator-gpu-cuda-environment-review/README.md",
+    "work/completed/005-emulator-gpu-cuda-environment-review/work-item.json",
+    "scripts/validate_repo.py",
+    "scripts/_audit/inventory.md",
+    "scripts/_audit/alignment-report.md"
+  ],
+  "environment": {
+    "platform": "win32",
+    "python": "3.12",
+    "windows": "10.0.19045",
+    "nvidia_driver": "528.79",
+    "nvidia_gpu": "Quadro M1200",
+    "intel_gpu": "Intel HD Graphics 530",
+    "torch": "1.12.1+cu116",
+    "torch_cuda_available": true,
+    "torch_cuda": "11.6",
+    "android_emulator": "36.6.11",
+    "avd": "forge_moto_one_hyper_lab_api35"
+  }
+}

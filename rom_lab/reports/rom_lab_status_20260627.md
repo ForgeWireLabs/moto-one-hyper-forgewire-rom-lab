@@ -176,3 +176,19 @@ blocker, not as evidence against the emulator/GSI-first ROM lab path.
 The physical Motorola One Hyper remains blocked for any firmware-write or
 destructive action unless Jeremy explicitly approves the exact action in the
 current session.
+
+## CUDA / M1200 investigation
+
+Date recorded: 2026-06-28
+
+The Quadro M1200 laptop has a ForgeWire CUDA/PyTorch environment at
+`C:\Projects\forgewire\.venv-torch-cu102`. That environment is useful evidence
+for the current NVIDIA compute stack, but it does not directly solve the Android
+Emulator blocker because the emulator is failing around graphics backend behavior
+rather than CUDA compute.
+
+Driver-update caution is now explicit: do not update the NVIDIA driver as the
+first fix, because the current driver setup may be part of Jeremy's working CUDA
+stack. The safer next path is Android Studio managed emulator, lower API x86_64
+image, or one controlled Intel/software-renderer attempt before any NVIDIA
+driver mutation.

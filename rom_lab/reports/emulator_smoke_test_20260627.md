@@ -93,11 +93,25 @@ driver/tooling changes or a different emulator host.
 ## Recommended Next Action
 
 1. Preserve host evidence with `rom_lab/scripts/capture_emulator_host_evidence.ps1`.
-2. Update the NVIDIA Quadro M1200 driver if a compatible newer driver is
-   available.
+2. Preserve GPU/CUDA evidence with
+   `rom_lab/scripts/capture_gpu_cuda_context.ps1` before changing the graphics
+   stack.
 3. Install Android Studio and try the managed emulator/device manager path.
 4. Try a lower API x86_64 system image.
-5. Try another machine for emulator boot.
-6. Keep the physical Moto One Hyper path blocked until verified stock firmware,
+5. Try one controlled Intel/software-renderer style launch before changing the
+   NVIDIA driver.
+6. Update the NVIDIA Quadro M1200 driver only with explicit approval because the
+   existing ForgeWire CUDA/PyTorch stack may depend on the current fragile driver
+   setup.
+7. Try another machine for emulator boot.
+8. Keep the physical Moto One Hyper path blocked until verified stock firmware,
    vendor blobs, exact boot image, device tree/kernel/common integration,
    BoardConfig, dynamic partitions, sepolicy, and hardware gates are solved.
+
+## CUDA / M1200 Follow-up
+
+Jeremy noted that the Quadro M1200 required prior CUDA/PyTorch-specific setup in
+ForgeWire. That CUDA success is useful evidence, but it is not proof that Android
+Emulator Vulkan/OpenGL/gfxstream paths should work. Treat the CUDA stack as
+fragile and avoid NVIDIA driver mutation until Intel/software renderer, Android
+Studio managed emulator, lower API image, or better-host options have been tried.

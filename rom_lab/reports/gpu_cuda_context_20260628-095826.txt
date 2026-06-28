@@ -1,0 +1,418 @@
+﻿GPU and CUDA Context Evidence
+Captured: 2026-06-28T09:58:26.6303537-05:00
+Repository: C:\Projects\moto-one-hyper
+SDK root: C:\Android\Sdk
+AVD name: forge_moto_one_hyper_lab_api35
+ForgeWire root: C:\Projects\forgewire
+
+Read-only capture. This script does not install, uninstall, update, or mutate GPU drivers.
+This script does not contact, modify, or write firmware to a phone.
+
+## Windows version
+
+Caption                  Version    BuildNumber OSArchitecture
+-------                  -------    ----------- --------------
+Microsoft Windows 10 Pro 10.0.19045 19045       64-bit        
+
+
+
+
+## GPU inventory
+
+
+Name           : NVIDIA Quadro M1200
+DriverVersion  : 31.0.15.2879
+DriverDate     : 3/8/2023 6:00:00 PM
+AdapterRAM     : 4293918720
+VideoProcessor : Quadro M1200
+
+Name           : Intel(R) HD Graphics 530
+DriverVersion  : 27.20.100.9664
+DriverDate     : 5/31/2021 7:00:00 PM
+AdapterRAM     : 1073741824
+VideoProcessor : Intel(R) HD Graphics Family
+
+
+
+
+
+## nvidia-smi
+Sun Jun 28 09:58:27 2026       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 528.79       Driver Version: 528.79       CUDA Version: 12.0     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name            TCC/WDDM | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Quadro M1200       WDDM  | 00000000:01:00.0 Off |                  N/A |
+| N/A    0C    P0    N/A /  N/A |      0MiB /  4096MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+
+
+## nvcc
+Missing: nvcc.exe
+
+
+## Vulkan and GPU environment variables
+(no output)
+
+## Selected PATH entries
+C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common
+
+
+## Emulator version
+Android emulator version 36.6.11.0 (build_id 15507667) (CL:N/A)
+Copyright (C) 2006-2024 The Android Open Source Project and many others.
+This program is a derivative of the QEMU CPU emulator (www.qemu.org).
+
+  This software is licensed under the terms of the GNU General Public
+  License version 2, as published by the Free Software Foundation, and
+  may be copied, distributed, and modified under those terms.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+INFO         | Android emulator version 36.6.11.0 (build_id 15507667) (CL:N/A)
+INFO         | Graphics backend: gfxstream
+
+
+## Emulator AVD list
+forge_moto_one_hyper_lab_api35
+
+
+## Java version
+openjdk version "17.0.19" 2026-04-21
+OpenJDK Runtime Environment Temurin-17.0.19+10 (build 17.0.19+10)
+OpenJDK 64-Bit Server VM Temurin-17.0.19+10 (build 17.0.19+10, mixed mode, sharing)
+
+
+## sdkmanager installed packages
+Installed packages:
+  Path                                    | Version | Description                    | Location                               
+  -------                                 | ------- | -------                        | -------                                
+  emulator                                | 36.6.11 | Android Emulator               | emulator                               
+  platform-tools                          | 37.0.0  | Android SDK Platform-Tools     | platform-tools                         
+  system-images;android-35;default;x86_64 | 2       | Intel x86_64 Atom System Image | system-images\android-35\default\x86_64
+
+
+
+## AVD config.ini
+PlayStore.enabled=no
+abi.type=x86_64
+avd.id=<build>
+avd.ini.encoding=UTF-8
+avd.name=<build>
+disk.cachePartition=yes
+disk.cachePartition.size=66MB
+disk.dataPartition.path=<temp>
+disk.dataPartition.size=6G
+disk.systemPartition.size=0
+disk.vendorPartition.size=0
+environment.height=0
+environment.width=0
+fastboot.forceChosenSnapshotBoot=no
+fastboot.forceColdBoot=no
+fastboot.forceFastBoot=yes
+firstboot.bootFromDownloadableSnapshot=yes
+firstboot.bootFromLocalSnapshot=yes
+firstboot.saveToLocalSnapshot=yes
+hw.accelerometer=yes
+hw.accelerometer_uncalibrated=yes
+hw.arc=false
+hw.audioInput=yes
+hw.audioOutput=yes
+hw.battery=yes
+hw.camera.back=emulated
+hw.camera.back.orientation=90
+hw.camera.front=none
+hw.camera.front.orientation=90
+hw.cpu.arch=x86_64
+hw.cpu.ncore=4
+hw.dPad=no
+hw.device.hash2=MD5:2016577e1656e8e7c2adb0fac972beea
+hw.device.manufacturer=Google
+hw.device.name=pixel_6
+hw.display1.density=0
+hw.display1.flag=0
+hw.display1.height=0
+hw.display1.width=0
+hw.display1.xOffset=-1
+hw.display1.yOffset=-1
+hw.display2.density=0
+hw.display2.flag=0
+hw.display2.height=0
+hw.display2.width=0
+hw.display2.xOffset=-1
+hw.display2.yOffset=-1
+hw.display3.density=0
+hw.display3.flag=0
+hw.display3.height=0
+hw.display3.width=0
+hw.display3.xOffset=-1
+hw.display3.yOffset=-1
+hw.displayRegion.0.1.height=0
+hw.displayRegion.0.1.width=0
+hw.displayRegion.0.1.xOffset=-1
+hw.displayRegion.0.1.yOffset=-1
+hw.displayRegion.0.2.height=0
+hw.displayRegion.0.2.width=0
+hw.displayRegion.0.2.xOffset=-1
+hw.displayRegion.0.2.yOffset=-1
+hw.displayRegion.0.3.height=0
+hw.displayRegion.0.3.width=0
+hw.displayRegion.0.3.xOffset=-1
+hw.displayRegion.0.3.yOffset=-1
+hw.gltransport=pipe
+hw.gltransport.asg.dataRingSize=32768
+hw.gltransport.asg.writeBufferSize=1048576
+hw.gltransport.asg.writeStepSize=4096
+hw.gltransport.drawFlushInterval=800
+hw.gps=yes
+hw.gpu.enabled=no
+hw.gpu.mode=auto
+hw.gsmModem=yes
+hw.gyroscope=yes
+hw.hotplug_multi_display=no
+hw.initialOrientation=portrait
+hw.keyboard=no
+hw.keyboard.charmap=qwerty2
+hw.keyboard.lid=yes
+hw.lcd.backlight=yes
+hw.lcd.circular=false
+hw.lcd.density=420
+hw.lcd.depth=32
+hw.lcd.height=2400
+hw.lcd.transparent=false
+hw.lcd.vsync=60
+hw.lcd.width=1080
+hw.mainKeys=no
+hw.multi_display_window=no
+hw.ramSize=2G
+hw.rotaryInput=no
+hw.screen=multi-touch
+hw.sdCard=yes
+hw.sensor.hinge=no
+hw.sensor.hinge.count=0
+hw.sensor.hinge.fold_to_displayRegion.0.1_at_posture=1
+hw.sensor.hinge.resizable.config=1
+hw.sensor.hinge.sub_type=0
+hw.sensor.hinge.type=0
+hw.sensor.roll=no
+hw.sensor.roll.count=0
+hw.sensor.roll.resize_to_displayRegion.0.1_at_posture=6
+hw.sensor.roll.resize_to_displayRegion.0.2_at_posture=6
+hw.sensor.roll.resize_to_displayRegion.0.3_at_posture=6
+hw.sensors.gyroscope_uncalibrated=yes
+hw.sensors.heading=no
+hw.sensors.heart_rate=no
+hw.sensors.humidity=yes
+hw.sensors.light=yes
+hw.sensors.magnetic_field=yes
+hw.sensors.magnetic_field_uncalibrated=yes
+hw.sensors.orientation=yes
+hw.sensors.pressure=yes
+hw.sensors.proximity=yes
+hw.sensors.rgbclight=no
+hw.sensors.temperature=yes
+hw.sensors.wrist_tilt=no
+hw.touchpad0=no
+hw.touchpad0.height=400
+hw.touchpad0.width=600
+hw.trackBall=no
+hw.useext4=yes
+image.sysdir.1=system-images\android-35\default\x86_64\
+kernel.newDeviceNaming=autodetect
+kernel.supportsYaffs2=autodetect
+runtime.network.latency=none
+runtime.network.speed=full
+sdcard.size=512 MB
+showDeviceFrame=yes
+tag.display=Default Android System Image
+tag.displaynames=Default Android System Image
+tag.id=default
+tag.ids=default
+target=android-35
+test.delayAdbTillBootComplete=0
+test.monitorAdb=0
+test.quitAfterBootTimeOut=-1
+userdata.useQcow2=no
+vm.heapSize=228M
+
+
+## AVD hardware-qemu.ini
+hw.cpu.arch = x86_64
+hw.cpu.ncore = 4
+hw.ramSize = 2560
+hw.screen = multi-touch
+hw.mainKeys = false
+hw.touchpad0 = false
+hw.touchpad0.width = 600
+hw.touchpad0.height = 400
+hw.trackBall = false
+hw.keyboard = false
+hw.keyboard.lid = true
+hw.keyboard.charmap = qwerty2
+hw.dPad = false
+hw.rotaryInput = false
+hw.gsmModem = true
+hw.gps = true
+hw.battery = true
+hw.accelerometer = true
+hw.accelerometer_uncalibrated = true
+hw.gyroscope = true
+hw.audioInput = true
+hw.audioOutput = true
+hw.sdCard = true
+disk.cachePartition = true
+disk.cachePartition.path = C:\Users\jerem\.android\avd\..\avd\forge_moto_one_hyper_lab_api35.avd\cache.img
+disk.cachePartition.size = 66m
+test.quitAfterBootTimeOut = -1
+test.delayAdbTillBootComplete = 0
+test.monitorAdb = 0
+hw.lcd.width = 1080
+hw.lcd.height = 2400
+hw.lcd.depth = 32
+hw.lcd.circular = false
+hw.lcd.density = 420
+hw.lcd.transparent = false
+hw.lcd.backlight = true
+hw.lcd.vsync = 60
+hw.gltransport = pipe
+hw.gltransport.asg.writeBufferSize = 1048576
+hw.gltransport.asg.writeStepSize = 4096
+hw.gltransport.asg.dataRingSize = 32768
+hw.gltransport.drawFlushInterval = 800
+hw.displayRegion.0.1.xOffset = -1
+hw.displayRegion.0.1.yOffset = -1
+hw.displayRegion.0.1.width = 0
+hw.displayRegion.0.1.height = 0
+hw.displayRegion.0.2.xOffset = -1
+hw.displayRegion.0.2.yOffset = -1
+hw.displayRegion.0.2.width = 0
+hw.displayRegion.0.2.height = 0
+hw.displayRegion.0.3.xOffset = -1
+hw.displayRegion.0.3.yOffset = -1
+hw.displayRegion.0.3.width = 0
+hw.displayRegion.0.3.height = 0
+hw.display1.width = 0
+hw.display1.height = 0
+hw.display1.density = 0
+hw.display1.xOffset = -1
+hw.display1.yOffset = -1
+hw.display1.flag = 0
+hw.display2.width = 0
+hw.display2.height = 0
+hw.display2.density = 0
+hw.display2.xOffset = -1
+hw.display2.yOffset = -1
+hw.display2.flag = 0
+hw.display3.width = 0
+hw.display3.height = 0
+hw.display3.density = 0
+hw.display3.xOffset = -1
+hw.display3.yOffset = -1
+hw.display3.flag = 0
+hw.multi_display_window = false
+hw.hotplug_multi_display = false
+hw.gpu.enabled = true
+hw.gpu.mode = swiftshader
+hw.initialOrientation = portrait
+hw.camera.back = emulated
+hw.camera.back.orientation = 90
+hw.camera.front = none
+hw.camera.front.orientation = 90
+vm.heapSize = 576
+hw.sensors.light = true
+hw.sensors.pressure = true
+hw.sensors.humidity = true
+hw.sensors.proximity = true
+hw.sensors.magnetic_field = true
+hw.sensors.magnetic_field_uncalibrated = true
+hw.sensors.gyroscope_uncalibrated = true
+hw.sensors.orientation = true
+hw.sensors.temperature = true
+hw.sensors.rgbclight = false
+hw.sensor.hinge = false
+hw.sensor.hinge.count = 0
+hw.sensor.hinge.type = 0
+hw.sensor.hinge.sub_type = 0
+hw.sensor.hinge.resizable.config = 1
+hw.sensor.hinge.fold_to_displayRegion.0.1_at_posture = 1
+hw.sensor.roll = false
+hw.sensor.roll.count = 0
+hw.sensor.roll.resize_to_displayRegion.0.1_at_posture = 6
+hw.sensor.roll.resize_to_displayRegion.0.2_at_posture = 6
+hw.sensor.roll.resize_to_displayRegion.0.3_at_posture = 6
+hw.sensors.heart_rate = false
+hw.sensors.wrist_tilt = false
+hw.sensors.heading = false
+hw.useext4 = true
+hw.device.name = pixel_6
+kernel.path = C:\Android\Sdk\system-images\android-35\default\x86_64\\kernel-ranchu
+kernel.newDeviceNaming = yes
+kernel.supportsYaffs2 = no
+disk.ramdisk.path = C:\Android\Sdk\system-images\android-35\default\x86_64\\ramdisk.img
+disk.systemPartition.initPath = C:\Android\Sdk\system-images\android-35\default\x86_64\\system.img
+disk.systemPartition.size = 1547m
+disk.vendorPartition.initPath = C:\Android\Sdk\system-images\android-35\default\x86_64\\vendor.img
+disk.vendorPartition.size = 800m
+disk.dataPartition.path = C:\Users\jerem\.android\avd\..\avd\forge_moto_one_hyper_lab_api35.avd\userdata-qemu.img
+disk.dataPartition.size = 6g
+disk.encryptionKeyPartition.path = C:\Users\jerem\.android\avd\..\avd\forge_moto_one_hyper_lab_api35.avd\encryptionkey.img
+PlayStore.enabled = false
+avd.name = forge_moto_one_hyper_lab_api35
+avd.id = forge_moto_one_hyper_lab_api35
+fastboot.forceColdBoot = false
+userdata.useQcow2 = true
+firstboot.bootFromDownloadableSnapshot = true
+firstboot.bootFromLocalSnapshot = true
+firstboot.saveToLocalSnapshot = true
+android.sdk.root = C:\Android\Sdk
+android.avd.home = C:\Users\jerem\.android\avd
+environment.width = 0
+environment.height = 0
+
+
+## AVD AVD.conf
+[perAvd]
+loc\latitude=37.422
+mic\available=false
+set\enforceKeycodeForwarding=false
+set\pauseAvdWhenMinimized=false
+loc\longitude=-122.084
+loc\altitude=5
+loc\velocity=0
+loc\heading=0
+
+
+## AVD emulator-user.ini
+window.x = 100
+window.y = 100
+window.scale = -1.000000
+resizable.config.id = -1
+posture = 0
+uuid = 1782622151142
+
+
+## ForgeWire torch CUDA venv presence
+Found: C:\Projects\forgewire\.venv-torch-cu102
+
+
+## ForgeWire torch CUDA probe
+torch_version=1.12.1+cu116
+cuda_available=True
+torch_cuda=11.6
+cuda_device=Quadro M1200
+
