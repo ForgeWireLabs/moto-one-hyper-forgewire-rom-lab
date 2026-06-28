@@ -28,7 +28,7 @@
     },
     {
       "mode": "packages",
-      "description": "List installed packages from the emulator.",
+      "description": "List package names exposed by package manager from the emulator.",
       "read_only": true,
       "requires_running_emulator": true,
       "parameters": {}
@@ -120,3 +120,4 @@
     }
   ]
 }
+
