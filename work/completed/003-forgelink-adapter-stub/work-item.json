@@ -1,42 +1,77 @@
 {
   "$schema": "../../../schemas/work-item.schema.json",
-  "id": "003-forgelink-adapter-stub",
+  "id": "003",
   "title": "ForgeLink Adapter Stub",
-  "status": "complete",
+  "status": "completed",
   "owner_scope": "rom_lab/bridge",
-  "created": "2026-06-28",
-  "updated": "2026-06-28",
-  "depends_on": [
-    "002-emulator-bridge-json-wrapper"
-  ],
   "affected_scopes": [
     "rom_lab/bridge",
     "tests",
     "work"
   ],
-  "summary": "Create a thin ForgeLink-facing adapter stub for the emulator-only Android bridge.",
-  "source": "manual",
-  "owner": "Jeremy Shows",
-  "evidence": [
-    "rom_lab/bridge/forgelink_adapter_stub.py",
-    "tests/test_forgelink_adapter_stub.py",
-    "work/completed/003-forgelink-adapter-stub/README.md",
-    "commit:231d7f2"
+  "depends_on": [
+    "002"
   ],
+  "created": "2026-06-28",
+  "updated": "2026-06-28",
   "acceptance_criteria": [
-    "adapter reads protocol fields",
-    "adapter rejects forbidden fields",
-    "adapter rejects unknown modes",
-    "adapter accepts mode or operation",
-    "adapter supports params for allowed wrapper fields",
-    "adapter delegates to the JSON wrapper",
-    "adapter does not call subprocess during unit tests",
-    "python -m unittest discover -s tests -v passes"
-  ],
-  "safety": [
-    "No physical device targeting",
-    "No arbitrary ADB exposure",
-    "No arbitrary shell exposure",
-    "No firmware mutation"
+    {
+      "id": "AC-001",
+      "text": "Adapter reads protocol fields.",
+      "state": "satisfied",
+      "evidence": [
+        "rom_lab/bridge/forgelink_adapter_stub.py",
+        "tests/test_forgelink_adapter_stub.py"
+      ]
+    },
+    {
+      "id": "AC-002",
+      "text": "Adapter rejects forbidden fields.",
+      "state": "satisfied",
+      "evidence": [
+        "tests/test_forgelink_adapter_stub.py"
+      ]
+    },
+    {
+      "id": "AC-003",
+      "text": "Adapter rejects unknown modes.",
+      "state": "satisfied",
+      "evidence": [
+        "tests/test_forgelink_adapter_stub.py"
+      ]
+    },
+    {
+      "id": "AC-004",
+      "text": "Adapter accepts mode or operation.",
+      "state": "satisfied",
+      "evidence": [
+        "tests/test_forgelink_adapter_stub.py"
+      ]
+    },
+    {
+      "id": "AC-005",
+      "text": "Adapter supports params for allowed wrapper fields.",
+      "state": "satisfied",
+      "evidence": [
+        "tests/test_forgelink_adapter_stub.py"
+      ]
+    },
+    {
+      "id": "AC-006",
+      "text": "Adapter delegates to the JSON wrapper without live emulator execution in tests.",
+      "state": "satisfied",
+      "evidence": [
+        "tests/test_forgelink_adapter_stub.py"
+      ]
+    },
+    {
+      "id": "AC-007",
+      "text": "Unit tests pass.",
+      "state": "satisfied",
+      "evidence": [
+        "python -m unittest discover -s tests -v",
+        "commit:231d7f2"
+      ]
+    }
   ]
 }
