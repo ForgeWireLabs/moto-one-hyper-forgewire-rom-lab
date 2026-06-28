@@ -192,3 +192,31 @@ first fix, because the current driver setup may be part of Jeremy's working CUDA
 stack. The safer next path is Android Studio managed emulator, lower API x86_64
 image, or one controlled Intel/software-renderer attempt before any NVIDIA
 driver mutation.
+
+## Emulator status update, 2026-06-28
+
+The Android 15 API 35 default x86_64 AVD now boots successfully on this Windows host using the committed fallback launch script:
+
+``text
+rom_lab/scripts/start_api35_working_emulator.ps1
+
+
+The earlier host graphics blocker is now bypassed by forcing the emulator away from the failing Vulkan/OpenGL path.
+
+Working fallback settings:
+- ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
+- QT_OPENGL=software
+- -gpu guest
+- -feature -Vulkan
+
+A read-only ADB bridge has also been committed:
+- rom_lab/scripts/invoke_emulator_adb_readonly.ps1
+
+The bridge explicitly selects an emulator-* serial and does not target the physical Motorola One Hyper even when the phone is visible in adb devices.
+
+Current emulator proof commits:
+- bf3bef7 Record successful API 35 emulator smoke boot
+- 34f1396 Add working API 35 emulator launch script
+- 48f3699 Add read-only emulator ADB bridge
+
+Safety status remains unchanged: the physical Motorola One Hyper has not been flashed, erased, wiped, relocked, sideloaded, repaired, rescued, or otherwise written to.

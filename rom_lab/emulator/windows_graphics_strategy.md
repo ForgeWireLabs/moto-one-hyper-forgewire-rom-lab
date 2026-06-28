@@ -70,3 +70,16 @@ evidence.
 The physical phone remains out of scope for firmware-write or destructive
 actions unless Jeremy explicitly approves the exact action in the current
 session.
+
+## Working fallback, 2026-06-28
+
+The API 35 emulator boots on this host with the committed fallback launch script:
+- rom_lab/scripts/start_api35_working_emulator.ps1
+
+The working path uses:
+- ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
+- QT_OPENGL=software
+- -gpu guest
+- -feature -Vulkan
+
+This avoids mutating the NVIDIA/CUDA driver stack and should remain the preferred emulator path before any graphics-driver change.
