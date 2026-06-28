@@ -3,15 +3,27 @@
   "id": "003-forgelink-adapter-stub",
   "title": "ForgeLink Adapter Stub",
   "status": "complete",
+  "owner_scope": "rom_lab/bridge",
+  "created": "2026-06-28",
+  "updated": "2026-06-28",
+  "depends_on": [
+    "002-emulator-bridge-json-wrapper"
+  ],
+  "affected_scopes": [
+    "rom_lab/bridge",
+    "tests",
+    "work"
+  ],
   "summary": "Create a thin ForgeLink-facing adapter stub for the emulator-only Android bridge.",
   "source": "manual",
   "owner": "Jeremy Shows",
   "evidence": [
     "rom_lab/bridge/forgelink_adapter_stub.py",
     "tests/test_forgelink_adapter_stub.py",
-    "work/completed/003-forgelink-adapter-stub/README.md"
+    "work/completed/003-forgelink-adapter-stub/README.md",
+    "commit:231d7f2"
   ],
-  "acceptance": [
+  "acceptance_criteria": [
     "adapter reads protocol fields",
     "adapter rejects forbidden fields",
     "adapter rejects unknown modes",
