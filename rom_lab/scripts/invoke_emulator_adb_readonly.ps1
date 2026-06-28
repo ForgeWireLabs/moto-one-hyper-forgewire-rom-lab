@@ -1,6 +1,13 @@
 param(
-    [ValidateSet("devices", "boot", "identity", "packages", "logcat-tail", "all")]
+    [ValidateSet("devices", "boot", "identity", "packages", "logcat-tail", "prop-read", "settings-read", "activity-list", "storage-read", "network-read", "process-list", "all")]
     [string]$Mode = "all",
+
+    [string]$PropName = "ro.build.fingerprint",
+
+    [ValidateSet("system", "secure", "global")]
+    [string]$SettingsNamespace = "global",
+
+    [string]$SettingsKey = "",
 
     [int]$LogLines = 100
 )
@@ -37,22 +44,27 @@ function Invoke-EmulatorAdb {
     & $Adb -s $Serial @AdbArgs
 }
 
-$Serial = Get-EmulatorSerial
+function Show-Section {
+    param([string]$Name)
+    Write-Host ""
+    Write-Host "## $Name"
+}
 
+$Serial = Get-EmulatorSerial
 Write-Host "Target emulator serial: $Serial"
 
 if ($Mode -eq "devices" -or $Mode -eq "all") {
-    Write-Host "`n## devices"
+    Show-Section "devices"
     & $Adb devices
 }
 
 if ($Mode -eq "boot" -or $Mode -eq "all") {
-    Write-Host "`n## boot"
+    Show-Section "boot"
     Invoke-EmulatorAdb -Serial $Serial -AdbArgs @("shell", "getprop", "sys.boot_completed")
 }
 
 if ($Mode -eq "identity" -or $Mode -eq "all") {
-    Write-Host "`n## identity"
+    Show-Section "identity"
     $props = @(
         "ro.build.version.release",
         "ro.build.version.sdk",
@@ -69,11 +81,50 @@ if ($Mode -eq "identity" -or $Mode -eq "all") {
 }
 
 if ($Mode -eq "packages" -or $Mode -eq "all") {
-    Write-Host "`n## packages"
-    Invoke-EmulatorAdb -Serial $Serial -AdbArgs @("shell", "pm", "list", "packages") | Select-Object -First 25
+    Show-Section "packages"
+    Invoke-EmulatorAdb -Serial $Serial -AdbArgs @("shell", "pm", "list", "packages") | Select-Object -First 40
+}
+
+if ($Mode -eq "prop-read") {
+    Show-Section "prop-read"
+    Write-Host "prop=$PropName"
+    Invoke-EmulatorAdb -Serial $Serial -AdbArgs @("shell", "getprop", $PropName)
+}
+
+if ($Mode -eq "settings-read") {
+    Show-Section "settings-read"
+    if ($SettingsKey -eq "") {
+        Invoke-EmulatorAdb -Serial $Serial -AdbArgs @("shell", "settings", "list", $SettingsNamespace)
+    } else {
+        Write-Host "namespace=$SettingsNamespace"
+        Write-Host "key=$SettingsKey"
+        Invoke-EmulatorAdb -Serial $Serial -AdbArgs @("shell", "settings", "get", $SettingsNamespace, $SettingsKey)
+    }
+}
+
+if ($Mode -eq "activity-list" -or $Mode -eq "all") {
+    Show-Section "activity-list"
+    Invoke-EmulatorAdb -Serial $Serial -AdbArgs @("shell", "cmd", "activity", "get-current-user")
+    Invoke-EmulatorAdb -Serial $Serial -AdbArgs @("shell", "dumpsys", "activity", "top") | Select-Object -First 80
+}
+
+if ($Mode -eq "storage-read" -or $Mode -eq "all") {
+    Show-Section "storage-read"
+    Invoke-EmulatorAdb -Serial $Serial -AdbArgs @("shell", "df", "-h")
+}
+
+if ($Mode -eq "network-read" -or $Mode -eq "all") {
+    Show-Section "network-read"
+    Invoke-EmulatorAdb -Serial $Serial -AdbArgs @("shell", "ip", "addr", "show") | Select-Object -First 120
+    Invoke-EmulatorAdb -Serial $Serial -AdbArgs @("shell", "getprop", "net.dns1")
+}
+
+if ($Mode -eq "process-list" -or $Mode -eq "all") {
+    Show-Section "process-list"
+    Invoke-EmulatorAdb -Serial $Serial -AdbArgs @("shell", "ps", "-A") | Select-Object -First 80
 }
 
 if ($Mode -eq "logcat-tail" -or $Mode -eq "all") {
-    Write-Host "`n## logcat-tail"
+    Show-Section "logcat-tail"
     Invoke-EmulatorAdb -Serial $Serial -AdbArgs @("logcat", "-d", "-t", "$LogLines")
 }
