@@ -197,7 +197,7 @@ driver mutation.
 
 The Android 15 API 35 default x86_64 AVD now boots successfully on this Windows host using the committed fallback launch script:
 
-``text
+```text
 rom_lab/scripts/start_api35_working_emulator.ps1
 
 
