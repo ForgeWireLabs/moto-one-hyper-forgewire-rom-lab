@@ -1,0 +1,51 @@
+{
+  "name": "emulator-readonly-bridge-protocol",
+  "version": 1,
+  "target": "emulator-only",
+  "contract": "rom_lab/bridge/emulator_readonly_contract.json",
+  "operations": "rom_lab/bridge/emulator_readonly_operations.json",
+  "runner": "rom_lab/bridge/run_readonly_bridge.ps1",
+  "request": {
+    "required_fields": [
+      "mode"
+    ],
+    "optional_fields": [
+      "PropName",
+      "SettingsNamespace",
+      "SettingsKey",
+      "LogLines"
+    ],
+    "mode_source": "rom_lab/bridge/emulator_readonly_operations.json:operations[].mode",
+    "target_rule": "The adapter must not accept a physical device serial. Target selection is delegated to the contract-gated runner and lower-level emulator-only bridge."
+  },
+  "response": {
+    "required_fields": [
+      "ok",
+      "mode",
+      "target",
+      "stdout",
+      "stderr",
+      "exit_code"
+    ],
+    "target_value": "emulator-only",
+    "stdout_policy": "Captured output from the contract-gated runner.",
+    "stderr_policy": "Captured errors from the contract-gated runner."
+  },
+  "forbidden_request_fields": [
+    "serial",
+    "device_serial",
+    "adb_args",
+    "shell",
+    "command",
+    "fastboot_args",
+    "path_to_push",
+    "path_to_pull"
+  ],
+  "forbidden_behavior": [
+    "Do not accept arbitrary ADB arguments.",
+    "Do not accept arbitrary shell commands.",
+    "Do not accept a physical device serial.",
+    "Do not expose fastboot.",
+    "Do not perform write, flash, erase, install, uninstall, sideload, reboot, remount, root, wipe, repair, or rescue operations."
+  ]
+}
