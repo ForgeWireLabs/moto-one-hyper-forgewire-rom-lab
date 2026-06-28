@@ -1,6 +1,6 @@
 # WI-002 - Emulator Bridge JSON Wrapper
 
-Status: proposed
+Status: complete
 
 ## Goal
 
@@ -29,9 +29,9 @@ Out of scope:
 
 ## Deliverables
 
-- a wrapper implementation
-- tests for request validation and response shape
-- docs linking wrapper behavior to the protocol
+- rom_lab/bridge/emulator_readonly_json_wrapper.py
+- tests/test_emulator_bridge_json_wrapper.py
+- structured response matching the protocol response fields
 
 ## Acceptance
 
@@ -43,4 +43,4 @@ Out of scope:
 
 ## Safety
 
-The wrapper must delegate target selection to the existing contract-gated runner and must not accept physical device serials.
+The wrapper delegates target selection to the existing contract-gated runner and does not accept physical device serials.
