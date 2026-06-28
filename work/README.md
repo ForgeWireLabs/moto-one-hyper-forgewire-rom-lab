@@ -2,49 +2,52 @@
 
 This directory is the active planning surface for the Moto One Hyper ForgeWire ROM Lab.
 
-Work items exist so agents and humans can coordinate through versioned files instead of chat-only memory.
+The layout follows a RepoPact-style numbered work-item directory convention:
+
+- active/<number-slug>/README.md
+- proposed/<number-slug>/README.md
+- blocked/<number-slug>/README.md
+- completed/<number-slug>/README.md
+- deferred/<number-slug>/README.md
 
 ## Folders
 
 - active/ - work currently being implemented
-- completed/ - accepted and committed work
-- proposed/ - planned work that is not active yet
+- proposed/ - known candidate work that is not active yet
 - blocked/ - work that cannot proceed until an explicit gate is cleared
+- completed/ - accepted and committed work
 - deferred/ - intentionally postponed work
 
-## Status values
+## Current work
 
-- proposed
-- active
-- blocked
-- complete
-- deferred
+Active:
+
+- none
+
+Completed:
+
+- completed/001-project-state-and-work-ledger/README.md
+- completed/002-emulator-bridge-json-wrapper/README.md
+- completed/003-forgelink-adapter-stub/README.md
+
+Blocked:
+
+- blocked/004-firmware-acquisition-and-verification/README.md
+
+Proposed:
+
+- proposed/005-rom-source-and-device-tree-roadmap/README.md
+- proposed/006-public-project-polish-and-ci/README.md
+
+Deferred:
+
+- none
 
 ## Safety rule
 
 Any work item that could touch a physical phone must say so explicitly and must remain blocked until Jeremy approves the exact current-session action.
 
 Emulator-only work is allowed when it stays within the bridge contract.
-
-## Current sequence
-
-Completed:
-
-- completed/WI-001-project-state-and-work-ledger.md
-- completed/WI-002-emulator-bridge-json-wrapper.md
-
-Next recommended active work:
-
-- proposed/WI-003-forgelink-adapter-stub.md
-
-Blocked:
-
-- blocked/WI-004-firmware-acquisition-and-verification.md
-
-Proposed:
-
-- proposed/WI-005-rom-source-and-device-tree-roadmap.md
-- proposed/WI-006-public-project-polish-and-ci.md
 
 ## Rule
 
