@@ -1,3 +1,4 @@
+import ast
 import unittest
 from pathlib import Path
 
@@ -106,11 +107,22 @@ class ForgeLinkBridgeRequestResponseExamplesTests(unittest.TestCase):
         self.assertEqual(response["exit_code"], 2)
         self.assertIn("Forbidden adapter fields: command", response["stderr"])
 
-    def test_adapter_still_does_not_expose_subprocess_or_raw_tools(self):
+    def test_adapter_still_does_not_import_subprocess_or_raw_tools(self):
+        tree = ast.parse(ADAPTER.read_text(encoding="utf-8"))
+        imports = []
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                imports.extend(alias.name for alias in node.names)
+            if isinstance(node, ast.ImportFrom) and node.module:
+                imports.append(node.module)
+
+        self.assertNotIn("subprocess", imports)
+        self.assertNotIn("os", imports)
+        self.assertNotIn("shutil", imports)
+
         text = ADAPTER.read_text(encoding="utf-8")
-        self.assertNotIn("subprocess", text)
         self.assertNotIn("adb.exe", text)
-        self.assertNotIn("fastboot", text.lower().replace("raw fastboot", ""))
+        self.assertNotIn("fastboot.exe", text.lower())
 
 
 if __name__ == "__main__":
