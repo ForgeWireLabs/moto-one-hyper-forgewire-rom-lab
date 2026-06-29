@@ -10,6 +10,10 @@ SNAPSHOT_PATH = ROOT / "reports" / "emulator_bridge_status_snapshot.json"
 BUILDER_PATH = ROOT / "scripts" / "build_emulator_bridge_status_snapshot.ps1"
 
 
+def read_json(path: Path):
+    return json.loads(path.read_text(encoding="utf-8-sig"))
+
+
 class EmulatorBridgeStatusContractTests(unittest.TestCase):
     def test_status_schema_contract_snapshot_and_builder_exist(self):
         self.assertTrue(SCHEMA_PATH.exists())
@@ -18,7 +22,7 @@ class EmulatorBridgeStatusContractTests(unittest.TestCase):
         self.assertTrue(BUILDER_PATH.exists())
 
     def test_schema_declares_readonly_emulator_status_surface(self):
-        schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+        schema = read_json(SCHEMA_PATH)
         self.assertEqual(schema["schema"], "rom_lab.emulator_bridge_status_schema.v1")
         self.assertEqual(schema["target"]["required_value"], "emulator-only")
         self.assertFalse(schema["target"]["physical_device_allowed"])
@@ -27,7 +31,7 @@ class EmulatorBridgeStatusContractTests(unittest.TestCase):
         self.assertIn("not_ready", schema["allowed_status_values"])
 
     def test_snapshot_placeholder_is_safety_blocked_by_default(self):
-        snapshot = json.loads(SNAPSHOT_PATH.read_text(encoding="utf-8"))
+        snapshot = read_json(SNAPSHOT_PATH)
         self.assertEqual(snapshot["schema"], "rom_lab.emulator_bridge_status.v1")
         self.assertEqual(snapshot["target"], "emulator-only")
         self.assertEqual(snapshot["authority"], "readonly-emulator-inspection")
@@ -54,6 +58,7 @@ class EmulatorBridgeStatusContractTests(unittest.TestCase):
         self.assertIn("Bridge result OK", text)
         self.assertIn("status = \"not_ready\"", text)
         self.assertIn("ConvertTo-Json", text)
+        self.assertIn("Write-Utf8NoBom", text)
         self.assertNotIn("readonly_bridge_*.json", text)
 
 
