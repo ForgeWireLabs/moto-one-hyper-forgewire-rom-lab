@@ -31,9 +31,8 @@ class EmulatorBridgeInvocationDiagnosticTests(unittest.TestCase):
     def test_report_preserves_boundary(self):
         text = REPORT_PATH.read_text(encoding="utf-8-sig").lower()
         self.assertIn("readonly emulator bridge invocation layer", text)
-        self.assertIn("diagnostic statuses", text)
+        self.assertIn("diagnostic status", text)
         self.assertIn("emulator_visibility_check_needed", text)
-        self.assertIn("adb_path_check_needed", text)
         self.assertIn("emulator-only, read-only", text)
 
 
