@@ -105,6 +105,13 @@
       "parameters": {}
     },
     {
+      "mode": "operator-status",
+      "description": "Return a coarse sanitized ForgeLink operator status envelope assembled from existing read-only emulator inspection modes.",
+      "read_only": true,
+      "requires_running_emulator": true,
+      "parameters": {}
+    },
+    {
       "mode": "all",
       "description": "Run the combined read-only inspection bundle.",
       "read_only": true,
@@ -120,4 +127,3 @@
     }
   ]
 }
-
