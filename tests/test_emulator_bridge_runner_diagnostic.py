@@ -32,7 +32,7 @@ class EmulatorBridgeRunnerDiagnosticTests(unittest.TestCase):
         text = REPORT_PATH.read_text(encoding="utf-8-sig").lower()
         self.assertIn("durable", text)
         self.assertIn("emulator-only readonly bridge runner", text)
-        self.assertIn("runner_prereq_failed", text)
+        self.assertIn("diagnostic status", text)
         self.assertIn("runner_capture_failed", text)
         self.assertIn("emulator-only, read-only", text)
 
