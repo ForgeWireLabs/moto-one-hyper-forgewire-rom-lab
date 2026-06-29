@@ -169,3 +169,9 @@ The physical Motorola One Hyper is out of scope by default. Future agents must u
 The no-phone-touch policy is now enforced by unit tests:
 
 - [No phone touch enforcement status](reports/no_phone_touch_enforcement_status.md)
+
+## Firmware source candidates
+
+Potential stock firmware sources are tracked as metadata-only candidates until verified locally:
+
+- [Firmware source candidates](reports/firmware_source_candidates.md)
