@@ -137,3 +137,9 @@ Physical flashing is blocked until verified stock recovery and reflash gates exi
 - [Flash safety and recovery strategy](reports/flash_safety_and_recovery_strategy.md)
 - [Stock recovery and reflash plan](reports/stock_recovery_and_reflash_plan.md)
 - [Partition risk matrix](reports/partition_risk_matrix.md)
+
+## Firmware acquisition gate
+
+Stock firmware must be verified before it can become the recovery anchor:
+
+- [Firmware acquisition checklist](reports/firmware_acquisition_checklist.md)
