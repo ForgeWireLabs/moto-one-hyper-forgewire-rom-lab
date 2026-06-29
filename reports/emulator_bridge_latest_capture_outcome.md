@@ -1,4 +1,4 @@
-# Emulator Bridge Latest Capture Outcome
+﻿# Emulator Bridge Latest Capture Outcome
 
 Status: generated latest capture outcome report
 
@@ -14,32 +14,42 @@ The raw timestamped capture files remain local generated evidence by default und
 rom_lab/reports/bridge_evidence/
 ```
 
-This report should be regenerated locally after running the capture wrapper.
-
-## Current local capture status
+## Latest local capture summary
 
 | Field | Value |
 |---|---|
-| Capture files observed | not generated in this committed placeholder |
-| Latest capture ID | pending local regeneration |
-| Latest mode | pending local regeneration |
-| Latest target | emulator-only |
-| Latest exit code | pending local regeneration |
+| Capture file observed | readonly_bridge_20260629_143257_identity.json |
+| Capture ID | readonly_bridge_20260629_143257_identity |
+| Timestamp UTC | 2026-06-29T14:32:57.8932943Z |
+| Mode | identity |
+| Target | emulator-only |
+| Exit code | 1 |
+| Bridge result OK | False |
+| Stdout line count | 0 |
+| Stderr line count | 1 |
+| Runner | rom_lab/bridge/run_readonly_bridge.ps1 |
 | Raw artifacts committed | no |
 | Physical phone touched | no |
 | Firmware required | no |
 | Stock image accepted | no |
 | Recovery anchor accepted | no |
 
-## Local regeneration command
+## Interpretation
 
-After running a local capture, regenerate this report with:
+The latest local capture produced a non-success bridge result. Review the ignored local raw capture files before making any further claim.
+
+This report summarizes local generated evidence without committing raw timestamped capture artifacts.
+
+## Local commands
 
 ```powershell
+powershell -ExecutionPolicy Bypass -File .\rom_lab\bridge\capture_readonly_bridge_evidence.ps1 -Mode identity
 .\scripts\build_emulator_bridge_latest_capture_outcome.ps1
+python scripts\validate_repo.py
+python -m unittest discover -s tests -v
+.\scripts\validate_local.ps1
+git status --short
 ```
-
-Then review this report before committing it.
 
 ## Safety boundary
 
