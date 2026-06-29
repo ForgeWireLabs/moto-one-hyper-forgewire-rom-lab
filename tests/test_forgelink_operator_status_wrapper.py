@@ -1,3 +1,4 @@
+import ast
 import unittest
 from pathlib import Path
 
@@ -26,17 +27,31 @@ class ForgeLinkOperatorStatusWrapperTests(unittest.TestCase):
         self.assertNotIn("$PythonCode", text)
         self.assertNotIn("Write-Host", text)
 
-    def test_entrypoint_calls_forgelink_adapter_not_raw_bridge(self):
+    def test_entrypoint_imports_only_expected_runtime_modules(self):
+        tree = ast.parse(ENTRYPOINT.read_text(encoding="utf-8"))
+        imported_modules = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                imported_modules.update(alias.name for alias in node.names)
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                imported_modules.add(node.module)
+
+        self.assertEqual(
+            imported_modules,
+            {
+                "__future__",
+                "argparse",
+                "json",
+                "rom_lab.bridge.forgelink_adapter_stub",
+            },
+        )
+
+    def test_entrypoint_calls_forgelink_adapter(self):
         text = ENTRYPOINT.read_text(encoding="utf-8")
         self.assertIn("rom_lab.bridge.forgelink_adapter_stub", text)
         self.assertIn("dispatch_request", text)
         self.assertIn('"operator-status"', text)
         self.assertIn("json.dumps(response, indent=2)", text)
-        self.assertNotIn("emulator_readonly_json_wrapper", text)
-        self.assertNotIn("run_readonly_bridge.ps1", text)
-        self.assertNotIn("invoke_emulator_adb_readonly.ps1", text)
-        self.assertNotIn("adb.exe", text)
-        self.assertNotIn("fastboot", text.lower())
 
     def test_entrypoint_supports_default_and_explicit_request_id(self):
         text = ENTRYPOINT.read_text(encoding="utf-8")
