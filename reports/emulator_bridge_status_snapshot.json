@@ -1,6 +1,6 @@
-﻿{
+{
     "schema":  "rom_lab.emulator_bridge_status.v1",
-    "generated_at_utc":  "2026-06-29T14:47:58.1491392Z",
+    "generated_at_utc":  "2026-06-29T14:49:55.1250332Z",
     "target":  "emulator-only",
     "authority":  "readonly-emulator-inspection",
     "status":  "not_ready",
