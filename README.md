@@ -100,6 +100,10 @@ Contract-gated evidence capture wrapper:
 
     powershell -ExecutionPolicy Bypass -File .\rom_lab\bridge\capture_readonly_bridge_evidence.ps1 -Mode identity
 
+Latest capture outcome summarizer:
+
+    powershell -ExecutionPolicy Bypass -File .\scripts\build_emulator_bridge_latest_capture_outcome.ps1
+
 ## Emulator-only integration phase
 
 The current safe continuation path is emulator-only ROM lab integration. This phase keeps firmware evidence blocked and keeps the physical phone out of scope while defining the bridge surface for future ForgeWire, ForgeLink, and ForgeWire Fabric integration.
@@ -109,6 +113,7 @@ The current safe continuation path is emulator-only ROM lab integration. This ph
 - [ForgeWire ROM lab bridge plan](reports/forgewire_rom_lab_bridge_plan.md)
 - [Emulator bridge evidence capture plan](reports/emulator_bridge_evidence_capture_plan.md)
 - [Emulator bridge capture status report](reports/emulator_bridge_capture_status_report.md)
+- [Emulator bridge latest capture outcome](reports/emulator_bridge_latest_capture_outcome.md)
 
 Builder scripts:
 
@@ -117,6 +122,7 @@ Builder scripts:
 - [Build ForgeWire ROM lab bridge plan](scripts/build_forgewire_rom_lab_bridge_plan.ps1)
 - [Build emulator bridge evidence capture plan](scripts/build_emulator_bridge_evidence_capture_plan.ps1)
 - [Build emulator bridge capture status report](scripts/build_emulator_bridge_capture_status_report.ps1)
+- [Build emulator bridge latest capture outcome](scripts/build_emulator_bridge_latest_capture_outcome.ps1)
 
 ## Public warning
 
