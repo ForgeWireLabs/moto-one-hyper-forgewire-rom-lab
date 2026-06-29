@@ -1,0 +1,27 @@
+{
+  "schema": "rom_lab.emulator_bridge_status.v1",
+  "generated_at_utc": "pending-local-generation",
+  "target": "emulator-only",
+  "authority": "readonly-emulator-inspection",
+  "status": "unknown",
+  "latest_capture": {
+    "capture_id": "pending-local-generation",
+    "mode": "pending-local-generation",
+    "exit_code": null,
+    "ok": null,
+    "stdout_lines": null,
+    "stderr_lines": null,
+    "source_report": "reports/emulator_bridge_latest_capture_outcome.md"
+  },
+  "safety": {
+    "physical_phone_touched": false,
+    "firmware_required": false,
+    "stock_image_accepted": false,
+    "recovery_anchor_accepted": false,
+    "raw_artifacts_committed": false
+  },
+  "notes": [
+    "Regenerate locally with scripts/build_emulator_bridge_status_snapshot.ps1.",
+    "This snapshot is read-only status metadata."
+  ]
+}
