@@ -36,6 +36,16 @@ function Convert-ToNullableBool {
   return $null
 }
 
+function Write-Utf8NoBom {
+  param(
+    [string]$Path,
+    [string]$Content
+  )
+
+  $encoding = New-Object System.Text.UTF8Encoding($false)
+  [System.IO.File]::WriteAllText($Path, $Content, $encoding)
+}
+
 $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..")
 $outcomeFullPath = Join-Path $repoRoot $OutcomeReportPath
 $outputFullPath = Join-Path $repoRoot $OutputPath
@@ -108,7 +118,8 @@ if ($parent -and -not (Test-Path $parent)) {
   New-Item -ItemType Directory -Path $parent | Out-Null
 }
 
-$snapshot | ConvertTo-Json -Depth 8 | Set-Content -Encoding UTF8 $outputFullPath
+$json = $snapshot | ConvertTo-Json -Depth 8
+Write-Utf8NoBom -Path $outputFullPath -Content $json
 
 Write-Host "Wrote emulator bridge status snapshot: $OutputPath"
 Write-Host "Status: $status"
