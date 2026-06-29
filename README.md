@@ -108,6 +108,7 @@ The current safe continuation path is emulator-only ROM lab integration. This ph
 - [Emulator-only test matrix](reports/emulator_only_test_matrix.md)
 - [ForgeWire ROM lab bridge plan](reports/forgewire_rom_lab_bridge_plan.md)
 - [Emulator bridge evidence capture plan](reports/emulator_bridge_evidence_capture_plan.md)
+- [Emulator bridge capture status report](reports/emulator_bridge_capture_status_report.md)
 
 Builder scripts:
 
@@ -115,6 +116,7 @@ Builder scripts:
 - [Build emulator-only test matrix](scripts/build_emulator_only_test_matrix.ps1)
 - [Build ForgeWire ROM lab bridge plan](scripts/build_forgewire_rom_lab_bridge_plan.ps1)
 - [Build emulator bridge evidence capture plan](scripts/build_emulator_bridge_evidence_capture_plan.ps1)
+- [Build emulator bridge capture status report](scripts/build_emulator_bridge_capture_status_report.ps1)
 
 ## Public warning
 
