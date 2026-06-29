@@ -1,5 +1,5 @@
 param(
-    [ValidateSet("devices", "boot", "identity", "packages", "logcat-tail", "prop-read", "settings-read", "activity-list", "storage-read", "network-read", "process-list", "all")]
+    [ValidateSet("devices", "boot", "identity", "packages", "logcat-tail", "prop-read", "settings-read", "activity-list", "storage-read", "network-read", "process-list", "operator-status", "all")]
     [string]$Mode = "all",
 
     [string]$PropName = "ro.build.fingerprint",
@@ -19,6 +19,10 @@ $Adb = Join-Path $SdkRoot "platform-tools\adb.exe"
 
 if (-not (Test-Path $Adb)) {
     throw "ADB not found at $Adb"
+}
+
+if ($Mode -eq "operator-status") {
+    $Mode = "all"
 }
 
 function Get-EmulatorSerial {
