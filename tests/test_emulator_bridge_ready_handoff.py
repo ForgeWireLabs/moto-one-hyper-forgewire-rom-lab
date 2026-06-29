@@ -33,7 +33,9 @@ class EmulatorBridgeReadyHandoffTests(unittest.TestCase):
     def test_report_defines_ready_handoff_boundary(self):
         text = REPORT_PATH.read_text(encoding="utf-8-sig").lower()
         self.assertIn("emulator bridge ready handoff", text)
-        self.assertIn("what ready means", text)
+        self.assertIn("ready handoff summary", text)
+        self.assertIn("what is proven", text)
+        self.assertIn("what is not proven", text)
         self.assertIn("consumer meaning", text)
         self.assertIn("emulator-only", text)
         self.assertIn("raw artifacts committed", text)
