@@ -95,6 +95,20 @@ Contract-gated read-only bridge runner:
 
     powershell -ExecutionPolicy Bypass -File .\rom_lab\bridge\run_readonly_bridge.ps1 -Mode identity
 
+## Emulator-only integration phase
+
+The current safe continuation path is emulator-only ROM lab integration. This phase keeps firmware evidence blocked and keeps the physical phone out of scope while defining the bridge surface for future ForgeWire, ForgeLink, and ForgeWire Fabric integration.
+
+- [Emulator ROM lab integration plan](reports/emulator_rom_lab_integration_plan.md)
+- [Emulator-only test matrix](reports/emulator_only_test_matrix.md)
+- [ForgeWire ROM lab bridge plan](reports/forgewire_rom_lab_bridge_plan.md)
+
+Builder scripts:
+
+- [Build emulator ROM lab integration plan](scripts/build_emulator_rom_lab_integration_plan.ps1)
+- [Build emulator-only test matrix](scripts/build_emulator_only_test_matrix.ps1)
+- [Build ForgeWire ROM lab bridge plan](scripts/build_forgewire_rom_lab_bridge_plan.ps1)
+
 ## Public warning
 
 Do not treat this repository as a ready-to-flash Android ROM.
