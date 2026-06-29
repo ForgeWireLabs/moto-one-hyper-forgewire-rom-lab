@@ -1,0 +1,51 @@
+{
+  "schema": "rom_lab.emulator_bridge_status_schema.v1",
+  "description": "Machine-readable emulator-only readonly bridge status surface for ForgeLink and ForgeWire Fabric consumers.",
+  "required_fields": [
+    "schema",
+    "generated_at_utc",
+    "target",
+    "authority",
+    "status",
+    "latest_capture",
+    "safety"
+  ],
+  "allowed_status_values": [
+    "ready",
+    "not_ready",
+    "blocked",
+    "unknown"
+  ],
+  "target": {
+    "required_value": "emulator-only",
+    "physical_device_allowed": false
+  },
+  "authority": {
+    "allowed_value": "readonly-emulator-inspection",
+    "raw_command_passthrough_allowed": false,
+    "firmware_required": false
+  },
+  "latest_capture": {
+    "required_fields": [
+      "capture_id",
+      "mode",
+      "exit_code",
+      "ok",
+      "stdout_lines",
+      "stderr_lines",
+      "source_report"
+    ]
+  },
+  "safety": {
+    "physical_phone_touched": false,
+    "firmware_required": false,
+    "stock_image_accepted": false,
+    "recovery_anchor_accepted": false,
+    "raw_artifacts_committed": false
+  },
+  "notes": [
+    "This schema describes a status surface, not a control surface.",
+    "ForgeLink and ForgeWire Fabric consumers may read this status but must not infer physical-device authority from it.",
+    "A non-success latest capture must map to not_ready unless a future review defines a narrower status." 
+  ]
+}
