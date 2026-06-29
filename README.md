@@ -76,6 +76,7 @@ Key files:
 - rom_lab/bridge/capture_readonly_bridge_evidence.ps1
 - rom_lab/scripts/invoke_emulator_adb_readonly.ps1
 - rom_lab/bridge/forgelink_readiness_consumer.py
+- rom_lab/bridge/show_bridge_status.py
 
 The bridge exposes named read-only modes only. It does not expose arbitrary shell execution.
 
@@ -126,14 +127,21 @@ Bridge ready handoff builder:
 
     powershell -ExecutionPolicy Bypass -File .\scripts\build_emulator_bridge_ready_handoff.ps1
 
+Bridge status display:
+
+    powershell -ExecutionPolicy Bypass -File .\scripts\show_emulator_bridge_status.ps1
+    powershell -ExecutionPolicy Bypass -File .\scripts\show_emulator_bridge_status.ps1 -Json
+
 ## ForgeLink / Fabric readiness consumption
 
 Downstream consumers may read the committed ready-state surfaces through:
 
 - [ForgeLink readiness consumer](rom_lab/bridge/forgelink_readiness_consumer.py)
+- [Bridge status display command](rom_lab/bridge/show_bridge_status.py)
+- [Bridge status display completion](reports/bridge_status_display_completion.md)
 - [ForgeLink readiness consumer completion](reports/forgelink_readiness_consumer_completion.md)
 
-The consumer reads sanitized status surfaces only. It does not launch ADB, run bridge capture, inspect local raw artifacts, authorize physical-device access, or permit write workflows.
+The consumer and display command read sanitized status surfaces only. They do not launch ADB, run bridge capture, inspect local raw artifacts, authorize physical-device access, or permit write workflows.
 
 ## Emulator-only integration phase
 
