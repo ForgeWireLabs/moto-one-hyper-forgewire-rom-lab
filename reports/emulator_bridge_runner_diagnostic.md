@@ -22,16 +22,16 @@ It checks repository-local runner prerequisites and summarizes local generated c
 | Required serial pattern | ^emulator-[0-9]+$ |
 | Readonly bridge entrypoint | rom_lab/scripts/invoke_emulator_adb_readonly.ps1 |
 | Readonly bridge script present | True |
-| Latest capture ID | readonly_bridge_20260629_143257_identity |
+| Latest capture ID | readonly_bridge_20260629_153934_identity |
 | Latest capture mode | identity |
 | Latest capture target | emulator-only |
-| Latest capture exit code | 1 |
-| Latest capture OK | False |
-| Diagnostic status | runner_capture_failed |
+| Latest capture exit code | 0 |
+| Latest capture OK | True |
+| Diagnostic status | runner_ready |
 
 ## Interpretation
 
-Runner prerequisites appear present, but the latest capture is not successful. Review the local ignored capture markdown for the exact stderr excerpt.
+Runner prerequisites appear present and the latest capture succeeded.
 
 ## Local-only evidence
 

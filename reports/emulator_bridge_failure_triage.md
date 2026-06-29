@@ -15,15 +15,15 @@ It summarizes local ignored capture artifacts without committing raw timestamped
 | Field | Value |
 |---|---|
 | Latest capture found | yes |
-| Capture file | readonly_bridge_20260629_143257_identity.json |
-| Capture ID | readonly_bridge_20260629_143257_identity |
+| Capture file | readonly_bridge_20260629_153934_identity.json |
+| Capture ID | readonly_bridge_20260629_153934_identity |
 | Mode | identity |
 | Target | emulator-only |
-| Exit code | 1 |
-| Bridge result OK | False |
-| Stdout line count | 0 |
-| Stderr line count | 1 |
-| Triage status | runner_failure |
+| Exit code | 0 |
+| Bridge result OK | True |
+| Stdout line count | 13 |
+| Stderr line count | 0 |
+| Triage status | success |
 | Raw artifacts committed | no |
 | Physical phone touched | no |
 | Firmware required | no |
@@ -32,7 +32,7 @@ It summarizes local ignored capture artifacts without committing raw timestamped
 
 ## Interpretation
 
-The latest failure appears related to the contract runner or wrapper path. Review the runner path and contract file presence locally.
+The latest capture succeeded. No failure triage is needed for the latest capture.
 
 ## Local-only evidence
 

@@ -22,16 +22,16 @@ It checks the script that locates ADB, selects an emulator serial, and runs boun
 | Identity mode present | True |
 | Bounded invoker present | True |
 | Missing emulator message present | True |
-| Latest capture ID | readonly_bridge_20260629_143257_identity |
+| Latest capture ID | readonly_bridge_20260629_153934_identity |
 | Latest capture mode | identity |
 | Latest capture target | emulator-only |
-| Latest capture exit code | 1 |
-| Latest capture OK | False |
-| Diagnostic status | emulator_visibility_check_needed |
+| Latest capture exit code | 0 |
+| Latest capture OK | True |
+| Diagnostic status | invocation_ready |
 
 ## Interpretation
 
-Invocation structure appears present, but the latest capture is not successful. Confirm the configured emulator is running and visible locally before rerunning capture.
+Invocation structure appears present and the latest capture succeeded.
 
 ## Local-only evidence
 

@@ -18,15 +18,15 @@ rom_lab/reports/bridge_evidence/
 
 | Field | Value |
 |---|---|
-| Capture file observed | readonly_bridge_20260629_143257_identity.json |
-| Capture ID | readonly_bridge_20260629_143257_identity |
-| Timestamp UTC | 2026-06-29T14:32:57.8932943Z |
+| Capture file observed | readonly_bridge_20260629_153934_identity.json |
+| Capture ID | readonly_bridge_20260629_153934_identity |
+| Timestamp UTC | 2026-06-29T15:39:34.9765594Z |
 | Mode | identity |
 | Target | emulator-only |
-| Exit code | 1 |
-| Bridge result OK | False |
-| Stdout line count | 0 |
-| Stderr line count | 1 |
+| Exit code | 0 |
+| Bridge result OK | True |
+| Stdout line count | 13 |
+| Stderr line count | 0 |
 | Runner | rom_lab/bridge/run_readonly_bridge.ps1 |
 | Raw artifacts committed | no |
 | Physical phone touched | no |
@@ -36,7 +36,7 @@ rom_lab/reports/bridge_evidence/
 
 ## Interpretation
 
-The latest local capture produced a non-success bridge result. Review the ignored local raw capture files before making any further claim.
+The latest local capture completed successfully through the contract-gated emulator-only bridge wrapper.
 
 This report summarizes local generated evidence without committing raw timestamped capture artifacts.
 
