@@ -129,3 +129,11 @@ The current ROM path is planning-only and emulator-safe. See:
 Public device-tree and common-tree leads are tracked as reference-only research inputs:
 
 - [Source candidate inventory](reports/source_candidate_inventory.md)
+
+## Flash safety and recovery
+
+Physical flashing is blocked until verified stock recovery and reflash gates exist:
+
+- [Flash safety and recovery strategy](reports/flash_safety_and_recovery_strategy.md)
+- [Stock recovery and reflash plan](reports/stock_recovery_and_reflash_plan.md)
+- [Partition risk matrix](reports/partition_risk_matrix.md)
