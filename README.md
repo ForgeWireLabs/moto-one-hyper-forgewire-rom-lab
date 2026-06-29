@@ -109,6 +109,10 @@ Bridge status snapshot builder:
 
     powershell -ExecutionPolicy Bypass -File .\scripts\build_emulator_bridge_status_snapshot.ps1
 
+Bridge failure triage builder:
+
+    powershell -ExecutionPolicy Bypass -File .\scripts\build_emulator_bridge_failure_triage.ps1
+
 ## Emulator-only integration phase
 
 The current safe continuation path is emulator-only ROM lab integration. This phase keeps firmware evidence blocked and keeps the physical phone out of scope while defining the bridge surface for future ForgeWire, ForgeLink, and ForgeWire Fabric integration.
@@ -121,6 +125,7 @@ The current safe continuation path is emulator-only ROM lab integration. This ph
 - [Emulator bridge latest capture outcome](reports/emulator_bridge_latest_capture_outcome.md)
 - [Emulator bridge status contract](reports/emulator_bridge_status_contract.md)
 - [Emulator bridge status snapshot](reports/emulator_bridge_status_snapshot.json)
+- [Emulator bridge failure triage](reports/emulator_bridge_failure_triage.md)
 
 Builder scripts:
 
@@ -131,6 +136,7 @@ Builder scripts:
 - [Build emulator bridge capture status report](scripts/build_emulator_bridge_capture_status_report.ps1)
 - [Build emulator bridge latest capture outcome](scripts/build_emulator_bridge_latest_capture_outcome.ps1)
 - [Build emulator bridge status snapshot](scripts/build_emulator_bridge_status_snapshot.ps1)
+- [Build emulator bridge failure triage](scripts/build_emulator_bridge_failure_triage.ps1)
 
 ## Public warning
 
