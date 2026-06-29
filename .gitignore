@@ -27,3 +27,9 @@ patched/*
 *.7z
 vendor-blobs/
 android-source/
+
+# Generated emulator bridge capture runs are local evidence by default.
+# Commit summarized status reports instead of raw timestamped run artifacts.
+rom_lab/reports/bridge_evidence/*.json
+rom_lab/reports/bridge_evidence/*.md
+!rom_lab/reports/bridge_evidence/README.md
