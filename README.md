@@ -71,6 +71,7 @@ Key files:
 - rom_lab/bridge/emulator_readonly_contract.json
 - rom_lab/bridge/emulator_readonly_operations.json
 - rom_lab/bridge/emulator_readonly_protocol.json
+- rom_lab/bridge/emulator_bridge_status_schema.json
 - rom_lab/bridge/run_readonly_bridge.ps1
 - rom_lab/bridge/capture_readonly_bridge_evidence.ps1
 - rom_lab/scripts/invoke_emulator_adb_readonly.ps1
@@ -104,6 +105,10 @@ Latest capture outcome summarizer:
 
     powershell -ExecutionPolicy Bypass -File .\scripts\build_emulator_bridge_latest_capture_outcome.ps1
 
+Bridge status snapshot builder:
+
+    powershell -ExecutionPolicy Bypass -File .\scripts\build_emulator_bridge_status_snapshot.ps1
+
 ## Emulator-only integration phase
 
 The current safe continuation path is emulator-only ROM lab integration. This phase keeps firmware evidence blocked and keeps the physical phone out of scope while defining the bridge surface for future ForgeWire, ForgeLink, and ForgeWire Fabric integration.
@@ -114,6 +119,8 @@ The current safe continuation path is emulator-only ROM lab integration. This ph
 - [Emulator bridge evidence capture plan](reports/emulator_bridge_evidence_capture_plan.md)
 - [Emulator bridge capture status report](reports/emulator_bridge_capture_status_report.md)
 - [Emulator bridge latest capture outcome](reports/emulator_bridge_latest_capture_outcome.md)
+- [Emulator bridge status contract](reports/emulator_bridge_status_contract.md)
+- [Emulator bridge status snapshot](reports/emulator_bridge_status_snapshot.json)
 
 Builder scripts:
 
@@ -123,6 +130,7 @@ Builder scripts:
 - [Build emulator bridge evidence capture plan](scripts/build_emulator_bridge_evidence_capture_plan.ps1)
 - [Build emulator bridge capture status report](scripts/build_emulator_bridge_capture_status_report.ps1)
 - [Build emulator bridge latest capture outcome](scripts/build_emulator_bridge_latest_capture_outcome.ps1)
+- [Build emulator bridge status snapshot](scripts/build_emulator_bridge_status_snapshot.ps1)
 
 ## Public warning
 
