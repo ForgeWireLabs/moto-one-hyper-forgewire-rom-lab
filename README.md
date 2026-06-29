@@ -175,3 +175,10 @@ The no-phone-touch policy is now enforced by unit tests:
 Potential stock firmware sources are tracked as metadata-only candidates until verified locally:
 
 - [Firmware source candidates](reports/firmware_source_candidates.md)
+
+## Hard Work Phase 1
+
+Evidence acquisition now happens in a local-only workspace outside the repository:
+
+- [Hard Work Phase 1 plan](reports/hardwork_phase_1_plan.md)
+- [Local hard-work workspace initializer](scripts/init_local_hardwork_workspace.ps1)
