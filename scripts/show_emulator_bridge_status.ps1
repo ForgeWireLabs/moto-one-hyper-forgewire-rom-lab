@@ -10,10 +10,22 @@ if (-not (Test-Path $ScriptPath)) {
   throw "Bridge status display command not found at $ScriptPath"
 }
 
-$Args = @($ScriptPath)
-if ($Json) {
-  $Args += "--json"
-}
+$PreviousPythonPath = $env:PYTHONPATH
+try {
+  if ([string]::IsNullOrWhiteSpace($PreviousPythonPath)) {
+    $env:PYTHONPATH = [string]$RepoRoot
+  } else {
+    $env:PYTHONPATH = "$RepoRoot;$PreviousPythonPath"
+  }
 
-python @Args
-exit $LASTEXITCODE
+  $Args = @($ScriptPath)
+  if ($Json) {
+    $Args += "--json"
+  }
+
+  python @Args
+  exit $LASTEXITCODE
+}
+finally {
+  $env:PYTHONPATH = $PreviousPythonPath
+}
