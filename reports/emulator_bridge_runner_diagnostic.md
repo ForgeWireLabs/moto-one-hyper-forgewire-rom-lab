@@ -6,47 +6,41 @@ Date: 2026-06-29
 
 ## Purpose
 
-This report is the durable, commit-safe diagnostic surface for emulator-only readonly bridge runner failures.
+This report is the durable diagnostic surface for emulator-only readonly bridge runner failures.
 
-It checks repository-local runner prerequisites and summarizes local generated capture state without expanding authority or committing raw timestamped capture artifacts.
+It checks repository-local runner prerequisites and summarizes local generated capture state.
 
-## Current status
+## Diagnostic summary
 
 | Field | Value |
 |---|---|
-| Runner script present | pending local generation |
-| Contract file present | pending local generation |
-| Contract parse OK | pending local generation |
-| Contract target | pending local generation |
-| Physical device allowed | pending local generation |
-| Required serial pattern | pending local generation |
-| Readonly bridge entrypoint | pending local generation |
-| Readonly bridge script present | pending local generation |
-| Latest capture ID | pending local generation |
-| Latest capture exit code | pending local generation |
-| Latest capture OK | pending local generation |
-| Diagnostic status | pending local generation |
-| Physical phone touched | no |
-| Firmware required | no |
-| Stock image accepted | no |
-| Recovery anchor accepted | no |
+| Runner script present | True |
+| Runner script | rom_lab/bridge/run_readonly_bridge.ps1 |
+| Contract file present | True |
+| Contract file | rom_lab/bridge/emulator_readonly_contract.json |
+| Contract parse OK | True |
+| Required serial pattern | ^emulator-[0-9]+$ |
+| Readonly bridge entrypoint | rom_lab/scripts/invoke_emulator_adb_readonly.ps1 |
+| Readonly bridge script present | True |
+| Latest capture ID | readonly_bridge_20260629_143257_identity |
+| Latest capture mode | identity |
+| Latest capture target | emulator-only |
+| Latest capture exit code | 1 |
+| Latest capture OK | False |
+| Diagnostic status | runner_capture_failed |
 
-## Local regeneration command
+## Interpretation
 
-```powershell
-.\scripts\build_emulator_bridge_runner_diagnostic.ps1
+Runner prerequisites appear present, but the latest capture is not successful. Review the local ignored capture markdown for the exact stderr excerpt.
+
+## Local-only evidence
+
+```text
+rom_lab/reports/bridge_evidence/
 ```
 
-## Diagnostic statuses
+Do not commit raw timestamped capture files by default.
 
-| Status | Meaning |
-|---|---|
-| runner_ready | Runner prerequisites are present and the latest capture is successful. |
-| runner_prereq_failed | Runner, contract, or readonly bridge entrypoint prerequisites are missing or invalid. |
-| runner_capture_failed | Runner prerequisites are present but the latest capture is not successful. |
-| no_capture | Runner prerequisites are present but no local capture was found. |
-| unknown | Diagnostic could not determine a stronger status. |
+## Boundary
 
-## Safety boundary
-
-This report preserves the emulator-only, read-only repository boundary and does not expand authority.
+This report preserves the emulator-only, read-only repository boundary.
