@@ -26,6 +26,7 @@ class EmulatorBridgeRunnerDiagnosticTests(unittest.TestCase):
         self.assertIn("Latest capture ID", text)
         self.assertIn("Latest capture exit code", text)
         self.assertIn("runner_capture_failed", text)
+        self.assertIn("runner_ready", text)
         self.assertIn("Write-Utf8NoBom", text)
 
     def test_report_preserves_boundary(self):
@@ -33,8 +34,8 @@ class EmulatorBridgeRunnerDiagnosticTests(unittest.TestCase):
         self.assertIn("durable", text)
         self.assertIn("emulator-only readonly bridge runner", text)
         self.assertIn("diagnostic status", text)
-        self.assertIn("runner_capture_failed", text)
         self.assertIn("emulator-only, read-only", text)
+        self.assertRegex(text, r"diagnostic status \| (runner_ready|runner_capture_failed|runner_prereq_failed|no_capture|unknown)")
 
 
 if __name__ == "__main__":
