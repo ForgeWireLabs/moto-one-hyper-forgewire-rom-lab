@@ -20,6 +20,16 @@ function Read-CaptureJson {
   return Get-Content $Path -Raw -Encoding UTF8 | ConvertFrom-Json
 }
 
+function Write-Utf8NoBom {
+  param(
+    [string]$Path,
+    [string]$Content
+  )
+
+  $encoding = New-Object System.Text.UTF8Encoding($false)
+  [System.IO.File]::WriteAllText($Path, $Content, $encoding)
+}
+
 function Get-Classification {
   param(
     [object]$Record,
@@ -152,7 +162,8 @@ if ($parent -and -not (Test-Path $parent)) {
   New-Item -ItemType Directory -Path $parent | Out-Null
 }
 
-$lines | Set-Content -Encoding UTF8 $outputFullPath
+$content = $lines -join [Environment]::NewLine
+Write-Utf8NoBom -Path $outputFullPath -Content $content
 
 Write-Host "Wrote emulator bridge failure triage report: $OutputPath"
 Write-Host "Triage status: $classification"
