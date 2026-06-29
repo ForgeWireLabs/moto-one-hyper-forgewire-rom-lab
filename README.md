@@ -121,6 +121,10 @@ Bridge invocation diagnostic builder:
 
     powershell -ExecutionPolicy Bypass -File .\scripts\build_emulator_bridge_invocation_diagnostic.ps1
 
+Bridge ready handoff builder:
+
+    powershell -ExecutionPolicy Bypass -File .\scripts\build_emulator_bridge_ready_handoff.ps1
+
 ## Emulator-only integration phase
 
 The current safe continuation path is emulator-only ROM lab integration. This phase keeps firmware evidence blocked and keeps the physical phone out of scope while defining the bridge surface for future ForgeWire, ForgeLink, and ForgeWire Fabric integration.
@@ -136,6 +140,7 @@ The current safe continuation path is emulator-only ROM lab integration. This ph
 - [Emulator bridge failure triage](reports/emulator_bridge_failure_triage.md)
 - [Emulator bridge runner diagnostic](reports/emulator_bridge_runner_diagnostic.md)
 - [Emulator bridge invocation diagnostic](reports/emulator_bridge_invocation_diagnostic.md)
+- [Emulator bridge ready handoff](reports/emulator_bridge_ready_handoff.md)
 
 Builder scripts:
 
@@ -149,6 +154,7 @@ Builder scripts:
 - [Build emulator bridge failure triage](scripts/build_emulator_bridge_failure_triage.ps1)
 - [Build emulator bridge runner diagnostic](scripts/build_emulator_bridge_runner_diagnostic.ps1)
 - [Build emulator bridge invocation diagnostic](scripts/build_emulator_bridge_invocation_diagnostic.ps1)
+- [Build emulator bridge ready handoff](scripts/build_emulator_bridge_ready_handoff.ps1)
 
 ## Public warning
 
