@@ -40,10 +40,11 @@ The CSV is local-only and should not be committed unless explicitly sanitized in
 
 | ID | Source class | Filename | Model | Product/codename | Channel | Android | Build | Hash recorded | Status | Notes |
 |---|---|---|---|---|---|---|---|---|---|---|
-| FW-001 | Motorola RSA / Software Fix | unknown | unknown | unknown | unknown | unknown | unknown | no | pending | Preferred authoritative route; metadata only. |
-| FW-002 | Lolinet / Lenomola | unknown | unknown | unknown | unknown | unknown | unknown | no | pending | Search exact XT2027-1 def_retail retus build match. |
-| FW-003 | Community forum clue | unknown | unknown | unknown | unknown | unknown | unknown | no | pending | Filename/build clue only until corroborated. |
-| FW-004 | Random mirror clue | unknown | unknown | unknown | unknown | unknown | unknown | no | pending | High skepticism; reject unless metadata is clear. |
+| FW-001 | Motorola RSA / Software Fix | unknown | XT2027-1 | def/def_retail | retus | 11 | RPFS31.Q1-21-20-1-7-3 | no | pending | Preferred authoritative route; exact package metadata not captured yet. |
+| FW-002 | GetDroidTips public metadata clue | unknown | XT2027-1 | def/def_retail | retus | 11 | RPFS31.Q1-21-20-1-7-3 | no | accepted metadata candidate | Exact model channel and build metadata clue; not a local anchor until package is downloaded outside repo and checksummed. |
+| FW-003 | Filewale public metadata clue | Motorola One Hyper XT2027-1 DEF_RETAIL_RPFS31.Q1-21-20-1-7-3_subsidy-DEFAULT_regulatory-DEFAULT_CFC_Filewale.com.xml.zip | XT2027-1 | DEF_RETAIL | retus | 11 | RPFS31.Q1-21-20-1-7-3 | no | accepted metadata candidate | Exact filename-shaped metadata clue; source trust lower than official route; not a local anchor. |
+| FW-004 | Lolinet / Lenomola mirror class | unknown | unknown | unknown | unknown | unknown | unknown | no | pending | Useful mirror class; exact XT2027-1 def_retail retus build path not captured yet. |
+| FW-005 | StockRom community clue | unknown | XT2027-1 | DEF | retbr | 11 | RPFS31.Q1-21-20-10 | no | historical clue | Wrong channel and different build; retain only for lineage/search expansion. |
 
 ## Update procedure
 
@@ -65,6 +66,6 @@ The CSV is local-only and should not be committed unless explicitly sanitized in
 
 ## Current decision
 
-No firmware candidate is accepted yet.
+At least one candidate is marked accepted in local metadata. Verify checksums and extraction evidence before treating it as an anchor.
 
 Next hard-work step: perform metadata-only public search, update the local CSV, and regenerate this report.
