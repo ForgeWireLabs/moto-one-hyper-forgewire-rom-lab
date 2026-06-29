@@ -26,6 +26,7 @@
                           "storage-read",
                           "network-read",
                           "process-list",
+                          "operator-status",
                           "all"
                       ],
     "allowed_command_families":  [
