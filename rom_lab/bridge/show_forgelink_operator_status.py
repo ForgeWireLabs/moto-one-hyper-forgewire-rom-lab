@@ -1,8 +1,8 @@
 """Emit the ForgeLink-facing operator status JSON envelope.
 
-This command is the stable local invocation target for ForgeLink until a real
-transport exists. It delegates to the ForgeLink adapter and does not expose raw
-bridge, ADB, or fastboot arguments.
+This command delegates to the ForgeLink adapter and prints a structured JSON
+body. A degraded bridge state is represented in the JSON body instead of the
+process status.
 """
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ def main(argv: list[str] | None = None) -> int:
 
     response = dispatch_request(build_request(args.request_id))
     print(json.dumps(response, indent=2))
-    return 0 if response.get("ok") else 1
+    return 0
 
 
 if __name__ == "__main__":
