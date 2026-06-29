@@ -72,6 +72,7 @@ Key files:
 - rom_lab/bridge/emulator_readonly_operations.json
 - rom_lab/bridge/emulator_readonly_protocol.json
 - rom_lab/bridge/run_readonly_bridge.ps1
+- rom_lab/bridge/capture_readonly_bridge_evidence.ps1
 - rom_lab/scripts/invoke_emulator_adb_readonly.ps1
 
 The bridge exposes named read-only modes only. It does not expose arbitrary shell execution.
@@ -95,6 +96,10 @@ Contract-gated read-only bridge runner:
 
     powershell -ExecutionPolicy Bypass -File .\rom_lab\bridge\run_readonly_bridge.ps1 -Mode identity
 
+Contract-gated evidence capture wrapper:
+
+    powershell -ExecutionPolicy Bypass -File .\rom_lab\bridge\capture_readonly_bridge_evidence.ps1 -Mode identity
+
 ## Emulator-only integration phase
 
 The current safe continuation path is emulator-only ROM lab integration. This phase keeps firmware evidence blocked and keeps the physical phone out of scope while defining the bridge surface for future ForgeWire, ForgeLink, and ForgeWire Fabric integration.
@@ -102,12 +107,14 @@ The current safe continuation path is emulator-only ROM lab integration. This ph
 - [Emulator ROM lab integration plan](reports/emulator_rom_lab_integration_plan.md)
 - [Emulator-only test matrix](reports/emulator_only_test_matrix.md)
 - [ForgeWire ROM lab bridge plan](reports/forgewire_rom_lab_bridge_plan.md)
+- [Emulator bridge evidence capture plan](reports/emulator_bridge_evidence_capture_plan.md)
 
 Builder scripts:
 
 - [Build emulator ROM lab integration plan](scripts/build_emulator_rom_lab_integration_plan.ps1)
 - [Build emulator-only test matrix](scripts/build_emulator_only_test_matrix.ps1)
 - [Build ForgeWire ROM lab bridge plan](scripts/build_forgewire_rom_lab_bridge_plan.ps1)
+- [Build emulator bridge evidence capture plan](scripts/build_emulator_bridge_evidence_capture_plan.ps1)
 
 ## Public warning
 
