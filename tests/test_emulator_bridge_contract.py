@@ -44,6 +44,7 @@ class EmulatorBridgeContractTests(unittest.TestCase):
             'storage-read',
             'network-read',
             'process-list',
+            'operator-status',
             'all',
         }
         self.assertEqual(set(contract['allowed_modes']), expected)
