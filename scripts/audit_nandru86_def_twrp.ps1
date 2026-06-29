@@ -1,6 +1,6 @@
 ﻿param(
   [string]$CandidatePath = "C:\Projects\moto-one-hyper-local\sources\Nandru86_android_device_motorola_def_twrp",
-  [string]$ReportPath = "reports\source_audit_ixmoe_def_twrp.md"
+  [string]$ReportPath = "reports\source_audit_nandru86_def_twrp.md"
 )
 
 $ErrorActionPreference = "Stop"
@@ -259,4 +259,5 @@ $lines += "Next recommended audit: ``AndroidBlobs_device_motorola_def``."
 $lines | Set-Content -Encoding UTF8 $ReportPath
 
 Write-Host "Wrote source audit: $ReportPath"
+
 
