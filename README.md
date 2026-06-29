@@ -149,3 +149,11 @@ Stock firmware must be verified before it can become the recovery anchor:
 Public source candidates must pass an audit before moving beyond reference-only:
 
 - [Device-tree audit checklist](reports/device_tree_audit_checklist.md)
+
+## Gate and audit templates
+
+Future firmware, source, and physical-flash reviews use repeatable templates:
+
+- [Physical flash gate review template](reports/physical_flash_gate_review_template.md)
+- [Source audit template](reports/source_audit_template.md)
+- [Firmware inventory template](reports/firmware_inventory_template.md)
