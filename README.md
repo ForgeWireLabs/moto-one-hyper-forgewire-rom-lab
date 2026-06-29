@@ -104,3 +104,16 @@ Do not run commands against a physical phone unless you understand the repo safe
 ## License
 
 Apache-2.0, unless otherwise noted.
+
+## Local validation
+
+GitHub Actions is not required for this lab. Run local validation before committing:
+
+```powershell
+.\scripts\validate_local.ps1
+```
+
+Details:
+
+- [Local validation guide](docs/local-validation.md)
+- [Latest local validation status](reports/local_validation_status.md)
