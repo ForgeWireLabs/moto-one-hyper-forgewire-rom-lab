@@ -117,3 +117,9 @@ Details:
 
 - [Local validation guide](docs/local-validation.md)
 - [Latest local validation status](reports/local_validation_status.md)
+
+## ROM source roadmap
+
+The current ROM path is planning-only and emulator-safe. See:
+
+- [ROM source and device-tree roadmap](reports/rom_source_device_tree_roadmap.md)
