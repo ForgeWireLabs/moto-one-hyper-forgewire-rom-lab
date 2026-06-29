@@ -8,47 +8,41 @@ Date: 2026-06-29
 
 This report is the durable, commit-safe triage surface for a failed emulator-only readonly bridge capture.
 
-It is generated from local ignored capture artifacts under:
+It summarizes local ignored capture artifacts without committing raw timestamped capture files.
 
-```text
-rom_lab/reports/bridge_evidence/
-```
-
-The raw timestamped capture files remain local-only by default.
-
-## Current status
+## Latest capture triage
 
 | Field | Value |
 |---|---|
-| Latest capture found | pending local generation |
-| Capture ID | pending local generation |
-| Mode | pending local generation |
-| Exit code | pending local generation |
-| Bridge result OK | pending local generation |
-| Stderr line count | pending local generation |
-| Triage status | pending local generation |
+| Latest capture found | yes |
+| Capture file | readonly_bridge_20260629_143257_identity.json |
+| Capture ID | readonly_bridge_20260629_143257_identity |
+| Mode | identity |
+| Target | emulator-only |
+| Exit code | 1 |
+| Bridge result OK | False |
+| Stdout line count | 0 |
+| Stderr line count | 1 |
+| Triage status | runner_failure |
 | Raw artifacts committed | no |
 | Physical phone touched | no |
 | Firmware required | no |
 | Stock image accepted | no |
 | Recovery anchor accepted | no |
 
-## Local regeneration command
+## Interpretation
 
-```powershell
-.\scripts\build_emulator_bridge_failure_triage.ps1
+The latest failure appears related to the contract runner or wrapper path. Review the runner path and contract file presence locally.
+
+## Local-only evidence
+
+Raw local evidence remains under:
+
+```text
+rom_lab/reports/bridge_evidence/
 ```
 
-## Triage categories
-
-| Category | Meaning |
-|---|---|
-| no_capture | No local capture artifact was found. |
-| success | Latest capture succeeded; no failure triage needed. |
-| missing_emulator | Failure appears consistent with no emulator or no matching emulator serial. |
-| runner_failure | Failure appears to originate in the contract runner or wrapper path. |
-| bridge_failure | Failure appears to originate in the underlying readonly bridge. |
-| unknown_failure | Failure exists but the sanitized triage could not classify it. |
+Do not commit raw timestamped capture files by default.
 
 ## Safety boundary
 
