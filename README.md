@@ -140,6 +140,7 @@ Downstream consumers may read the committed ready-state surfaces through:
 - [Bridge status display command](rom_lab/bridge/show_bridge_status.py)
 - [Bridge status display completion](reports/bridge_status_display_completion.md)
 - [ForgeLink readiness consumer completion](reports/forgelink_readiness_consumer_completion.md)
+- [Bridge ready session handoff](reports/session_handoff_20260629_bridge_ready.md)
 
 The consumer and display command read sanitized status surfaces only. They do not launch ADB, run bridge capture, inspect local raw artifacts, authorize physical-device access, or permit write workflows.
 
