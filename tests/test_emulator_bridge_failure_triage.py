@@ -26,11 +26,13 @@ class EmulatorBridgeFailureTriageTests(unittest.TestCase):
         self.assertIn("bridge_failure", text)
         self.assertIn("unknown_failure", text)
         self.assertIn("Raw artifacts committed", text)
+        self.assertIn("Write-Utf8NoBom", text)
 
     def test_report_keeps_triage_safety_boundaries(self):
-        text = REPORT_PATH.read_text(encoding="utf-8").lower()
+        text = REPORT_PATH.read_text(encoding="utf-8-sig").lower()
         self.assertIn("commit-safe triage surface", text)
-        self.assertIn("raw timestamped capture files remain local-only", text)
+        self.assertIn("without committing raw timestamped capture files", text)
+        self.assertIn("do not commit raw timestamped capture files by default", text)
         self.assertIn("physical phone touched | no", text)
         self.assertIn("firmware required | no", text)
         self.assertIn("stock image accepted | no", text)
