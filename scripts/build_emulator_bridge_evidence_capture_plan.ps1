@@ -1,0 +1,129 @@
+param(
+  [string]$OutputPath = "reports\emulator_bridge_evidence_capture_plan.md"
+)
+
+$ErrorActionPreference = "Stop"
+
+$lines = @()
+$lines += "# Emulator Bridge Evidence Capture Plan"
+$lines += ""
+$lines += "Status: emulator-only evidence capture plan"
+$lines += ""
+$lines += "Date: $(Get-Date -Format yyyy-MM-dd)"
+$lines += ""
+$lines += "## Purpose"
+$lines += ""
+$lines += "This report defines the next implementation target for the emulator-only ROM lab integration phase: structured evidence capture around the existing read-only bridge boundary."
+$lines += ""
+$lines += "The capture layer records bridge invocation metadata and structured results for local validation and later ForgeWire / ForgeLink / Fabric integration."
+$lines += ""
+$lines += "It does not expand bridge authority."
+$lines += ""
+$lines += "It does not touch the physical phone."
+$lines += ""
+$lines += "It does not require firmware."
+$lines += ""
+$lines += "It does not accept stock images or recovery anchors."
+$lines += ""
+$lines += "## Existing authority boundary"
+$lines += ""
+$lines += "The current bridge stack is already contract-gated:"
+$lines += ""
+$lines += '```text'
+$lines += 'emulator_readonly_contract.json'
+$lines += '        |'
+$lines += '        v'
+$lines += 'run_readonly_bridge.ps1'
+$lines += '        |'
+$lines += '        v'
+$lines += 'invoke_emulator_adb_readonly.ps1'
+$lines += '```'
+$lines += ""
+$lines += "The evidence capture layer must sit above the existing contract runner:"
+$lines += ""
+$lines += '```text'
+$lines += 'capture_readonly_bridge_evidence.ps1'
+$lines += '        |'
+$lines += '        v'
+$lines += 'run_readonly_bridge.ps1'
+$lines += '        |'
+$lines += '        v'
+$lines += 'contract-gated read-only emulator bridge'
+$lines += '```'
+$lines += ""
+$lines += "The capture script must not bypass the contract runner."
+$lines += ""
+$lines += "## Capture goals"
+$lines += ""
+$lines += "| Goal | Description |"
+$lines += "|---|---|"
+$lines += "| Record request metadata | mode, bounded parameters, generated capture ID, timestamp, repo-relative runner path. |"
+$lines += "| Record result metadata | exit code, success/failure status, stdout/stderr line counts, output paths. |"
+$lines += "| Preserve safety posture | target remains emulator-only; physical-device fields remain absent. |"
+$lines += "| Produce local evidence | write JSON and markdown summaries to a local output directory. |"
+$lines += "| Avoid sensitive bytes | do not store firmware packages, extracted images, secrets, or physical-device mutation logs. |"
+$lines += ""
+$lines += "## Default output location"
+$lines += ""
+$lines += "The default output should stay under a local report/evidence folder such as:"
+$lines += ""
+$lines += '```text'
+$lines += 'rom_lab/reports/bridge_evidence/'
+$lines += '```'
+$lines += ""
+$lines += "Future runs may choose a local-only external output directory if evidence contains host-specific details."
+$lines += ""
+$lines += "Generated files should use a timestamped prefix:"
+$lines += ""
+$lines += '```text'
+$lines += 'readonly_bridge_<yyyyMMdd_HHmmss>_<mode>.json'
+$lines += 'readonly_bridge_<yyyyMMdd_HHmmss>_<mode>.md'
+$lines += '```'
+$lines += ""
+$lines += "## JSON shape"
+$lines += ""
+$lines += "The JSON summary should contain only metadata and bounded output summaries."
+$lines += ""
+$lines += "## Markdown summary shape"
+$lines += ""
+$lines += "The markdown summary should include capture ID, timestamp, mode, target class, command path, exit code, stdout/stderr line counts, safety notes, and truncated stdout/stderr excerpts when appropriate."
+$lines += ""
+$lines += "## Allowed parameters"
+$lines += ""
+$lines += "The capture script may accept the same bounded parameters as the existing runner: Mode, PropName, SettingsNamespace, SettingsKey, LogLines, and OutputDirectory."
+$lines += ""
+$lines += "## Forbidden behavior"
+$lines += ""
+$lines += "The capture layer must not introduce raw ADB passthrough, raw fastboot passthrough, direct serial selection, physical-device target fields, firmware execution, file push/pull/install/uninstall behavior, reboot behavior, slot switching, or mutation of bootloader, AVB, modem, radio, persist, EFS, GPT, or partitions."
+$lines += ""
+$lines += "## Test expectations"
+$lines += ""
+$lines += "Add tests that prove:"
+$lines += ""
+$lines += "- capture script exists"
+$lines += "- capture script delegates to rom_lab/bridge/run_readonly_bridge.ps1"
+$lines += "- capture script mentions emulator-only"
+$lines += "- capture script writes JSON and markdown summaries"
+$lines += "- capture script does not contain raw forbidden command families"
+$lines += "- capture script does not accept serial, target, adb, fastboot, flash, erase, wipe, or mutation parameters"
+$lines += ""
+$lines += "## Done state"
+$lines += ""
+$lines += "This target is complete when this plan exists, a matching builder script exists, a capture script exists, tests cover the capture boundary, README links the evidence capture plan, local validation passes, no phone is touched, and no firmware is acquired or committed."
+$lines += ""
+$lines += "## Current decision"
+$lines += ""
+$lines += "Proceed with a capture layer above the existing contract runner."
+$lines += ""
+$lines += "Do not bypass the contract runner."
+$lines += ""
+$lines += "Do not expand beyond emulator-only read-only inspection."
+
+$parent = Split-Path -Parent $OutputPath
+if ($parent -and -not (Test-Path $parent)) {
+  New-Item -ItemType Directory -Path $parent | Out-Null
+}
+
+$lines | Set-Content -Encoding UTF8 $OutputPath
+
+Write-Host "Wrote emulator bridge evidence capture plan: $OutputPath"
