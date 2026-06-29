@@ -123,3 +123,9 @@ Details:
 The current ROM path is planning-only and emulator-safe. See:
 
 - [ROM source and device-tree roadmap](reports/rom_source_device_tree_roadmap.md)
+
+## Source candidate inventory
+
+Public device-tree and common-tree leads are tracked as reference-only research inputs:
+
+- [Source candidate inventory](reports/source_candidate_inventory.md)
