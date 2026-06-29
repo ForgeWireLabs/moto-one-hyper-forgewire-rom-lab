@@ -1,5 +1,5 @@
 param(
-    [ValidateSet("devices", "boot", "identity", "packages", "logcat-tail", "prop-read", "settings-read", "activity-list", "storage-read", "network-read", "process-list", "all")]
+    [ValidateSet("devices", "boot", "identity", "packages", "logcat-tail", "prop-read", "settings-read", "activity-list", "storage-read", "network-read", "process-list", "operator-status", "all")]
     [string]$Mode = "identity",
 
     [string]$PropName = "ro.build.fingerprint",
@@ -43,10 +43,15 @@ if (-not (Test-Path $BridgeScript)) {
     throw "Readonly bridge script not found at $BridgeScript"
 }
 
+$RunnerMode = $Mode
+if ($Mode -eq "operator-status") {
+    $RunnerMode = "all"
+}
+
 $Args = @(
     "-ExecutionPolicy", "Bypass",
     "-File", $BridgeScript,
-    "-Mode", $Mode,
+    "-Mode", $RunnerMode,
     "-PropName", $PropName,
     "-SettingsNamespace", $SettingsNamespace,
     "-LogLines", "$LogLines"
