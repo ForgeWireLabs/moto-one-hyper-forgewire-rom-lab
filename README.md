@@ -157,3 +157,9 @@ Future firmware, source, and physical-flash reviews use repeatable templates:
 - [Physical flash gate review template](reports/physical_flash_gate_review_template.md)
 - [Source audit template](reports/source_audit_template.md)
 - [Firmware inventory template](reports/firmware_inventory_template.md)
+
+## No phone touch policy
+
+The physical Motorola One Hyper is out of scope by default. Future agents must use the emulator unless a current-session gate review approves one exact physical-device action:
+
+- [No phone touch policy](reports/no_phone_touch_policy.md)
