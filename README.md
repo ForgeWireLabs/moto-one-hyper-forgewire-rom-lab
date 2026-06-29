@@ -143,3 +143,9 @@ Physical flashing is blocked until verified stock recovery and reflash gates exi
 Stock firmware must be verified before it can become the recovery anchor:
 
 - [Firmware acquisition checklist](reports/firmware_acquisition_checklist.md)
+
+## Device-tree audit gate
+
+Public source candidates must pass an audit before moving beyond reference-only:
+
+- [Device-tree audit checklist](reports/device_tree_audit_checklist.md)
