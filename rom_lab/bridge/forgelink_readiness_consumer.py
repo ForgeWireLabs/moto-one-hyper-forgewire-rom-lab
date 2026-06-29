@@ -62,6 +62,18 @@ def _load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
+def _display_path(path: Path) -> str:
+    """Return a stable display path for repo-local and external files."""
+
+    if not path.is_absolute():
+        return str(path)
+
+    try:
+        return str(path.relative_to(ROOT))
+    except ValueError:
+        return str(path)
+
+
 def read_readiness(
     status_snapshot_path: Path | str = DEFAULT_STATUS_SNAPSHOT,
     ready_handoff_path: Path | str = DEFAULT_READY_HANDOFF,
@@ -137,6 +149,6 @@ def read_readiness(
         recovery_anchor_accepted=recovery_anchor_accepted,
         raw_artifacts_committed=raw_artifacts_committed,
         source_report=source_report,
-        handoff_path=str(handoff_path.relative_to(ROOT)) if handoff_path.is_absolute() and handoff_path.exists() else str(handoff_path),
+        handoff_path=_display_path(handoff_path),
         reason=reason,
     )
