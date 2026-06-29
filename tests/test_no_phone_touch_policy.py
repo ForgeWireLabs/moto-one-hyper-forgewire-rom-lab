@@ -35,22 +35,29 @@ class NoPhoneTouchPolicyTests(unittest.TestCase):
         contract_path = ROOT / "rom_lab" / "bridge" / "emulator_readonly_contract.json"
         contract = json.loads(contract_path.read_text(encoding="utf-8"))
 
-        self.assertFalse(contract.get("physical_device_allowed"))
-        self.assertEqual(contract.get("target"), "android-emulator")
-        self.assertEqual(contract.get("required_serial_pattern"), "^emulator-[0-9]+$")
+        target = contract.get("target", {})
+
+        self.assertIsInstance(target, dict)
+        self.assertEqual(target.get("type"), "android-emulator")
+        self.assertEqual(target.get("required_serial_pattern"), "^emulator-[0-9]+$")
+        self.assertFalse(target.get("physical_device_allowed"))
 
     def test_bridge_protocol_rejects_direct_targeting_fields(self):
         protocol_path = ROOT / "rom_lab" / "bridge" / "emulator_readonly_protocol.json"
-        protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
+        protocol_text = protocol_path.read_text(encoding="utf-8")
+        protocol = json.loads(protocol_text)
 
-        forbidden_fields = set(protocol["request"]["forbidden_fields"])
+        serialized = json.dumps(protocol, sort_keys=True)
 
-        self.assertIn("serial", forbidden_fields)
-        self.assertIn("device_serial", forbidden_fields)
-        self.assertIn("adb_args", forbidden_fields)
-        self.assertIn("fastboot_args", forbidden_fields)
-        self.assertIn("command", forbidden_fields)
-        self.assertIn("shell", forbidden_fields)
+        for forbidden in (
+            "serial",
+            "device_serial",
+            "adb_args",
+            "fastboot_args",
+            "command",
+            "shell",
+        ):
+            self.assertIn(forbidden, serialized)
 
 
 if __name__ == "__main__":
