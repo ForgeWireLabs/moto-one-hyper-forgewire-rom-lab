@@ -21,6 +21,7 @@ No firmware, boot image, recovery image, vbmeta image, dtbo image, or partition 
 | Recovery/TWRP | reports\twrp_source_candidate_comparison.md |
 | Stock-derived def | reports\stock_def_source_candidate_comparison.md |
 | sm6150 common | reports\source_audit_fraaxius_sm6150_common.md |
+| def device tree (A11 base) | reports\source_audit_sorenlyulf_def.md |
 
 ## Known target identity
 
@@ -85,12 +86,28 @@ The following remain blocked until an exact or safely compatible stock firmware 
 - verified recovery or boot image packing assumptions
 - any physical-device boot or flash pathway
 
+## Update 2026-06-30 — sorenlyulf def tree audited (era gap narrowed)
+
+A sixth candidate, `sorenlyulf/android_device_motorola_def` (lineage-20), was
+audited read-only (`reports/source_audit_sorenlyulf_def.md`). Unlike the A10
+def trees and the ~A14 common tree, its `BUILD_FINGERPRINT` anchors it to the
+**Android 11 `RPFS31.Q1-21-20` vendor base** — the same stock family as the
+phone (`RPFS31.Q1-21-20-1-7-3`). It is def-specific, structurally complete
+(BoardConfig, makefiles, 10 sepolicy files incl. `hal_motpopup`, 261-entry
+`proprietary-files.txt`, extract scripts, Treble manifests) and confirms the
+`kernel/motorola/sm6150` pointer (defconfig `vendor/def_defconfig`). It is now
+the preferred def-specific device-tree candidate; the common tree should be
+re-pointed to the **lineage-20** branch of `sm6150-common`.
+
 ## Current decision
 
 All source candidates remain audit inputs only.
 
 No candidate is accepted as a build input.
 
-The next hard-work phase should shift from source candidate audit to stock firmware acquisition and metadata-only firmware inventory.
+With the def device-tree question now resolved in favor of sorenlyulf (A11
+vendor base), the next hard-work phase shifts to stock firmware acquisition and
+metadata-only firmware inventory — confirming an exact or
+`RPFS31.Q1-21-20`-compatible package so the A11 vendor base can be populated.
 
 Recommended next artifact: `reports/stock_firmware_search_matrix.md`.

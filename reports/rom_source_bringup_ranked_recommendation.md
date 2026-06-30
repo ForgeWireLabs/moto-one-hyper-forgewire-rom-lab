@@ -4,6 +4,11 @@ Status: synthesis (reference-only)
 
 Date: 2026-06-30
 
+Update 2026-06-30: revised after the read-only audit of
+`sorenlyulf/android_device_motorola_def`
+(`reports/source_audit_sorenlyulf_def.md`). sorenlyulf replaces ludevjhon as the
+rank-1 device tree; the common tree is re-pointed to the lineage-20 branch.
+
 ## Purpose
 
 Roll the existing committed source audits and the cross-layer evidence matrix
@@ -45,6 +50,7 @@ flashed. Firmware trust remains blocked.
 
 | Candidate | Layer | Branch / era | Files (inspected) | Audit |
 |---|---|---|---:|---|
+| sorenlyulf/device_motorola_def | device tree | lineage-20 / **A11 RPFS31.Q1-21-20 vendor base** | 46 (key files) | `reports/source_audit_sorenlyulf_def.md` |
 | Fraaxius/device_motorola_sm6150-common | common tree | lineage-21 (~A14) | 563 (157) | `reports/source_audit_fraaxius_sm6150_common.md` |
 | ludevjhon/device_motorola_def | device tree (stock-derived) | def_retail Android 10 QPF30.104 | 135 (107) | `reports/source_audit_ludevjhon_def.md` |
 | AndroidBlobs/device_motorola_def | device tree (stock-derived) | def_retail Android 10 QPF30.104 | — | `reports/source_audit_androidblobs_def.md` |
@@ -59,20 +65,29 @@ mirror, not two independent data points.
 
 ## Ranked bring-up path
 
-### 1. Device tree → `ludevjhon/device_motorola_def` (with AndroidBlobs as mirror)
+### 1. Device tree → `sorenlyulf/device_motorola_def` (lineage-20, A11 vendor base)
 
-Best available `def`-specific device tree in the committed set. `lineage_def.mk`
-declares the real product identity — `PRODUCT_DEVICE := def`,
-`PRODUCT_MODEL := motorola one hyper`,
-`BUILD_FINGERPRINT := motorola/def_retail/def:10/QPF30.104/b456f:user/release-keys`
-— and `device.mk` carries the concrete vendor config surface (audio, GPS, media,
-keylayout, sepolicy inputs). It inherits the standard Lineage stack
-(`core_64_bit`, `full_base_telephony`, `vendor/lineage/.../common_full_phone`)
-plus the device's own `device.mk`.
+Preferred def device tree after the 2026-06-30 audit
+(`reports/source_audit_sorenlyulf_def.md`). It is the only audited tree that is
+both def-specific and anchored to the phone's A11 stock family:
+`lineage_def.mk` sets
+`BUILD_FINGERPRINT := motorola/def_retail/def:11/RPFS31.Q1-21-20-5/1e3de:user/release-keys`
+(same `RPFS31.Q1-21-20` base as the phone's `RPFS31.Q1-21-20-1-7-3`). It is
+structurally complete — `BoardConfig.mk` (consumes `sm6150-common`,
+`TARGET_KERNEL_CONFIG := vendor/def_defconfig`), `device.mk`
+(`PRODUCT_USE_DYNAMIC_PARTITIONS := true`, inherits `sm6150-common/common.mk` +
+`vendor/motorola/def/def-vendor.mk`), 10 `sepolicy/vendor` files incl.
+`hal_motpopup`, a 261-entry `proprietary-files.txt` (manifest only), extract
+scripts, and Treble manifests (`manifest.xml`, `compatibility_matrix.xml`).
 
-Caveat (decisive): it is **Android 10 (QPF30.104)**, while the phone runs
-**Android 11 (RPFS31…)**. Use it for device structure, naming, partition and
-vendor-config shape — not as a turnkey A11 tree.
+Caveat: it is a **LineageOS 20 (A13 framework)** tree on an **A11 vendor base** —
+not a stock-A11 ROM. "Era resolved" means the vendor/blob base matches the phone,
+not that a stock-A11 build exists. Blob compatibility across the `-5` vs
+`-1-7-3` patch suffix is likely but unproven without exact firmware.
+
+Fallback: `ludevjhon/device_motorola_def` (A10 `QPF30.104`; AndroidBlobs mirror)
+remains a useful A10-era cross-reference for device structure and vendor-config
+shape, but is demoted below sorenlyulf because of its older vendor base.
 
 ### 2. Common tree → `Fraaxius/device_motorola_sm6150-common`
 
@@ -90,21 +105,26 @@ The evidence matrix (`reports/source_candidate_evidence_matrix.md`) shows this
 tree dominates every cross-layer signal (e.g. vendor 114, BOARD_ 97, TARGET_ 96,
 qcom 71, kernel 6), which is why it anchors the SoC/board contract.
 
-Caveat: it is **lineage-21 (~A14)** — a *different* era from the A10 device tree
-in rank 1 and the A11 phone. It defines the sm6150 board contract well, but the
-era mismatch must be reconciled before any of the three can be treated as one
-coherent set.
+Caveat / re-point: the audited Fraaxius candidate is **lineage-21 (~A14)**, but
+the rank-1 sorenlyulf tree depends on `sm6150-common` at **lineage-20**
+(`lineage.dependencies`). For a coherent set with sorenlyulf, use the
+**lineage-20** branch of `android_device_motorola_sm6150-common`; the audited
+Fraaxius lineage-21 fork remains a board-contract reference, not the matched
+common tree.
 
 ### 3. Kernel → `kernel/motorola/sm6150` (per the common-tree contract)
 
 The common tree's `TARGET_KERNEL_SOURCE := kernel/motorola/sm6150` is the
-authoritative pointer. The matching upstream lead recorded in
+authoritative pointer, now **confirmed** by the sorenlyulf audit: its
+`lineage.dependencies` maps `android_kernel_motorola_sm6150` →
+`kernel/motorola/sm6150`, and `BoardConfig.mk` names the exact defconfig
+`vendor/def_defconfig`. The upstream lead in
 `rom_lab/research/kernel_candidates.md` is
-`motorola-sm6150-devs/android_kernel_motorola_sm6150` (with
-MotorolaMobilityLLC `kernel-msm` as the OEM-source fallback). No kernel source
-is selected or verified; selection criteria (def/sm6150 explicit support, panel/
-touch/camera/fingerprint/audio/modem/storage configs, DTB/DTBO strategy) are in
-that doc and remain unmet.
+`motorola-sm6150-devs/android_kernel_motorola_sm6150` (with MotorolaMobilityLLC
+`kernel-msm` as OEM-source fallback). sorenlyulf also surfaces two further
+dependencies — `android_hardware_motorola` (`hardware/motorola`) and
+`android_system_qcom` (`system/qcom`). No kernel source is selected or verified
+yet; the selection criteria in that doc remain unmet.
 
 ### 4. Vendor / blobs → blocked; derive expectations, do not acquire
 
@@ -121,9 +141,13 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
 1. **No verified stock firmware** for `RPFS31.Q1-21-20-1-7-3` retus → no verified
    partition map, boot/vendor_boot/dtbo/vbmeta layout, super layout, or blob
    source. This is the master blocker (`source_candidate_evidence_matrix.md`).
-2. **Android-era mismatch across the set**: device tree A10, common tree ~A14,
-   phone A11. No committed candidate matches A11; the A10 tree and ~A14 common
-   tree are not a coherent pair.
+2. **Android-era alignment — substantially narrowed (2026-06-30).** The rank-1
+   sorenlyulf tree is anchored to the phone's **A11 `RPFS31.Q1-21-20` vendor
+   base**, so the def device tree now matches the phone's stock family. Residual
+   gap: sorenlyulf is an A13/LineageOS-20 framework on that A11 base (not a
+   stock-A11 ROM), and the `-5` vs `-1-7-3` patch suffix is unverified. The
+   ludevjhon (A10) and Fraaxius (~A14) era spread only matters for those
+   fallback/reference trees now.
 3. **No selected/verified kernel** (`kernel/motorola/sm6150` is a pointer, not a
    checked-out, building source).
 4. **No vendor blobs and no approved extraction path** (root unavailable).
@@ -160,20 +184,22 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
 
 ## Next safe read-only actions
 
-1. **Resolve the era gap first.** The strongest path forward is an A11-aligned
-   `def` tree. `rom_lab/reports/rom_lab_status_20260627.md` names
-   `sorenlyulf/android_device_motorola_def` (lineage-20, with BoardConfig,
-   product makefiles, sepolicy, proprietary-files, and extract scripts,
-   depending on `motorola-sm6150-devs` common + kernel) as a fresher def lead —
-   but it is **not yet in the audited candidate set**. Auditing it (read-only,
-   outside the repo) is the highest-value next slice and would also validate the
-   rank-3 kernel pointer.
-2. Pivot the hard-work track from source audit to **stock firmware acquisition**:
-   produce/refresh `reports/stock_firmware_search_matrix.md` for the exact
-   `RPFS31.Q1-21-20-1-7-3` retus package (metadata only; no images committed).
-3. Draft a `proprietary-files` expectation list from the ludevjhon `device.mk`
-   copy-files and the Fraaxius DLKM alias map — expectations only, no blobs.
-4. Keep the emulator/control-plane lane green (it already is) as the safe
+1. **Done (2026-06-30): audit the A11-aligned `def` tree.** sorenlyulf was cloned
+   read-only and audited (`reports/source_audit_sorenlyulf_def.md`); it is now the
+   rank-1 device tree and confirmed the kernel pointer. The era question is
+   resolved enough to proceed.
+2. **Now the highest-value slice: stock firmware acquisition.** Produce/refresh
+   `reports/stock_firmware_search_matrix.md` for an exact or
+   `RPFS31.Q1-21-20`-compatible retus package (metadata only; no images
+   committed). This is the master blocker and what populates sorenlyulf's A11
+   vendor base.
+3. Optional, read-only: audit the **lineage-20** branch of
+   `android_device_motorola_sm6150-common` (the common tree sorenlyulf actually
+   depends on) to complete the matched set; the audited Fraaxius lineage-21 fork
+   is a reference, not the matched branch.
+4. Draft a `proprietary-files` expectation list directly from sorenlyulf's
+   261-entry `proprietary-files.txt` (manifest only, no blobs).
+5. Keep the emulator/control-plane lane green (it already is) as the safe
    substrate; only add a new read-only inspection mode if a specific blocker
    above demands evidence the current modes cannot provide.
 
