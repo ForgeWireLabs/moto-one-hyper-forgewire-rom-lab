@@ -193,11 +193,13 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
    read-only and audited (`reports/source_audit_sorenlyulf_def.md`); it is now the
    rank-1 device tree and confirmed the kernel pointer. The era question is
    resolved enough to proceed.
-2. **Now the highest-value slice: stock firmware acquisition.** Produce/refresh
-   `reports/stock_firmware_search_matrix.md` for an exact or
-   `RPFS31.Q1-21-20`-compatible retus package (metadata only; no images
-   committed). This is the master blocker and what populates sorenlyulf's A11
-   vendor base.
+2. **Done (2026-06-30): stock firmware metadata track.**
+   `reports/stock_firmware_search_matrix.md` was refreshed (discovery + lolinet
+   enumeration + mirror triangulation); no reputable checksum-verified retus
+   package was found. The next decision is now a human gate — see
+   `reports/firmware_acquisition_extraction_gate.md` (Route A LMSA exact-retus /
+   Route B provisional `-5` RETBR / Route C hold). Blocker unchanged; no artifact
+   action until Jeremy chooses a route.
 3. Optional, read-only: audit the **lineage-20** branch of
    `android_device_motorola_sm6150-common` (the common tree sorenlyulf actually
    depends on) to complete the matched set; the audited Fraaxius lineage-21 fork

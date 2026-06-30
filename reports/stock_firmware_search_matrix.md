@@ -331,6 +331,11 @@ same-family metadata baseline remains `-5` (1e3de) — now confirmed **RETBR**, 
 exact base sorenlyulf builds on — and it is provisional (not retus, not the
 phone's `-1-7-3`).
 
+The metadata-only track is complete. The next decision is captured in the gate
+document `reports/firmware_acquisition_extraction_gate.md` (Route A LMSA
+exact-retus / Route B provisional `-5` RETBR / Route C hold); no artifact action
+occurs until Jeremy chooses a route.
+
 State of the master blocker: the `RPFS31.Q1-21-20` family and the phone's exact
 `-1-7-3` build are **confirmed real**, and a reputable metadata dump exists for
 the `-5` (1e3de) base that sorenlyulf targets — so the A11 vendor base is
