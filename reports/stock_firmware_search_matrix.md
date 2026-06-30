@@ -248,16 +248,88 @@ Posture: per instruction, with no usable official lolinet def path found, **do n
 pivot to mirror/Google-Drive downloads** (motostockrom, romstockbr, GDrive, etc.)
 **without separate approval**. This pass stays official-source, metadata-only.
 
+## Mirror metadata triangulation (2026-06-30, metadata-only)
+
+Cross-checked the XT2027-1 / def family across independent mirror metadata and
+the Android Dumps repository. No artifacts downloaded; filenames, channels,
+sizes, and build/vendor metadata only.
+
+### Cross-source family table
+
+| Build | Android | Channel (per filename) | Size | Sources agreeing | Hash exposed |
+|---|---|---|---|---|---|
+| QPF30.103-12-1 | 10 | RETAIL | ~2 GB | motostockrom, flash-files.net | none |
+| QPF30.103-43 | 10 | RETBR | ~2 GB | motostockrom, flash-files.net | none |
+| QPFS30.103-42-15 | 10 | RETCA (Canada) | ~2 GB | motostockrom, flash-files.net | none |
+| QPFS30.103-43-7 (DS) | 10 | RETBR | ~2 GB | motostockrom, flash-files.net | none |
+| **RPFS31.Q1-21-20-5** | 11 | **RETBR** (`RETBR_DEF_RETAIL`) | ~2.25 GB | motostockrom, flash-files.net, romstockbr, **Android Dumps** (`…-5-1e3de`) | none |
+| RPFS31.Q1-21-20-10 | 11 | generic `DEF_RETAIL` (no region) | ~2.25 GB | motostockrom, flash-files.net | none |
+| RPFS31.Q1-21-20-1-7-3 | 11 | **retus** (phone build) | — | UA strings only (user-agents.net) | none |
+
+### Corroboration findings
+
+- **`-5` (1e3de) is strongly corroborated and is RETBR (Brazil).** Two
+  independent aggregators label it `RETBR_DEF_RETAIL`; romstockbr dates it
+  Jul 2021; the Android Dumps `board-info.txt` carries
+  `require version-vendor=1625652262` (= 2021-07-07), consistent with a July-2021
+  A11 vendor image; and the hash `1e3de` matches sorenlyulf's `BUILD_FINGERPRINT`.
+  Five-way agreement on identity — but the channel is **RETBR, not retus**.
+- **`-10` is the newest A11 build and is generic `DEF_RETAIL`** (no region code),
+  but it has **no dump/provenance source** — aggregator listings only.
+- **The phone's `-1-7-3` (37074e) retus build is corroborated by no mirror.** It
+  appears only in UA-string attestation; no package, dump, size, or hash was
+  found on any surveyed source. Effectively unavailable through metadata sources.
+- **Naming is consistent** with Motorola's convention
+  (`Model_[DS_]Channel_DEF_RETAIL_Build_[Subsidy_]Android.zip`), which supports
+  filename authenticity but is not provenance on its own.
+- **No checksums** are exposed by any surveyed source (aggregators or dumps).
+
+### Triangulation answers (the eight questions)
+
+1. Family builds visible across mirrors: A10 `QPF30.103-12-1`, `QPF30.103-43`,
+   `QPFS30.103-42-15`, `QPFS30.103-43-7`; A11 `RPFS31.Q1-21-20-5`,
+   `RPFS31.Q1-21-20-10`.
+2. Claim XT2027-1 / def / def_retail: **all** of the above (all are
+   `XT2027-1 … DEF_RETAIL`).
+3. retus vs RETBR vs generic: `-5` = **RETBR**; `-10` = **generic DEF_RETAIL**;
+   `-1-7-3` = **retus** (but unlocated as a package); A10 set spans RETAIL/RETBR/RETCA.
+   **No RPFS31.Q1-21-20 retus package located.**
+4. Filenames consistent with Motorola naming? **Yes.**
+5. Hashes/checksums visible without download? **No** — none anywhere.
+6. Independent corroboration of Android Dumps `-5` / `1e3de`? **Yes** — multi-source
+   (two aggregators + romstockbr + board-info vendor date + sorenlyulf fingerprint).
+7. Independent corroboration of the phone's `-1-7-3` / `37074e`? **No** — only the
+   prior UA-string attestation; no second source, no package.
+8. Future firmware baseline ranking — see below.
+
+### Future firmware baseline ranking (metadata only — not acquisition)
+
+| Tier | Candidate | Status |
+|---|---|---|
+| Exact retus (preferred) | `RPFS31.Q1-21-20-1-7-3` / `37074e` | **Unavailable via metadata.** Attested only; pursue via official Motorola/LMSA route under a separate gate |
+| Same-family retus fallback | — | **None exists** in surveyed metadata |
+| Same-family non-retus / unknown-channel fallback | `RPFS31.Q1-21-20-5` / `1e3de` (**RETBR**) | Best-corroborated; exact base sorenlyulf builds on; **Brazil channel caveat** |
+| Same-family non-retus / unknown-channel fallback (alt) | `RPFS31.Q1-21-20-10` (generic `DEF_RETAIL`) | Newest A11, region-neutral label, but **no provenance source**; weaker than `-5` |
+| Do not use | aggregator/GDrive artifacts without checksums; opaque downloaders | repackaging/integrity risk; needs separate gate + checksum even to consider |
+
+Net: the mirror pass **improved confidence on identity/channel** (firmly placing
+`-5` as RETBR and `-10` as generic retail, and confirming no retus
+`RPFS31.Q1-21-20` package is mirror-available) but did **not** surface a retus
+package or any checksum. Per the stop rule, triangulation has reached its useful
+limit; further mirror searching is not warranted.
+
 ## Current decision
 
 No stock firmware package is accepted. No package was downloaded, extracted, or
 committed. Safety posture unchanged.
 
 lolinet did not expose a checksummed official `def` retus package (or any
-`RPFS31.Q1-21-20` def package) at standard paths, so no new preferred baseline is
-set and the firmware master blocker stays open. The provenance-backed `-5`
-(1e3de) Android Dumps entry remains the only same-family metadata baseline, and
-it is provisional (not retus, not the phone's `-1-7-3`).
+`RPFS31.Q1-21-20` def package) at standard paths; mirror triangulation found no
+retus `RPFS31.Q1-21-20` package and no checksums anywhere. No new preferred
+baseline is set and the firmware master blocker stays open. The best-corroborated
+same-family metadata baseline remains `-5` (1e3de) — now confirmed **RETBR**, the
+exact base sorenlyulf builds on — and it is provisional (not retus, not the
+phone's `-1-7-3`).
 
 State of the master blocker: the `RPFS31.Q1-21-20` family and the phone's exact
 `-1-7-3` build are **confirmed real**, and a reputable metadata dump exists for
@@ -270,16 +342,21 @@ Recommended next safe (still metadata-only) actions, in order:
 1. ~~Direct read-only browse of lolinet~~ — **done 2026-06-30, null result** (see
    the lolinet enumeration section: no `def` path at standard locations; no
    `RPFS31.Q1-21-20` package; no checksums reachable).
-2. Pursue the **official Motorola route** for a checksum-bearing retus package:
-   Rescue and Smart Assistant (LMSA) / Motorola support firmware, which serves
-   device-matched packages on demand. Capture only the resulting metadata
-   (filename, build, channel, size, hash) into
-   `reports/stock_firmware_candidate_inventory.md`; do not download images.
-3. As the provenance-backed fallback, document `-5` (1e3de) via the Android Dumps
-   route (`dumps.tadiphone.dev/dumps/motorola/def`) as the A11 metadata baseline,
-   with the explicit retus-vs-RETBR channel caveat.
-4. Do **not** pivot to aggregator/Google-Drive mirror downloads without a separate
+2. **Official Motorola route — documented as the cleanest future official path,
+   but gated.** Rescue and Smart Assistant (LMSA) / Motorola support serves
+   device-matched packages on demand, but in practice it requires a **connected /
+   identified physical device**, which is out of scope. Do **not** initiate a
+   phone-connected LMSA workflow without a separate gate. It is the preferred way
+   to obtain an exact retus `-1-7-3` package with integrity, when/if Jeremy opens
+   that gate.
+3. Mirror triangulation — **done 2026-06-30** (see triangulation section). It
+   improved identity/channel confidence but found no retus package and no
+   checksums; the stop rule has been reached, so no further mirror searching.
+4. Provenance-backed fallback: `-5` (1e3de) via Android Dumps
+   (`dumps.tadiphone.dev/dumps/motorola/def`) as the A11 metadata baseline, with
+   the explicit **RETBR** (Brazil) channel caveat — it is sorenlyulf's exact base.
+5. Do **not** pivot to aggregator/Google-Drive mirror downloads without a separate
    explicit approval.
-5. Only after a checksum-verified package is identified (downloaded **outside**
+6. Only after a checksum-verified package is identified (downloaded **outside**
    the repo, under `C:\Projects\moto-one-hyper-local\firmware`) should extraction
    planning begin — still no phone action.
