@@ -140,7 +140,12 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
 
 1. **No verified stock firmware** for `RPFS31.Q1-21-20-1-7-3` retus → no verified
    partition map, boot/vendor_boot/dtbo/vbmeta layout, super layout, or blob
-   source. This is the master blocker (`source_candidate_evidence_matrix.md`).
+   source. This is the master blocker. **Update (2026-06-30,
+   `reports/stock_firmware_search_matrix.md`):** the `RPFS31.Q1-21-20` family and
+   the exact `-1-7-3` retus build are confirmed real, and a reputable Android
+   Dumps filesystem dump exists for the `-5` (1e3de) base sorenlyulf targets — but
+   no reputable, checksum-verified **retus** flashable package is yet pinned, and
+   no firmware was downloaded. Blocker stands; it is now scoped, not unknown.
 2. **Android-era alignment — substantially narrowed (2026-06-30).** The rank-1
    sorenlyulf tree is anchored to the phone's **A11 `RPFS31.Q1-21-20` vendor
    base**, so the def device tree now matches the phone's stock family. Residual

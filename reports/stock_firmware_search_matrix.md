@@ -1,8 +1,13 @@
 ﻿# Stock Firmware Search Matrix
 
-Status: generated firmware acquisition search matrix
+Status: refreshed with metadata-only discovery findings
 
-Date: 2026-06-28
+Date: 2026-06-28 (framework); refreshed 2026-06-30 (discovery pass)
+
+Refresh note (2026-06-30): added a metadata-only discovery pass (web listings and
+source metadata only — no firmware/image downloads, no extraction, no blobs, no
+committed firmware artifacts). See "Discovered candidates" and "Discovery answers"
+below. The search framework above the refresh is unchanged.
 
 ## Safety boundary
 
@@ -126,10 +131,85 @@ Forbidden Git artifacts:
 - extracted proprietary blobs
 - large binaries
 
+## Discovered candidates (2026-06-30, metadata only)
+
+All entries below are from web listings/metadata only. Nothing was downloaded,
+extracted, or committed. "Reputable" = lolinet/Android-Dumps/official; "mirror" =
+aggregator/forum/Google-Drive tier.
+
+| Build (RPFS31.Q1-21-20-…) | Hash | Channel (claimed) | Best provenance found | Tier | Flashable pkg located? |
+|---|---|---|---|---|---|
+| `-1-7-3` (phone's exact build) | `37074e` | retus | UA strings only (user-agents.net) | attestation only | **No reputable package located** |
+| `-5` (sorenlyulf's vendor base) | `1e3de` | def_retail (romstockbr labels RETBR) | Android Dumps GitLab filesystem dump `def_retail-user-11-RPFS31.Q1-21-20-5-1e3de` | reputable (metadata/dump) | dump yes; full flashable pkg on mirror/GDrive tier |
+| `-2` | — | def_retail / RETBR | romstockbr / stockrom.net listings | mirror | mirror tier |
+| `-10` | — | DEF_RETAIL | Google Drive file + aggregator listings (`…DEF_RETAIL_RPFS31.Q1-21-20-10_Subsidy_11.zip`, ~2.25 GB) | mirror | mirror/GDrive tier |
+| A10 `QPF30.104` / `QPF30.103-*` | various | retail, reteu | Android Dumps branches (15 total) | reputable (dump) | historical (A10) — matches ludevjhon/AndroidBlobs base |
+
+Note: the `-5` dump hash `1e3de` matches sorenlyulf's `BUILD_FINGERPRINT`
+(`def:11/RPFS31.Q1-21-20-5/1e3de`), independently corroborating that audit. The
+phone's `-1-7-3` carries a different hash `37074e` (per the framework fingerprint
+above), i.e. a distinct package from `-5`.
+
+## Source reputability classification
+
+| Source | URL | Tier | What it offers |
+|---|---|---|---|
+| lolinet / lenomola | `mirrors.lolinet.com/firmware/lenomola/<year>/<codename>/official/<CHANNEL>/` | reputable mirror (h5ai) | flashable packages; exact `def` path not pinned this pass (RETUS guesses 404'd; `def` likely under RETAIL/RETBR/RETEU, matching the channels Android Dumps shows) |
+| Android Dumps | `dumps.tadiphone.dev/dumps/motorola/def` | reputable (metadata/dumps) | filesystem dumps, not flashable firmware; **has the `-5` (1e3de) A11 dump** and the A10 QPF30 dumps |
+| Motorola RSA / LMSA | official Motorola/Lenovo rescue | authoritative, on-demand | device-matched firmware; **no static URLs or pre-published checksums** |
+| Aggregators | motostockrom, getdroidtips, addrom, firmwareoficial, romstockbr, stockrom.net, firmwaredrive, firmwareupdate24 | mirror/forum | filename/version clues; repackaging risk; checksums rarely exposed |
+| Google Drive mirrors | per-file links | mirror | unverifiable provenance |
+
+## Discovery answers (the seven questions)
+
+1. **Exact `RPFS31.Q1-21-20-1-7-3` available reputably?** No. The build is
+   **attested as a real retus OTA** (UA strings) but **no reputable flashable
+   package was located**. The `-1-7-3` suffix is consistent with an
+   incremental/OTA build that is often not separately mirrored as a full image.
+2. **`RPFS31.Q1-21-20-5` available?** Yes, as **metadata** (Android Dumps
+   `…-5-1e3de` filesystem dump — sorenlyulf's exact base). Full flashable
+   packages appear only on mirror/Google-Drive tier; romstockbr labels `-5` as
+   RETBR.
+3. **Other `RPFS31.Q1-21-20` family retus XT2027-1 packages?** Family confirmed:
+   `-2`, `-5`, `-10` surfaced (def_retail / RETBR / DEF_RETAIL). `-10` is the
+   highest seen. None confirmed as a clean **retus** flashable package this pass.
+4. **Official/reputable vs mirrors/forums?** Reputable: lolinet, Android Dumps,
+   Motorola RSA/LMSA. Lower trust: the aggregator and Google-Drive listings above.
+5. **Safest future blob baseline (if any)?** Provisionally **`-5` (1e3de)** —
+   it is the exact base sorenlyulf was built against *and* has a reputable
+   Android Dumps filesystem dump for provenance cross-checking. Caveats: it is
+   **not** the phone's `-1-7-3` build, and its channel may be RETBR (retus match
+   unverified). A true **retus `RPFS31.Q1-21-20`** package located via a direct
+   lolinet browse would be preferable if one exists.
+6. **Hashes/checksums available?** **None exposed** in the metadata reviewed this
+   pass. lolinet folders sometimes ship in-folder checksums, but the exact `def`
+   path was not pinned; aggregators rarely publish hashes. Checksum capture
+   remains pending a direct reputable-source browse.
+7. **What remains unverified?** Existence/provenance of a reputable `-1-7-3`
+   retus package; the actual channel of `-5` (RETBR vs RETAIL vs RETUS); all
+   checksums; whether `-5` blobs are compatible with a `-1-7-3` device; lolinet's
+   exact `def` folder path and contents.
+
 ## Current decision
 
-No stock firmware package is accepted yet.
+No stock firmware package is accepted. No package was downloaded, extracted, or
+committed. Safety posture unchanged.
 
-The next hard-work task is metadata-only firmware candidate discovery.
+State of the master blocker: the `RPFS31.Q1-21-20` family and the phone's exact
+`-1-7-3` build are **confirmed real**, and a reputable metadata dump exists for
+the `-5` (1e3de) base that sorenlyulf targets — so the A11 vendor base is
+*locatable in principle*. It is **not yet pinned to a reputable, checksum-verified
+retus flashable package**.
 
-Recommended next artifact: reports/stock_firmware_candidate_inventory.md
+Recommended next safe (still metadata-only) actions, in order:
+
+1. Direct, read-only browse of lolinet `lenomola/2021/def/official/` (and 2020)
+   to enumerate the real channel folders, exact `RPFS31.Q1-21-20` filenames, and
+   any in-folder checksums; record findings in
+   `reports/stock_firmware_candidate_inventory.md`.
+2. If a reputable retus package cannot be found, document `-5` (1e3de) via the
+   Android Dumps route as the provenance-backed A11 baseline, with the explicit
+   channel caveat.
+3. Only after a checksum-verified package is identified (downloaded **outside**
+   the repo, under `C:\Projects\moto-one-hyper-local\firmware`) should extraction
+   planning begin — still no phone action.
