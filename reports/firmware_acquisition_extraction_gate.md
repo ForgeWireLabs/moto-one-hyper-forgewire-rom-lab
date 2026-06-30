@@ -110,6 +110,12 @@ committed, named by build:
 - `reports/vendor_blob_expectation_gap_<build>.md`
 - `reports/stock_boot_recovery_anchor_<build>.md`
 
+The yardstick for `vendor_blob_expectation_gap_<build>.md` already exists:
+`reports/proprietary_files_expectation_map.md` (built 2026-06-30 from the matched
+lineage-20 manifests — ~261 def + ~984 common blob paths, def set anchored to
+`-5`, with modem/TEE/radio flagged as the channel-sensitive determinants). A
+future extraction is diffed against that map.
+
 ## Not authorized by this document
 
 This document does **not** authorize:

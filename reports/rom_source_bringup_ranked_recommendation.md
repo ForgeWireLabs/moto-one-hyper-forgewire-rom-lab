@@ -224,8 +224,11 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
    matched kernel. **The full source-side matched set (device + common + kernel)
    is now coherent on lineage-20.** The remaining gaps are artifact (vendor blobs,
    gated at Route C) and a future build verification — not source identification.
-5. Draft a `proprietary-files` expectation list directly from sorenlyulf's
-   261-entry `proprietary-files.txt` (manifest only, no blobs).
+5. **Done (2026-06-30): draft the `proprietary-files` expectation map.**
+   `reports/proprietary_files_expectation_map.md` writes down the blob contract
+   (~261 def + ~984 common paths, 6 trivial overlaps, def set anchored to `-5`,
+   modem/TEE/radio as the channel-sensitive determinants) — the yardstick a future
+   extraction is judged against. Manifest-only; no blobs.
 6. Keep the emulator/control-plane lane green (it already is) as the safe
    substrate; only add a new read-only inspection mode if a specific blocker
    above demands evidence the current modes cannot provide.
