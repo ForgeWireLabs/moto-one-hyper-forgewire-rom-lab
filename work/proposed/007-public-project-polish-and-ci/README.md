@@ -1,4 +1,4 @@
-# WI-006 - Public Project Polish and CI
+# WI-007 - Public Project Polish and CI
 
 Status: proposed
 

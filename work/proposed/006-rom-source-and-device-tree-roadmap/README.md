@@ -1,4 +1,4 @@
-# WI-005 - ROM Source and Device Tree Roadmap
+# WI-006 - ROM Source and Device Tree Roadmap
 
 Status: proposed
 

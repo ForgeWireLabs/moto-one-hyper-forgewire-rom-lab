@@ -35,8 +35,8 @@ Blocked:
 
 Proposed:
 
-- proposed/005-rom-source-and-device-tree-roadmap/README.md
-- proposed/006-public-project-polish-and-ci/README.md
+- proposed/006-rom-source-and-device-tree-roadmap/README.md
+- proposed/007-public-project-polish-and-ci/README.md
 
 Deferred:
 

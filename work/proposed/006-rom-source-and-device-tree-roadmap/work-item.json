@@ -1,0 +1,33 @@
+{
+  "$schema": "../../../schemas/work-item.schema.json",
+  "id": "006",
+  "title": "ROM source and device tree roadmap",
+  "status": "proposed",
+  "owner_scope": "governance",
+  "affected_scopes": [
+    "governance"
+  ],
+  "depends_on": [],
+  "provenance": "concrete",
+  "preflight": {
+    "created_before_work_started": true,
+    "created_at": "2026-06-29T00:00:00Z",
+    "note": "Converted from an existing proposed planning note into a first-class proposed RepoPact work item before implementation authorization."
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-1",
+      "text": "Roadmap distinguishes emulator, GSI, and device-specific ROM work.",
+      "state": "pending",
+      "evidence": []
+    },
+    {
+      "id": "AC-2",
+      "text": "Blockers, required artifacts, and physical-device gates are explicit.",
+      "state": "pending",
+      "evidence": []
+    }
+  ],
+  "created": "2026-06-29",
+  "updated": "2026-06-29"
+}
