@@ -22,6 +22,7 @@ No firmware, boot image, recovery image, vbmeta image, dtbo image, or partition 
 | Stock-derived def | reports\stock_def_source_candidate_comparison.md |
 | sm6150 common | reports\source_audit_fraaxius_sm6150_common.md |
 | def device tree (A11 base) | reports\source_audit_sorenlyulf_def.md |
+| sm6150 common (lineage-20, matched) | reports\source_audit_sm6150_common_lineage20.md |
 
 ## Known target identity
 
@@ -98,6 +99,25 @@ phone (`RPFS31.Q1-21-20-1-7-3`). It is def-specific, structurally complete
 `kernel/motorola/sm6150` pointer (defconfig `vendor/def_defconfig`). It is now
 the preferred def-specific device-tree candidate; the common tree should be
 re-pointed to the **lineage-20** branch of `sm6150-common`.
+
+## Update 2026-06-30 — lineage-20 sm6150-common audited (matched set coherent)
+
+The matched common tree was audited read-only
+(`reports/source_audit_sm6150_common_lineage20.md`):
+`sorenlyulf/android_device_motorola_sm6150-common @ lineage-20` (HEAD
+`a5206c5f`, a divergent author fork of LineageOS official lineage-20
+`47c9e585`; Fraaxius lineage-20 is byte-identical to LineageOS). Its board
+contract is identical-core to the previously audited Fraaxius lineage-21
+(sm6150 / adreno620 / boot header v2 / separated DTBO / LLVM / same
+`kernel/motorola/sm6150` pointer), confirming the SoC contract is era-stable.
+It supplies dynamic-partition sizing (super ~9.06 GB, group `product system
+vendor`), A/B OTA, AVB, and 984 common blob expectations complementing the def
+tree's 261. New deps surfaced: `device/qcom/sepolicy_vndr-legacy-um`,
+`hardware/google/pixel`(+`interfaces`), plus the def tree's
+`hardware/motorola` and `system/qcom`. The lineage-20 common tree is now the
+matched rank-2; Fraaxius lineage-21 is retained as a board-contract reference.
+The source-side matched set (device + common + kernel pointer) is internally
+coherent on lineage-20.
 
 ## Current decision
 

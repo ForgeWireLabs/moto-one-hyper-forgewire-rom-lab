@@ -51,7 +51,8 @@ flashed. Firmware trust remains blocked.
 | Candidate | Layer | Branch / era | Files (inspected) | Audit |
 |---|---|---|---:|---|
 | sorenlyulf/device_motorola_def | device tree | lineage-20 / **A11 RPFS31.Q1-21-20 vendor base** | 46 (key files) | `reports/source_audit_sorenlyulf_def.md` |
-| Fraaxius/device_motorola_sm6150-common | common tree | lineage-21 (~A14) | 563 (157) | `reports/source_audit_fraaxius_sm6150_common.md` |
+| sorenlyulf/…_sm6150-common (lineage-20) | common tree (**matched**) | lineage-20 (HEAD `a5206c5f`) | 562 | `reports/source_audit_sm6150_common_lineage20.md` |
+| Fraaxius/device_motorola_sm6150-common | common tree (board-contract ref) | lineage-21 (~A14) | 563 (157) | `reports/source_audit_fraaxius_sm6150_common.md` |
 | ludevjhon/device_motorola_def | device tree (stock-derived) | def_retail Android 10 QPF30.104 | 135 (107) | `reports/source_audit_ludevjhon_def.md` |
 | AndroidBlobs/device_motorola_def | device tree (stock-derived) | def_retail Android 10 QPF30.104 | — | `reports/source_audit_androidblobs_def.md` |
 | ixmoe/android_device_motorola_def_twrp | recovery/TWRP tree | android-10 | 74 (14) | `reports/source_audit_ixmoe_def_twrp.md` |
@@ -89,28 +90,30 @@ Fallback: `ludevjhon/device_motorola_def` (A10 `QPF30.104`; AndroidBlobs mirror)
 remains a useful A10-era cross-reference for device structure and vendor-config
 shape, but is demoted below sorenlyulf because of its older vendor base.
 
-### 2. Common tree → `Fraaxius/device_motorola_sm6150-common`
+### 2. Common tree → `sorenlyulf/android_device_motorola_sm6150-common` (lineage-20, matched)
 
-The richest and most load-bearing input. `BoardConfigCommon.mk` pins the SoC
-contract directly:
+Matched common tree after the 2026-06-30 audit
+(`reports/source_audit_sm6150_common_lineage20.md`): the **lineage-20** branch
+(HEAD `a5206c5f`, a divergent author fork of LineageOS official lineage-20
+`47c9e585`) — the same-author counterpart to the rank-1 def tree, which depends
+on `sm6150-common` at lineage-20. `BoardConfigCommon.mk` pins the SoC contract:
 
 - `TARGET_BOARD_PLATFORM := sm6150`, `TARGET_BOARD_PLATFORM_GPU := qcom-adreno620`
 - `TARGET_KERNEL_SOURCE := kernel/motorola/sm6150` (see kernel rank)
-- `BOARD_BOOT_HEADER_VERSION := 2`, `BOARD_KERNEL_SEPARATED_DTBO := true`
-- `TARGET_ARCH := arm64`, `cortex-a76`, `BOARD_USES_QCOM_HARDWARE := true`
-- `TARGET_KERNEL_ADDITIONAL_FLAGS := LLVM=1 LLVM_IAS=1` (clang/LLVM build)
-- a large audio + WLAN kernel-module alias map (DLKM dependency surface)
+- `BOARD_BOOT_HEADER_VERSION := 2`, `BOARD_KERNEL_SEPARATED_DTBO := true`,
+  `BOARD_INCLUDE_DTB_IN_BOOTIMG := true`, `BOARD_AVB_ENABLE := true`
+- `TARGET_ARCH := arm64`, `cortex-a76`, `BOARD_USES_QCOM_HARDWARE := true`,
+  `LLVM=1 LLVM_IAS=1`
+- dynamic-partition sizing (`super` ~9.06 GB, group `product system vendor`),
+  `AB_OTA_PARTITIONS += recovery product`, 984 common blob expectations
+  (complementing the def tree's 261)
 
-The evidence matrix (`reports/source_candidate_evidence_matrix.md`) shows this
-tree dominates every cross-layer signal (e.g. vendor 114, BOARD_ 97, TARGET_ 96,
-qcom 71, kernel 6), which is why it anchors the SoC/board contract.
-
-Caveat / re-point: the audited Fraaxius candidate is **lineage-21 (~A14)**, but
-the rank-1 sorenlyulf tree depends on `sm6150-common` at **lineage-20**
-(`lineage.dependencies`). For a coherent set with sorenlyulf, use the
-**lineage-20** branch of `android_device_motorola_sm6150-common`; the audited
-Fraaxius lineage-21 fork remains a board-contract reference, not the matched
-common tree.
+Board-contract reference: the previously audited **Fraaxius lineage-21** fork has
+an **identical core** board contract (same platform/GPU/header/DTBO/LLVM/kernel
+pointer), so it stays useful as a board-contract reference — but the matched
+branch for the rank-1 def tree is **lineage-20**, not lineage-21. (Fraaxius
+lineage-20 is byte-identical to LineageOS official; only sorenlyulf's lineage-20
+fork carries the matched author-specific commits.)
 
 ### 3. Kernel → `kernel/motorola/sm6150` (per the common-tree contract)
 
@@ -200,10 +203,11 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
    `reports/firmware_acquisition_extraction_gate.md` (Route A LMSA exact-retus /
    Route B provisional `-5` RETBR / Route C hold). Blocker unchanged; no artifact
    action until Jeremy chooses a route.
-3. Optional, read-only: audit the **lineage-20** branch of
-   `android_device_motorola_sm6150-common` (the common tree sorenlyulf actually
-   depends on) to complete the matched set; the audited Fraaxius lineage-21 fork
-   is a reference, not the matched branch.
+3. **Done (2026-06-30): audit the lineage-20 `sm6150-common`** (the matched
+   common tree). `reports/source_audit_sm6150_common_lineage20.md` adopts
+   `sorenlyulf/…_sm6150-common @ lineage-20` (`a5206c5f`) as rank-2; the
+   source-side matched set (device + common + kernel pointer) is now coherent on
+   lineage-20.
 4. Draft a `proprietary-files` expectation list directly from sorenlyulf's
    261-entry `proprietary-files.txt` (manifest only, no blobs).
 5. Keep the emulator/control-plane lane green (it already is) as the safe
