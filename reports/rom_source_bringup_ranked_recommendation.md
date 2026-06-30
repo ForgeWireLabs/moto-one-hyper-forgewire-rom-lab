@@ -52,6 +52,7 @@ flashed. Firmware trust remains blocked.
 |---|---|---|---:|---|
 | sorenlyulf/device_motorola_def | device tree | lineage-20 / **A11 RPFS31.Q1-21-20 vendor base** | 46 (key files) | `reports/source_audit_sorenlyulf_def.md` |
 | sorenlyulf/…_sm6150-common (lineage-20) | common tree (**matched**) | lineage-20 (HEAD `a5206c5f`) | 562 | `reports/source_audit_sm6150_common_lineage20.md` |
+| sorenlyulf/…_kernel_…_sm6150 (lineage-20) | kernel (**matched**) | lineage-20 (HEAD `cded7d10`, Linux 4.14.326) | 72,396 | `reports/source_audit_kernel_motorola_sm6150_lineage20.md` |
 | Fraaxius/device_motorola_sm6150-common | common tree (board-contract ref) | lineage-21 (~A14) | 563 (157) | `reports/source_audit_fraaxius_sm6150_common.md` |
 | ludevjhon/device_motorola_def | device tree (stock-derived) | def_retail Android 10 QPF30.104 | 135 (107) | `reports/source_audit_ludevjhon_def.md` |
 | AndroidBlobs/device_motorola_def | device tree (stock-derived) | def_retail Android 10 QPF30.104 | — | `reports/source_audit_androidblobs_def.md` |
@@ -115,19 +116,26 @@ branch for the rank-1 def tree is **lineage-20**, not lineage-21. (Fraaxius
 lineage-20 is byte-identical to LineageOS official; only sorenlyulf's lineage-20
 fork carries the matched author-specific commits.)
 
-### 3. Kernel → `kernel/motorola/sm6150` (per the common-tree contract)
+### 3. Kernel → `sorenlyulf/android_kernel_motorola_sm6150` (lineage-20, matched & audited)
 
-The common tree's `TARGET_KERNEL_SOURCE := kernel/motorola/sm6150` is the
-authoritative pointer, now **confirmed** by the sorenlyulf audit: its
-`lineage.dependencies` maps `android_kernel_motorola_sm6150` →
-`kernel/motorola/sm6150`, and `BoardConfig.mk` names the exact defconfig
-`vendor/def_defconfig`. The upstream lead in
-`rom_lab/research/kernel_candidates.md` is
-`motorola-sm6150-devs/android_kernel_motorola_sm6150` (with MotorolaMobilityLLC
-`kernel-msm` as OEM-source fallback). sorenlyulf also surfaces two further
-dependencies — `android_hardware_motorola` (`hardware/motorola`) and
-`android_system_qcom` (`system/qcom`). No kernel source is selected or verified
-yet; the selection criteria in that doc remain unmet.
+Audited 2026-06-30 (`reports/source_audit_kernel_motorola_sm6150_lineage20.md`):
+the matched kernel is `sorenlyulf/android_kernel_motorola_sm6150 @ lineage-20`
+(HEAD `cded7d10`, a divergent author fork — completing the all-sorenlyulf
+lineage-20 set). It is **Linux 4.14.326**, `CONFIG_ARCH_SM6150=y`, with a complete
+**def** DTS family (`sm6150-def-base.dts` + EVT1/PVT overlays; audio/charger/fps/
+touch/camera overlays; `defender-panel`), a def config fragment
+(`moto-sdmsteppe-def.config`, `CONFIG_DEF_DTB=y`), and a **separated-DTBO** build
+that matches the common tree's board contract. Hardware coverage matches the
+device tree (ST NFC, fingerprint, camera/OIS, Moto DSI display, SAR).
+
+Caveat: the device tree's literal `TARGET_KERNEL_CONFIG := vendor/def_defconfig`
+is **assembled** from the `sdmsteppe` base + `moto-sdmsteppe-def.config` rather
+than existing as a standalone file (build-time resolution; not verified by a
+build). Also surfaced from the def tree's `lineage.dependencies`:
+`android_hardware_motorola` (`hardware/motorola`) and `android_system_qcom`
+(`system/qcom`). The kernel is now an audited, present, def-capable source — but
+not built/booted; a bootable def kernel cannot be claimed until it builds in
+context.
 
 ### 4. Vendor / blobs → blocked; derive expectations, do not acquire
 
@@ -156,8 +164,12 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
    stock-A11 ROM), and the `-5` vs `-1-7-3` patch suffix is unverified. The
    ludevjhon (A10) and Fraaxius (~A14) era spread only matters for those
    fallback/reference trees now.
-3. **No selected/verified kernel** (`kernel/motorola/sm6150` is a pointer, not a
-   checked-out, building source).
+3. **Kernel identified & audited, not built** (2026-06-30). The matched kernel
+   `sorenlyulf/android_kernel_motorola_sm6150 @ lineage-20` (Linux 4.14.326) is a
+   present, def-capable source with the full def DTS family and matching DTBO
+   strategy — but it has not been built or booted, and the `vendor/def_defconfig`
+   assembly is unverified at build time. No longer just a pointer; still not a
+   proven bootable kernel.
 4. **No vendor blobs and no approved extraction path** (root unavailable).
 5. **No verified stock boot image / recovery anchor** → `stock_boot_verified`
    stays `false`; no rollback safety, so no physical path is eligible regardless.
@@ -205,12 +217,16 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
    action until Jeremy chooses a route.
 3. **Done (2026-06-30): audit the lineage-20 `sm6150-common`** (the matched
    common tree). `reports/source_audit_sm6150_common_lineage20.md` adopts
-   `sorenlyulf/…_sm6150-common @ lineage-20` (`a5206c5f`) as rank-2; the
-   source-side matched set (device + common + kernel pointer) is now coherent on
-   lineage-20.
-4. Draft a `proprietary-files` expectation list directly from sorenlyulf's
+   `sorenlyulf/…_sm6150-common @ lineage-20` (`a5206c5f`) as rank-2.
+4. **Done (2026-06-30): audit the lineage-20 kernel.**
+   `reports/source_audit_kernel_motorola_sm6150_lineage20.md` adopts
+   `sorenlyulf/…_kernel_…_sm6150 @ lineage-20` (`cded7d10`, Linux 4.14.326) as the
+   matched kernel. **The full source-side matched set (device + common + kernel)
+   is now coherent on lineage-20.** The remaining gaps are artifact (vendor blobs,
+   gated at Route C) and a future build verification — not source identification.
+5. Draft a `proprietary-files` expectation list directly from sorenlyulf's
    261-entry `proprietary-files.txt` (manifest only, no blobs).
-5. Keep the emulator/control-plane lane green (it already is) as the safe
+6. Keep the emulator/control-plane lane green (it already is) as the safe
    substrate; only add a new read-only inspection mode if a specific blocker
    above demands evidence the current modes cannot provide.
 

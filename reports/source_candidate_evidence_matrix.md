@@ -23,6 +23,7 @@ No firmware, boot image, recovery image, vbmeta image, dtbo image, or partition 
 | sm6150 common | reports\source_audit_fraaxius_sm6150_common.md |
 | def device tree (A11 base) | reports\source_audit_sorenlyulf_def.md |
 | sm6150 common (lineage-20, matched) | reports\source_audit_sm6150_common_lineage20.md |
+| kernel sm6150 (lineage-20, matched) | reports\source_audit_kernel_motorola_sm6150_lineage20.md |
 
 ## Known target identity
 
@@ -118,6 +119,23 @@ tree's 261. New deps surfaced: `device/qcom/sepolicy_vndr-legacy-um`,
 matched rank-2; Fraaxius lineage-21 is retained as a board-contract reference.
 The source-side matched set (device + common + kernel pointer) is internally
 coherent on lineage-20.
+
+## Update 2026-06-30 — lineage-20 kernel audited (matched set complete)
+
+The matched kernel was audited read-only
+(`reports/source_audit_kernel_motorola_sm6150_lineage20.md`):
+`sorenlyulf/android_kernel_motorola_sm6150 @ lineage-20` (HEAD `cded7d10`, a
+divergent author fork; Linux **4.14.326**, `CONFIG_ARCH_SM6150=y`). It carries a
+complete **def** DTS family (`sm6150-def-base.dts` + EVT1/PVT overlays, audio/
+charger/fps/touch/camera overlays, `defender-panel`), a def config fragment
+(`moto-sdmsteppe-def.config`, `CONFIG_DEF_DTB=y`), and a **separated-DTBO** build
+matching the common tree's board contract. Hardware coverage matches the device
+tree (ST NFC, fingerprint, camera/OIS, Moto DSI display, SAR). One caveat: the
+device tree's literal `vendor/def_defconfig` is **assembled** from the sdmsteppe
+base + the def fragment, not a standalone file (build-time resolution). Verdict:
+coherent matched kernel. With this, the **full source-side matched set (device +
+common + kernel) is coherent on lineage-20**; remaining gaps are artifact (vendor
+blobs, gated at Route C) and a future build verification.
 
 ## Current decision
 
