@@ -190,10 +190,74 @@ above), i.e. a distinct package from `-5`.
    checksums; whether `-5` blobs are compatible with a `-1-7-3` device; lolinet's
    exact `def` folder path and contents.
 
+## lolinet official-directory enumeration (2026-06-30, read-only)
+
+Goal: determine whether lolinet exposes an official `def` firmware path with
+`RPFS31.Q1-21-20` packages and checksums. Method: read-only HTTP probes of the
+`lenomola/<year>/<codename>/official/<CHANNEL>/` scheme. No downloads.
+
+Tooling limitation: lolinet directory pages are rendered by **h5ai via
+JavaScript**. A static read-only fetch sees only each folder's `README.html`, not
+the JS-populated entries. So a year bucket that *exists* returns a near-empty
+render, while a non-existent path returns a hard **HTTP 404**. The 404-vs-render
+distinction is therefore a reliable *existence* signal even though folder
+*contents* could not be enumerated.
+
+| Path probed | Result | Reading |
+|---|---|---|
+| `lenomola/` | renders | year buckets exist (2020–2026, `_obsoleted_`); contents JS-only |
+| `lenomola/def/` | **404** | no def folder at root |
+| `lenomola/def/official/` | **404** | — |
+| `lenomola/2021/` | renders | bucket exists; contents JS-only |
+| `lenomola/2021/def/` | **404** | no def under 2021 |
+| `lenomola/2021/def/official/` | **404** | — |
+| `lenomola/2021/def/official/RETUS/` | **404** | — |
+| `lenomola/2020/def/` | **404** | no def under 2020 |
+| `lenomola/2019/def/` | **404** | no def under 2019 |
+| `lenomola/_obsoleted_/def/` | **404** | not in the obsolete bucket |
+| `mirrors-obs-1 …/2021/def/official/` | connection closed | inconclusive (alt mirror) |
+
+Control: sibling codenames resolve under the same scheme (e.g. `denver` under
+2021, `tonga` under `2021/.../official/RETUS/`), confirming the path scheme is
+valid and that the `def` 404s reflect an absent codename folder, not a wrong
+scheme.
+
+### lolinet enumeration answers
+
+1. Real `def` path under `lenomola/2021/def/official/` or equivalent? **No** —
+   404 at every standard location probed.
+2. Channel folders (retus/RETUS/def_retail/retail/RETBR)? **None reachable** — no
+   def parent folder exists to contain them.
+3. `RPFS31.Q1-21-20-*` packages on lolinet? **None located.**
+4. Exact `RPFS31.Q1-21-20-1-7-3` on lolinet? **Not present** at standard paths.
+5. `RPFS31.Q1-21-20-5` on lolinet? **Not present** at standard paths.
+6. Checksums / XML / filenames / dates / sizes? **None accessible** — h5ai JS
+   rendering blocks static enumeration; no in-folder checksum files were
+   reachable.
+7. Anything distinguishing retus from RETBR / def_retail? **N/A** — no def path.
+8. Safest future blob baseline? **Unchanged** — lolinet added nothing; the only
+   provenance-backed option remains `-5` (1e3de) via Android Dumps
+   (`dumps.tadiphone.dev/dumps/motorola/def`), still **provisional** and not a
+   retus match. **Blocker remains open.**
+
+Caveat: because the year buckets could not be fully enumerated (JS rendering),
+"def is absent from lolinet" is **strongly indicated, not exhaustively proven**.
+A def folder under a non-standard path cannot be fully excluded by these probes.
+
+Posture: per instruction, with no usable official lolinet def path found, **do not
+pivot to mirror/Google-Drive downloads** (motostockrom, romstockbr, GDrive, etc.)
+**without separate approval**. This pass stays official-source, metadata-only.
+
 ## Current decision
 
 No stock firmware package is accepted. No package was downloaded, extracted, or
 committed. Safety posture unchanged.
+
+lolinet did not expose a checksummed official `def` retus package (or any
+`RPFS31.Q1-21-20` def package) at standard paths, so no new preferred baseline is
+set and the firmware master blocker stays open. The provenance-backed `-5`
+(1e3de) Android Dumps entry remains the only same-family metadata baseline, and
+it is provisional (not retus, not the phone's `-1-7-3`).
 
 State of the master blocker: the `RPFS31.Q1-21-20` family and the phone's exact
 `-1-7-3` build are **confirmed real**, and a reputable metadata dump exists for
@@ -203,13 +267,19 @@ retus flashable package**.
 
 Recommended next safe (still metadata-only) actions, in order:
 
-1. Direct, read-only browse of lolinet `lenomola/2021/def/official/` (and 2020)
-   to enumerate the real channel folders, exact `RPFS31.Q1-21-20` filenames, and
-   any in-folder checksums; record findings in
-   `reports/stock_firmware_candidate_inventory.md`.
-2. If a reputable retus package cannot be found, document `-5` (1e3de) via the
-   Android Dumps route as the provenance-backed A11 baseline, with the explicit
-   channel caveat.
-3. Only after a checksum-verified package is identified (downloaded **outside**
+1. ~~Direct read-only browse of lolinet~~ — **done 2026-06-30, null result** (see
+   the lolinet enumeration section: no `def` path at standard locations; no
+   `RPFS31.Q1-21-20` package; no checksums reachable).
+2. Pursue the **official Motorola route** for a checksum-bearing retus package:
+   Rescue and Smart Assistant (LMSA) / Motorola support firmware, which serves
+   device-matched packages on demand. Capture only the resulting metadata
+   (filename, build, channel, size, hash) into
+   `reports/stock_firmware_candidate_inventory.md`; do not download images.
+3. As the provenance-backed fallback, document `-5` (1e3de) via the Android Dumps
+   route (`dumps.tadiphone.dev/dumps/motorola/def`) as the A11 metadata baseline,
+   with the explicit retus-vs-RETBR channel caveat.
+4. Do **not** pivot to aggregator/Google-Drive mirror downloads without a separate
+   explicit approval.
+5. Only after a checksum-verified package is identified (downloaded **outside**
    the repo, under `C:\Projects\moto-one-hyper-local\firmware`) should extraction
    planning begin — still no phone action.
