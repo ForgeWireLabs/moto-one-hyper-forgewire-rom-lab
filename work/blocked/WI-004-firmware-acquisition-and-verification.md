@@ -86,3 +86,31 @@ Out of scope:
 ## Safety
 
 Blocked for physical device mutation. Research and verification only.
+
+## Route B line-coverage closeout update
+
+Route B RETBR line-coverage evidence has been closed as report-safe offline
+comparison evidence.
+
+Committed reports:
+
+- `reports/route_b_retbr_vendor_side_line_coverage_result.md`
+- `reports/route_b_retbr_non_vendor_line_coverage_result.md`
+- `reports/route_b_retbr_combined_line_coverage_closeout.md`
+
+Combined result:
+
+- active expected proprietary entries: 1,213
+- direct vendor matches: 956
+- direct non-vendor matches: 134
+- combined direct matches: 1,090
+- approximate direct observed coverage: 89.9%
+- remaining active unresolved entries: 123
+- disabled/optional entries: 32
+
+This strengthens Route B as offline comparison evidence only. It does not
+authorize RETBR as an exact retus substitute, blob import, generated vendor tree
+creation, Lineage build, adb/fastboot, LMSA/RSA rescue/repair, flashing, or any
+physical device action.
+
+WI-004 remains blocked.
