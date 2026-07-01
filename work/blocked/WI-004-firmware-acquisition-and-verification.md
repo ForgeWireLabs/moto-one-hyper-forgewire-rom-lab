@@ -69,6 +69,11 @@ Out of scope:
   defines what would have to be true before import, but does not authorize
   extraction, copying, blob import, build use, adb/fastboot, flashing, or
   live-device work.
+- Exact retus firmware reacquisition decision: opened as planning-only in
+  `reports/exact_retus_firmware_reacquisition_decision.md`. This keeps exact
+  retus `RPFS31.Q1-21-20-1-7-3 / 37074e` as the clean source target and does not
+  authorize public downloads, LMSA/RSA execution, phone connection, extraction,
+  blob import, build use, adb/fastboot, flashing, or live-device work.
 
 ## Acceptance
 
