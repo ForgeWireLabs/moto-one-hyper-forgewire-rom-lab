@@ -49,6 +49,13 @@ Out of scope:
 - verification checklist
 - blocked/unblocked decision note
 
+## Phase closeouts
+
+- Route B RETBR WSL filesystem evidence phase: closed by commit `58a4294`
+  (`reports/route_b_retbr_wsl_evidence_closeout.md`). This closes only the
+  local-only evidence phase and does not unblock exact retus acquisition, blob
+  import, build use, adb/fastboot, flashing, or live-device work.
+
 ## Acceptance
 
 - exact firmware candidate identified or clearly marked unavailable

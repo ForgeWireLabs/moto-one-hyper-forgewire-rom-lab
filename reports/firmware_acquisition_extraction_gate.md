@@ -1,6 +1,6 @@
 # Firmware Acquisition & Extraction Gate
 
-Status: Route B filesystem extraction blocked by missing local tools; use still blocked
+Status: Route B WSL evidence phase closed; downstream use still blocked
 
 Date: 2026-07-01
 
@@ -9,18 +9,16 @@ Date: 2026-07-01
 Make the current human decision explicit. The metadata-only firmware track was
 closed at commit `8d0f113` (`reports/stock_firmware_search_matrix.md`), Route B
 acquisition was opened and completed on 2026-06-30, Route B offline ZIP
-extraction-only was opened and completed on 2026-07-01, and Route B
-sparse/super filesystem extraction-only was opened on 2026-07-01 but blocked by
-missing local tooling, and extraction hold continued while a local offline
-toolchain gate and readiness inventory were documented. This document defines
-the routes, the local-only storage layout, the extraction rules, and the
-committed-report shape without authorizing blob use, build use, or any phone
-action.
+extraction-only was opened and completed on 2026-07-01, and the Route B WSL
+filesystem evidence phase was closed on 2026-07-01 at commit `58a4294`. This
+document defines the routes, the local-only storage layout, the extraction
+rules, and the committed-report shape without authorizing blob use, build use,
+or any phone action.
 
 This document is a gate, not a key. Nothing here is self-authorizing beyond the
 explicit Route B acquisition-only decision recorded on 2026-06-30, the offline
-ZIP extraction-only decision recorded on 2026-07-01, and the sparse/super
-filesystem extraction-only attempt recorded on 2026-07-01.
+ZIP extraction-only decision recorded on 2026-07-01, and the Route B WSL
+filesystem evidence phase closed on 2026-07-01.
 
 ## Safety boundary
 
@@ -66,12 +64,13 @@ Motorola One Hyper remains out of scope.
 - **Status:** acquisition-only opened 2026-06-30 and completed. Offline
   extraction-only opened 2026-07-01 and completed under local-only storage; see
   `reports/firmware_package_inventory_RPFS31_Q1_21_20_5_RETBR.md`.
-  Sparse/super filesystem extraction-only opened 2026-07-01 but is blocked by
-  missing local `simg2img`/`lpunpack` or equivalent tooling; see
-  `reports/firmware_filesystem_extraction_RPFS31_Q1_21_20_5_RETBR.md`. The
-  follow-up toolchain gate is
-  `reports/offline_extraction_toolchain_gate.md`; the current readiness pass is
-  `reports/offline_extraction_toolchain_readiness.md`.
+  The Route B WSL filesystem evidence phase later reconstructed `super`, carved
+  `system_a`, `system_b`, `vendor_a`, and `product_a`, inspected representative
+  `vendor_a` evidence, and was closed report-only; see
+  `reports/firmware_filesystem_extraction_RPFS31_Q1_21_20_5_RETBR.md` and
+  `reports/route_b_retbr_wsl_evidence_closeout.md`. The follow-up toolchain
+  gate is `reports/offline_extraction_toolchain_gate.md`; the pre-handoff
+  readiness pass is `reports/offline_extraction_toolchain_readiness.md`.
 - **Allowed under the 2026-06-30 approval:**
   - download one selected artifact from the least-bad source;
   - compute local hashes;
@@ -88,8 +87,8 @@ Motorola One Hyper remains out of scope.
   - inspect package structure, filenames, XML, payloads, sparse images,
     partition images, manifests, and accessible build props;
   - commit reports only.
-- **Allowed under the later 2026-07-01 sparse/super approval, but blocked by
-  missing local tools:**
+- **Allowed under the later 2026-07-01 sparse/super approval and now closed as
+  WSL evidence:**
   - convert sparse images offline if supported by existing local tools;
   - unpack super/dynamic partitions offline if supported by existing local
     tools;
@@ -102,6 +101,8 @@ Motorola One Hyper remains out of scope.
 - **Still not authorized:**
   - import blobs;
   - install or download random extraction tools;
+  - start full filesystem extraction beyond the report-safe WSL evidence phase;
+  - run a Lineage build;
   - flash or boot anything.
 - **Required caveats:** RETBR, not retus; blob compatibility with the phone's
   `-1-7-3` is unproven; no flashing path is implied or authorized.
@@ -143,8 +144,9 @@ as an offline local inspection step. It must obey:
 - Only reports, inventories, hashes, command logs, and conclusions may be
   committed.
 
-Sparse/super filesystem extraction remains blocked until a known safe local
-toolchain is approved or provided. Tool absence must be reported rather than
+The Route B WSL evidence phase is closed. Further extraction, full filesystem
+enumeration, path-level comparator work, blob import, build use, or phone action
+requires a separate explicit gate. Tool absence must be reported rather than
 worked around with unapproved downloads. Toolchain acquisition/installation is
 not approved by this document.
 
@@ -158,8 +160,8 @@ committed, named by build:
 - `reports/vendor_blob_expectation_gap_RPFS31_Q1_21_20_5_RETBR.md`
 - `reports/stock_boot_recovery_anchor_RPFS31_Q1_21_20_5_RETBR.md`
 
-After the later 2026-07-01 sparse/super filesystem extraction attempt, these
-metadata-only blocker reports are committed:
+After the later 2026-07-01 WSL filesystem evidence phase, these metadata-only
+reports are committed:
 
 - `reports/firmware_filesystem_extraction_RPFS31_Q1_21_20_5_RETBR.md`
 - `reports/vendor_blob_coverage_RPFS31_Q1_21_20_5_RETBR.md`
@@ -167,13 +169,15 @@ metadata-only blocker reports are committed:
 - `reports/offline_extraction_toolchain_gate.md`
 - `reports/offline_extraction_toolchain_readiness.md`
 - `reports/offline_extraction_toolchain_inventory.md`
+- `reports/route_b_retbr_wsl_evidence_closeout.md`
 
 The yardstick for `vendor_blob_expectation_gap_<build>.md` already exists:
 `reports/proprietary_files_expectation_map.md` (built 2026-06-30 from the matched
 lineage-20 manifests — ~261 def + ~984 common blob paths, def set anchored to
 `-5`, with modem/TEE/radio flagged as the channel-sensitive determinants). A
-future sparse/super filesystem extraction retry, if an approved local toolchain
-is provided, would be diffed against that map at path level.
+future vendor coverage delta planning gate, if approved, would compare
+report-safe evidence against that map without importing blobs, building, or
+touching a device.
 
 ## Not authorized by this document
 
@@ -189,7 +193,8 @@ This document does **not** authorize:
 - adb mutation
 - root attempts
 - proprietary blob import
-- sparse/super filesystem extraction without approved local tools
+- additional sparse/super filesystem extraction beyond the closed WSL evidence
+  phase
 - installing or downloading extraction tools without approval
 - build attempt
 
@@ -202,10 +207,9 @@ Current route state after 2026-07-01:
 - **A.** LMSA exact-retus gate: attempted safely; blocked by write-coupled
   Rescue flow.
 - **B.** provisional `-5` RETBR gate: acquisition-only opened and completed;
-  offline ZIP extraction-only opened and completed; sparse/super filesystem
-  extraction-only opened and blocked by missing local tools; extraction hold
-  continued while the offline toolchain gate and readiness inventory were
-  documented; blob use, build use, and all phone actions still blocked.
+  offline ZIP extraction-only opened and completed; WSL filesystem evidence
+  phase opened, summarized, and closed report-only; blob use, build use, full
+  extraction, and all phone actions still blocked.
 - **C.** hold route: no longer the current acquisition state, but remains the
   fallback posture for any unapproved next step.
 
