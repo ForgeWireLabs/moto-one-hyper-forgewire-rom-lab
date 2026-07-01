@@ -63,4 +63,5 @@ list and cannot compute coverage against the manifests.
 
 Blob coverage remains unresolved. The next safe step is continued hold until
 Jeremy approves a known local toolchain or provides approved tools for a
-no-import extraction script dry run. No blob import is authorized.
+no-import extraction script dry run. The toolchain approval criteria are defined
+in `reports/offline_extraction_toolchain_gate.md`. No blob import is authorized.

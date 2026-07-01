@@ -64,3 +64,7 @@ payload dumper, EROFS, or ext inspection tool.
 The approved sparse/super filesystem extraction slice is blocked by missing
 local tooling. Per the gate instruction, no random tools were installed or
 downloaded, and no unsafe workaround was attempted.
+
+Follow-up: extraction remains on hold until the local offline toolchain gate in
+`reports/offline_extraction_toolchain_gate.md` is satisfied by a separately
+approved toolchain source and integrity record.

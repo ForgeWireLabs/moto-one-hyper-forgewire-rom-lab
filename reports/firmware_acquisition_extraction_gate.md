@@ -11,9 +11,10 @@ closed at commit `8d0f113` (`reports/stock_firmware_search_matrix.md`), Route B
 acquisition was opened and completed on 2026-06-30, Route B offline ZIP
 extraction-only was opened and completed on 2026-07-01, and Route B
 sparse/super filesystem extraction-only was opened on 2026-07-01 but blocked by
-missing local tooling. This document defines the routes, the local-only storage
-layout, the extraction rules, and the committed-report shape without authorizing
-blob use, build use, or any phone action.
+missing local tooling, and extraction hold continued while a local offline
+toolchain gate was documented. This document defines the routes, the local-only
+storage layout, the extraction rules, and the committed-report shape without
+authorizing blob use, build use, or any phone action.
 
 This document is a gate, not a key. Nothing here is self-authorizing beyond the
 explicit Route B acquisition-only decision recorded on 2026-06-30, the offline
@@ -66,7 +67,9 @@ Motorola One Hyper remains out of scope.
   `reports/firmware_package_inventory_RPFS31_Q1_21_20_5_RETBR.md`.
   Sparse/super filesystem extraction-only opened 2026-07-01 but is blocked by
   missing local `simg2img`/`lpunpack` or equivalent tooling; see
-  `reports/firmware_filesystem_extraction_RPFS31_Q1_21_20_5_RETBR.md`.
+  `reports/firmware_filesystem_extraction_RPFS31_Q1_21_20_5_RETBR.md`. The
+  follow-up toolchain gate is
+  `reports/offline_extraction_toolchain_gate.md`.
 - **Allowed under the 2026-06-30 approval:**
   - download one selected artifact from the least-bad source;
   - compute local hashes;
@@ -140,7 +143,8 @@ as an offline local inspection step. It must obey:
 
 Sparse/super filesystem extraction remains blocked until a known safe local
 toolchain is approved or provided. Tool absence must be reported rather than
-worked around with unapproved downloads.
+worked around with unapproved downloads. Toolchain acquisition/installation is
+not approved by this document.
 
 ## Post-extraction committed reports
 
@@ -158,6 +162,7 @@ metadata-only blocker reports are committed:
 - `reports/firmware_filesystem_extraction_RPFS31_Q1_21_20_5_RETBR.md`
 - `reports/vendor_blob_coverage_RPFS31_Q1_21_20_5_RETBR.md`
 - `reports/channel_sensitive_blob_review_RPFS31_Q1_21_20_5_RETBR.md`
+- `reports/offline_extraction_toolchain_gate.md`
 
 The yardstick for `vendor_blob_expectation_gap_<build>.md` already exists:
 `reports/proprietary_files_expectation_map.md` (built 2026-06-30 from the matched
@@ -194,8 +199,9 @@ Current route state after 2026-07-01:
   Rescue flow.
 - **B.** provisional `-5` RETBR gate: acquisition-only opened and completed;
   offline ZIP extraction-only opened and completed; sparse/super filesystem
-  extraction-only opened and blocked by missing local tools; blob use, build
-  use, and all phone actions still blocked.
+  extraction-only opened and blocked by missing local tools; extraction hold
+  continued while the offline toolchain gate was documented; blob use, build use,
+  and all phone actions still blocked.
 - **C.** hold route: no longer the current acquisition state, but remains the
   fallback posture for any unapproved next step.
 

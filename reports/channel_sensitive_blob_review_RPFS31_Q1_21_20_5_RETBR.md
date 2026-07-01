@@ -78,4 +78,5 @@ The following remain unsafe and unauthorized:
 
 Channel-sensitive review remains metadata-only. The next step should be
 continued hold until a known safe local sparse/super extraction toolchain is
-approved or provided for a no-import extraction script dry run.
+approved or provided for a no-import extraction script dry run. The approval
+criteria are defined in `reports/offline_extraction_toolchain_gate.md`.
