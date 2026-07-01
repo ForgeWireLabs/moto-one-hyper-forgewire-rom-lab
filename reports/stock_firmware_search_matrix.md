@@ -19,6 +19,12 @@ extracted outside Git under
 `C:\Projects\moto-one-hyper-local\extracted\RPFS31.Q1-21-20-5_RETBR`. Use remains
 blocked: no blob import, no build, no phone action, no flashing.
 
+Update 2026-07-01 later: sparse/super filesystem extraction and blob coverage
+inspection were opened for the already extracted package, but stopped at tool
+discovery. No local `simg2img`, `lpunpack`, EROFS, or ext inspection toolchain
+was available, and WSL did not expose a runnable distro/tool surface. No logical
+partitions were unpacked.
+
 ## Safety boundary
 
 This report defines firmware search, metadata review, and the Route B
@@ -394,6 +400,12 @@ Committed follow-up reports:
 - `reports/vendor_blob_expectation_gap_RPFS31_Q1_21_20_5_RETBR.md`
 - `reports/stock_boot_recovery_anchor_RPFS31_Q1_21_20_5_RETBR.md`
 
+Later sparse/super filesystem extraction attempt reports:
+
+- `reports/firmware_filesystem_extraction_RPFS31_Q1_21_20_5_RETBR.md`
+- `reports/vendor_blob_coverage_RPFS31_Q1_21_20_5_RETBR.md`
+- `reports/channel_sensitive_blob_review_RPFS31_Q1_21_20_5_RETBR.md`
+
 lolinet did not expose a checksummed official `def` retus package (or any
 `RPFS31.Q1-21-20` def package) at standard paths; mirror triangulation found no
 retus `RPFS31.Q1-21-20` package and no checksums anywhere. No new preferred
@@ -436,7 +448,7 @@ Recommended next safe (still metadata-only) actions, in order:
    the explicit **RETBR** (Brazil) channel caveat — it is sorenlyulf's exact base.
 5. Do **not** pivot to aggregator/Google-Drive mirror downloads without a separate
    explicit approval.
-6. Any next artifact step after the completed Route B offline inventory requires
-   a separate gate. The obvious blocked next line would be sparse/super
-   filesystem extraction for path-level blob coverage, still outside Git and
-   still with no phone action.
+6. Sparse/super filesystem extraction for path-level blob coverage was approved
+   and attempted as a local-only tool discovery slice, but is blocked until a
+   known safe local toolchain is approved or provided. No phone action remains
+   authorized.

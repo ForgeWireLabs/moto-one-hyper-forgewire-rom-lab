@@ -15,6 +15,11 @@ extracted outside Git, and inventoried in reports only. This improves structural
 evidence for the provisional `-5` baseline, but it does not approve blob use,
 build use, or any physical-device action.
 
+Update 2026-07-01 later: offline sparse/super filesystem extraction and blob
+coverage inspection were approved as the next slice, but local tool discovery
+found no usable `simg2img`, `lpunpack`, EROFS, or ext inspection toolchain. The
+slice stopped with blocker reports; no logical partitions were unpacked.
+
 ## Purpose
 
 Roll the existing committed source audits and the cross-layer evidence matrix
@@ -179,8 +184,8 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
 4. **No approved vendor blob use.** Route B offline extraction now shows a full
    `-5` package with `super.img_sparsechunk.*`, `radio.img`, `boot.img`,
    `recovery.img`, `dtbo.img`, and `vbmeta.img`, but path-level vendor coverage
-   is still unverified until a separate sparse/super extraction gate exists.
-   Blob import and build use remain blocked.
+   is still unverified because sparse/super filesystem extraction is blocked by
+   missing local tools. Blob import and build use remain blocked.
 5. **No verified retus stock boot image / recovery anchor.** The RETBR `-5`
    package contains `boot.img` and standalone `recovery.img`, so it can serve as
    an offline reference anchor for that package only. It is not the phone's
@@ -210,8 +215,9 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
 - Do not select or build a kernel before firmware verification fixes the board
   assumptions it must satisfy.
 - Do not commit or import vendor blobs. Route B package extraction has occurred
-  only as an approved local offline inventory; sparse/super extraction, blob use,
-  and builds remain unapproved.
+  only as approved local offline inventory; sparse/super extraction was approved
+  for a tool-discovery/filesystem slice but is blocked by missing local tools.
+  Blob use and builds remain unapproved.
 - Do not consider any physical-device, fastboot, or flash action — out of scope
   until a written gate review and verified stock recovery path exist
   (`reports/rom_source_device_tree_roadmap.md`, step 5).
@@ -249,7 +255,12 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
    Reports now cover package inventory, partition layout, vendor expectation
    gap, and boot/recovery anchors. No blobs were imported; no sparse/super
    filesystem extraction, mount, build, or phone action occurred.
-7. Keep the emulator/control-plane lane green (it already is) as the safe
+7. **Blocked (2026-07-01): sparse/super filesystem extraction and blob coverage
+   inspection.** The slice was approved but stopped after tool discovery because
+   no local `simg2img`, `lpunpack`, EROFS, or ext inspection toolchain was
+   available, and WSL did not expose a runnable distro/tool surface. See
+   `reports/firmware_filesystem_extraction_RPFS31_Q1_21_20_5_RETBR.md`.
+8. Keep the emulator/control-plane lane green (it already is) as the safe
    substrate; only add a new read-only inspection mode if a specific blocker
    above demands evidence the current modes cannot provide.
 

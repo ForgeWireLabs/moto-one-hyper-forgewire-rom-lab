@@ -137,3 +137,18 @@ against the unavailable retus `-1-7-3` baseline.
 The package structure is consistent with the expectation map and likely contains
 the def and common blob families inside `super`, but path-level coverage is not
 verified. No blob-use approval exists.
+
+## Follow-up filesystem extraction attempt
+
+On 2026-07-01, the next approved slice opened offline sparse/super filesystem
+extraction and blob coverage inspection. Tool discovery found no usable local
+`simg2img`, `lpunpack`, EROFS, or ext filesystem inspection toolchain, and WSL
+did not expose a runnable installed distro/tool surface. The slice stopped
+without reconstructing `super.img`, unpacking logical partitions, or inspecting
+vendor/product/odm/system_ext paths.
+
+Follow-up reports:
+
+- `reports/firmware_filesystem_extraction_RPFS31_Q1_21_20_5_RETBR.md`
+- `reports/vendor_blob_coverage_RPFS31_Q1_21_20_5_RETBR.md`
+- `reports/channel_sensitive_blob_review_RPFS31_Q1_21_20_5_RETBR.md`
