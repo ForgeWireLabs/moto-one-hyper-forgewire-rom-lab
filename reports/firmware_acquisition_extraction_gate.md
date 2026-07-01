@@ -1,29 +1,30 @@
 # Firmware Acquisition & Extraction Gate
 
-Status: Route B acquisition-only opened; extraction/use still blocked
+Status: Route B offline extraction-only opened; use still blocked
 
-Date: 2026-06-30
+Date: 2026-07-01
 
 ## Purpose
 
-Make the next human decision explicit. The metadata-only firmware track is
-complete and closed at commit `8d0f113`
-(`reports/stock_firmware_search_matrix.md`). This document does not acquire,
-download, extract, or flash anything. It defines the routes, the local-only
-storage layout, the extraction rules, and the committed-report shape that a
-*future, separately approved* artifact step would follow — so Jeremy can choose a
-route with the constraints already written down.
+Make the current human decision explicit. The metadata-only firmware track was
+closed at commit `8d0f113` (`reports/stock_firmware_search_matrix.md`), Route B
+acquisition was opened and completed on 2026-06-30, and Route B offline
+extraction-only was opened and completed on 2026-07-01. This document defines
+the routes, the local-only storage layout, the extraction rules, and the
+committed-report shape without authorizing blob use, build use, or any phone
+action.
 
 This document is a gate, not a key. Nothing here is self-authorizing beyond the
-explicit Route B acquisition-only decision recorded on 2026-06-30.
+explicit Route B acquisition-only decision recorded on 2026-06-30 and the
+offline extraction-only decision recorded on 2026-07-01.
 
 ## Safety boundary
 
-Reports and the separately approved Route B acquisition-only download only. This
-document authorizes no extraction, no blob handling, no LMSA/RSA Rescue flow, no
-device connection, no phone action, no flashing, and no Route A/Route C side
-quest. No proprietary artifact is committed. The physical Motorola One Hyper
-remains out of scope.
+Reports and the separately approved Route B local-only package inventory and
+offline extraction only. This document authorizes no blob use, no blob import, no
+LMSA/RSA Rescue flow, no device connection, no phone action, no flashing, no
+build attempt, and no Route A/Route C side quest. No proprietary artifact is
+committed. The physical Motorola One Hyper remains out of scope.
 
 ## Current firmware state (input to the decision)
 
@@ -31,7 +32,7 @@ remains out of scope.
 |---|---|---|---|---|
 | **Exact retus (preferred)** | `RPFS31.Q1-21-20-1-7-3` / `37074e` | retus | UA-string attestation only; not in public/mirror metadata | Likely only obtainable via LMSA / official device-matched tooling; needs a physical-device / official-tooling gate |
 | Same-family retus fallback | — | retus | none found | Does not exist in surveyed metadata |
-| Provisional `-5` | `RPFS31.Q1-21-20-5` / `1e3de` | **RETBR** | best-corroborated (5-way); sorenlyulf's exact vendor base | Best non-retus fallback; wrong-channel caveat; needs artifact-acquisition approval |
+| Provisional `-5` | `RPFS31.Q1-21-20-5` / `1e3de` | **RETBR** | best-corroborated (5-way); sorenlyulf's exact vendor base; local artifact verified and inventoried offline | Best non-retus fallback; wrong-channel caveat; use still blocked |
 | Newer `-10` | `RPFS31.Q1-21-20-10` | generic `DEF_RETAIL` | aggregator-only, weaker | Not preferred unless evidence improves |
 | Checksums | — | — | none exposed pre-download | Hash verification only possible after a gated download |
 
@@ -57,16 +58,26 @@ remains out of scope.
 
 - **Purpose:** acquire `RPFS31.Q1-21-20-5` / `1e3de` because it matches
   sorenlyulf's exact vendor base.
-- **Status:** acquisition-only opened 2026-06-30. One selected artifact was
-  downloaded to local-only firmware storage and hashed; see
-  `reports/firmware_route_b_retbr_acquisition_report.md`.
-- **Allowed under this approval:**
+- **Status:** acquisition-only opened 2026-06-30 and completed. Offline
+  extraction-only opened 2026-07-01 and completed under local-only storage; see
+  `reports/firmware_package_inventory_RPFS31_Q1_21_20_5_RETBR.md`.
+- **Allowed under the 2026-06-30 approval:**
   - download one selected artifact from the least-bad source;
   - compute local hashes;
   - commit reports only.
+- **Allowed under the 2026-07-01 approval:**
+  - verify the acquired artifact still exists;
+  - recompute SHA256 and compare to the recorded value;
+  - extract offline only under
+    `C:\Projects\moto-one-hyper-local\extracted`;
+  - write local extraction logs under
+    `C:\Projects\moto-one-hyper-local\logs`;
+  - write local checksum files under
+    `C:\Projects\moto-one-hyper-local\checksums`;
+  - inspect package structure, filenames, XML, payloads, sparse images,
+    partition images, manifests, and accessible build props;
+  - commit reports only.
 - **Still not authorized:**
-  - inspect package structure;
-  - extract;
   - import blobs;
   - flash or boot anything.
 - **Required caveats:** RETBR, not retus; blob compatibility with the phone's
@@ -76,8 +87,8 @@ remains out of scope.
 
 - **Purpose:** continue the no-artifact posture until an exact retus package
   appears or Jeremy decides to open LMSA.
-- **Status:** safest from a device/integrity perspective. This is the current
-  default until a route is chosen.
+- **Status:** safest from a device/integrity perspective. This remains the
+  fallback posture for any unapproved next step.
 
 ## Local-only storage layout (outside the repository)
 
@@ -91,10 +102,10 @@ These paths are outside the repo and must never be committed:
 | Logs | `C:\Projects\moto-one-hyper-local\logs` |
 | Audits | `C:\Projects\moto-one-hyper-local\audits` |
 
-## Extraction rules (for a future approved artifact)
+## Extraction rules
 
-If — and only if — a route is approved and an artifact is acquired under that
-approval, extraction must obey:
+Extraction is now approved only for the single acquired Route B artifact and only
+as an offline local inspection step. It must obey:
 
 - Offline extraction only.
 - No phone extraction by default.
@@ -105,25 +116,26 @@ approval, extraction must obey:
 - No slot changes.
 - No boot/recovery modification.
 - No proprietary blob import into the repo.
-- No committed firmware / images / blobs.
+- No committed firmware / images / blobs / local checksum files.
 - Only reports, inventories, hashes, command logs, and conclusions may be
   committed.
 
-## Future post-extraction committed reports
+## Post-extraction committed reports
 
-After a future approved extraction, these report shapes (metadata only) would be
+After the 2026-07-01 approved offline extraction, these metadata-only reports are
 committed, named by build:
 
-- `reports/firmware_package_inventory_<build>.md`
-- `reports/firmware_partition_layout_<build>.md`
-- `reports/vendor_blob_expectation_gap_<build>.md`
-- `reports/stock_boot_recovery_anchor_<build>.md`
+- `reports/firmware_package_inventory_RPFS31_Q1_21_20_5_RETBR.md`
+- `reports/firmware_partition_layout_RPFS31_Q1_21_20_5_RETBR.md`
+- `reports/vendor_blob_expectation_gap_RPFS31_Q1_21_20_5_RETBR.md`
+- `reports/stock_boot_recovery_anchor_RPFS31_Q1_21_20_5_RETBR.md`
 
 The yardstick for `vendor_blob_expectation_gap_<build>.md` already exists:
 `reports/proprietary_files_expectation_map.md` (built 2026-06-30 from the matched
 lineage-20 manifests — ~261 def + ~984 common blob paths, def set anchored to
 `-5`, with modem/TEE/radio flagged as the channel-sensitive determinants). A
-future extraction is diffed against that map.
+future sparse/super filesystem extraction, if separately approved, would be
+diffed against that map at path level.
 
 ## Not authorized by this document
 
@@ -139,19 +151,20 @@ This document does **not** authorize:
 - adb mutation
 - root attempts
 - proprietary blob import
-- offline extraction
+- sparse/super filesystem extraction
 - build attempt
 
 Any of the above requires a separate, explicit, current-session gate from Jeremy.
 
 ## The decision
 
-Current route state after 2026-06-30:
+Current route state after 2026-07-01:
 
 - **A.** LMSA exact-retus gate: attempted safely; blocked by write-coupled
   Rescue flow.
-- **B.** provisional `-5` RETBR acquisition gate: acquisition-only opened and
-  completed; extraction/use still blocked.
+- **B.** provisional `-5` RETBR gate: acquisition-only opened and completed;
+  offline extraction-only opened and completed; blob use, build use, and all
+  phone actions still blocked.
 - **C.** hold route: no longer the current acquisition state, but remains the
   fallback posture for any unapproved next step.
 

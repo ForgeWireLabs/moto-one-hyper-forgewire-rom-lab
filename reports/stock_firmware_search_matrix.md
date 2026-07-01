@@ -1,6 +1,6 @@
 ﻿# Stock Firmware Search Matrix
 
-Status: Route B acquisition-only artifact captured; extraction/use still blocked
+Status: Route B artifact captured and inventoried offline; use still blocked
 
 Date: 2026-06-28 (framework); refreshed 2026-06-30 (discovery pass)
 
@@ -12,6 +12,13 @@ RETBR artifact was downloaded outside Git. See
 `reports/firmware_route_b_retbr_acquisition_report.md`. The search framework
 above the refresh is unchanged.
 
+Update 2026-07-01: Route B offline extraction-only was opened for the already
+acquired package. The artifact still exists, its SHA256 still matches
+`BD781F671497ED3E34A6EBD38D4C7C82FF1B27312FDCBE9878B962348566163D`, and it was
+extracted outside Git under
+`C:\Projects\moto-one-hyper-local\extracted\RPFS31.Q1-21-20-5_RETBR`. Use remains
+blocked: no blob import, no build, no phone action, no flashing.
+
 ## Safety boundary
 
 This report defines firmware search, metadata review, and the Route B
@@ -19,8 +26,9 @@ acquisition-only record.
 
 No physical phone action is authorized.
 
-No firmware package is accepted for flashing, extraction, blob import, or build
-use by this report.
+No firmware package is accepted for flashing, blob import, or build use by this
+report. The only extraction now recorded here is the separately approved Route B
+offline inventory of the already acquired package.
 
 No firmware package should be downloaded into the Git repository.
 
@@ -30,7 +38,7 @@ Firmware packages, if later downloaded, must stay outside the repo under:
 
     C:\Projects\moto-one-hyper-local\firmware
 
-Extracted firmware metadata, if later produced, must stay outside the repo under:
+Extracted firmware contents stay outside the repo under:
 
     C:\Projects\moto-one-hyper-local\extracted
 
@@ -347,13 +355,44 @@ RETBR package. One artifact was downloaded outside Git and hashed:
 
 This acquisition does not change the source-side coherence finding: `-5`
 (`1e3de`) remains a provisional RETBR baseline, not a retus match and not a
-flashing/blob-use approval. No extraction occurred.
+flashing/blob-use approval. The later 2026-07-01 extraction was offline,
+local-only inventory, not use approval.
 
 ## Current decision
 
 No stock firmware package is accepted for use. One Route B provisional RETBR
-artifact was downloaded outside Git and hashed. No package was extracted or
-committed. Safety posture remains extraction/use blocked.
+artifact was downloaded outside Git, hashed, verified again on 2026-07-01, and
+extracted outside Git for offline inventory only. No package, image, sparse
+chunk, blob, or checksum file is committed. Safety posture remains use blocked.
+
+## Route B offline inventory result (2026-07-01)
+
+The extracted package contains a Motorola XML-flash style layout:
+
+- `flashfile.xml` and `servicefile.xml`
+- `boot.img`
+- `recovery.img`
+- `dtbo.img`
+- `vbmeta.img`
+- `radio.img`
+- `BTFM.bin`
+- `dspso.bin`
+- `bootloader.img`
+- `gpt.bin`
+- `super.img_sparsechunk.0` through `super.img_sparsechunk.8`
+
+The package info text reports build fingerprint
+`motorola/def_retail/def:11/RPFS31.Q1-21-20-5/1e3de:user/release-keys`, modem
+version `M6150_09.297.01.61R`, and build date `Wed Jul 7 05:04:22 CDT 2021`.
+No `payload.bin`, `vendor_boot.img`, monolithic `super.img`, or `NON-HLOS.bin`
+is present. The radio family appears as `radio.img`.
+
+Committed follow-up reports:
+
+- `reports/firmware_package_inventory_RPFS31_Q1_21_20_5_RETBR.md`
+- `reports/firmware_partition_layout_RPFS31_Q1_21_20_5_RETBR.md`
+- `reports/vendor_blob_expectation_gap_RPFS31_Q1_21_20_5_RETBR.md`
+- `reports/stock_boot_recovery_anchor_RPFS31_Q1_21_20_5_RETBR.md`
 
 lolinet did not expose a checksummed official `def` retus package (or any
 `RPFS31.Q1-21-20` def package) at standard paths; mirror triangulation found no
@@ -367,8 +406,9 @@ The metadata-only track is complete and Route B acquisition-only has been
 captured. The next decision is captured in the gate document
 `reports/firmware_acquisition_extraction_gate.md`: Route A is blocked by the
 write-coupled Rescue flow, Route B acquisition-only is complete, and Route B
-extraction/use remains unauthorized. No further artifact action occurs until
-Jeremy/GPT opens a new gate.
+offline extraction-only is complete. Blob use, build use, sparse/super
+filesystem extraction, and all phone actions remain unauthorized. No further
+artifact action occurs until Jeremy/GPT opens a new gate.
 
 State of the master blocker: the `RPFS31.Q1-21-20` family and the phone's exact
 `-1-7-3` build are **confirmed real**, and a reputable metadata dump exists for
@@ -396,6 +436,7 @@ Recommended next safe (still metadata-only) actions, in order:
    the explicit **RETBR** (Brazil) channel caveat — it is sorenlyulf's exact base.
 5. Do **not** pivot to aggregator/Google-Drive mirror downloads without a separate
    explicit approval.
-6. Only after a checksum-verified package is identified (downloaded **outside**
-   the repo, under `C:\Projects\moto-one-hyper-local\firmware`) should extraction
-   planning begin — still no phone action.
+6. Any next artifact step after the completed Route B offline inventory requires
+   a separate gate. The obvious blocked next line would be sparse/super
+   filesystem extraction for path-level blob coverage, still outside Git and
+   still with no phone action.

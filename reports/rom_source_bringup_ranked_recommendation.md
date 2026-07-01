@@ -1,6 +1,6 @@
 # def / XT2027-1 ROM Bring-Up — Ranked Source Recommendation
 
-Status: synthesis (reference-only)
+Status: synthesis (reference-only; Route B offline inventory added)
 
 Date: 2026-06-30
 
@@ -8,6 +8,12 @@ Update 2026-06-30: revised after the read-only audit of
 `sorenlyulf/android_device_motorola_def`
 (`reports/source_audit_sorenlyulf_def.md`). sorenlyulf replaces ludevjhon as the
 rank-1 device tree; the common tree is re-pointed to the lineage-20 branch.
+
+Update 2026-07-01: Route B offline extraction-only was opened for the already
+acquired RETBR `RPFS31.Q1-21-20-5` package. The package was verified by SHA256,
+extracted outside Git, and inventoried in reports only. This improves structural
+evidence for the provisional `-5` baseline, but it does not approve blob use,
+build use, or any physical-device action.
 
 ## Purpose
 
@@ -170,9 +176,16 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
    strategy — but it has not been built or booted, and the `vendor/def_defconfig`
    assembly is unverified at build time. No longer just a pointer; still not a
    proven bootable kernel.
-4. **No vendor blobs and no approved extraction path** (root unavailable).
-5. **No verified stock boot image / recovery anchor** → `stock_boot_verified`
-   stays `false`; no rollback safety, so no physical path is eligible regardless.
+4. **No approved vendor blob use.** Route B offline extraction now shows a full
+   `-5` package with `super.img_sparsechunk.*`, `radio.img`, `boot.img`,
+   `recovery.img`, `dtbo.img`, and `vbmeta.img`, but path-level vendor coverage
+   is still unverified until a separate sparse/super extraction gate exists.
+   Blob import and build use remain blocked.
+5. **No verified retus stock boot image / recovery anchor.** The RETBR `-5`
+   package contains `boot.img` and standalone `recovery.img`, so it can serve as
+   an offline reference anchor for that package only. It is not the phone's
+   exact retus `-1-7-3` build and does not make any physical path eligible.
+   `stock_boot_verified` stays `false`.
 
 ## Evidence supporting the ranking
 
@@ -196,8 +209,9 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
   were independent — they corroborate, they do not add coverage.
 - Do not select or build a kernel before firmware verification fixes the board
   assumptions it must satisfy.
-- Do not acquire, extract, or commit vendor blobs; no firmware baseline, no root,
-  no approval.
+- Do not commit or import vendor blobs. Route B package extraction has occurred
+  only as an approved local offline inventory; sparse/super extraction, blob use,
+  and builds remain unapproved.
 - Do not consider any physical-device, fastboot, or flash action — out of scope
   until a written gate review and verified stock recovery path exist
   (`reports/rom_source_device_tree_roadmap.md`, step 5).
@@ -229,7 +243,13 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
    (~261 def + ~984 common paths, 6 trivial overlaps, def set anchored to `-5`,
    modem/TEE/radio as the channel-sensitive determinants) — the yardstick a future
    extraction is judged against. Manifest-only; no blobs.
-6. Keep the emulator/control-plane lane green (it already is) as the safe
+6. **Done (2026-07-01): Route B package inventory and offline extraction-only
+   reports.** The acquired RETBR package was verified and extracted under
+   `C:\Projects\moto-one-hyper-local\extracted\RPFS31.Q1-21-20-5_RETBR`.
+   Reports now cover package inventory, partition layout, vendor expectation
+   gap, and boot/recovery anchors. No blobs were imported; no sparse/super
+   filesystem extraction, mount, build, or phone action occurred.
+7. Keep the emulator/control-plane lane green (it already is) as the safe
    substrate; only add a new read-only inspection mode if a specific blocker
    above demands evidence the current modes cannot provide.
 
