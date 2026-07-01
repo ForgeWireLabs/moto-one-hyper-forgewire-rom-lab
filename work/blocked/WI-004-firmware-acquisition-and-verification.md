@@ -59,6 +59,11 @@ Out of scope:
   `reports/route_b_retbr_vendor_coverage_delta_plan.md`. This does not unblock
   exact retus acquisition, RETBR substitution, blob import, build use,
   adb/fastboot, flashing, or live-device work.
+- Route B proprietary-files line coverage review: opened as report-only
+  governance in
+  `reports/route_b_retbr_proprietary_files_line_coverage_review.md`. This turns
+  the broad delta plan into an import-gate checklist, but does not authorize
+  blob import, build use, adb/fastboot, flashing, or live-device work.
 
 ## Acceptance
 
