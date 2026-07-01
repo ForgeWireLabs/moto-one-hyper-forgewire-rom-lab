@@ -65,3 +65,7 @@ Blob coverage remains unresolved. The next safe step is continued hold until
 Jeremy approves a known local toolchain or provides approved tools for a
 no-import extraction script dry run. The toolchain approval criteria are defined
 in `reports/offline_extraction_toolchain_gate.md`. No blob import is authorized.
+
+The Phase 2 readiness pass in
+`reports/offline_extraction_toolchain_readiness.md` confirmed this remains
+blocked before path-level comparison can run.

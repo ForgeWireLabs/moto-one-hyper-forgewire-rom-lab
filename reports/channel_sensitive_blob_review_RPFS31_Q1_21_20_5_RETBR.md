@@ -80,3 +80,8 @@ Channel-sensitive review remains metadata-only. The next step should be
 continued hold until a known safe local sparse/super extraction toolchain is
 approved or provided for a no-import extraction script dry run. The approval
 criteria are defined in `reports/offline_extraction_toolchain_gate.md`.
+
+The Phase 2 readiness pass in
+`reports/offline_extraction_toolchain_readiness.md` confirmed the missing
+toolchain, so qcril, IMS, TEE, keymaster, gatekeeper, fingerprint trustlets, DSP
+filesystem payloads, and camera signed firmware remain uninspected.

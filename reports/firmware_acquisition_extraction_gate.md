@@ -12,9 +12,10 @@ acquisition was opened and completed on 2026-06-30, Route B offline ZIP
 extraction-only was opened and completed on 2026-07-01, and Route B
 sparse/super filesystem extraction-only was opened on 2026-07-01 but blocked by
 missing local tooling, and extraction hold continued while a local offline
-toolchain gate was documented. This document defines the routes, the local-only
-storage layout, the extraction rules, and the committed-report shape without
-authorizing blob use, build use, or any phone action.
+toolchain gate and readiness inventory were documented. This document defines
+the routes, the local-only storage layout, the extraction rules, and the
+committed-report shape without authorizing blob use, build use, or any phone
+action.
 
 This document is a gate, not a key. Nothing here is self-authorizing beyond the
 explicit Route B acquisition-only decision recorded on 2026-06-30, the offline
@@ -69,7 +70,8 @@ Motorola One Hyper remains out of scope.
   missing local `simg2img`/`lpunpack` or equivalent tooling; see
   `reports/firmware_filesystem_extraction_RPFS31_Q1_21_20_5_RETBR.md`. The
   follow-up toolchain gate is
-  `reports/offline_extraction_toolchain_gate.md`.
+  `reports/offline_extraction_toolchain_gate.md`; the current readiness pass is
+  `reports/offline_extraction_toolchain_readiness.md`.
 - **Allowed under the 2026-06-30 approval:**
   - download one selected artifact from the least-bad source;
   - compute local hashes;
@@ -163,6 +165,8 @@ metadata-only blocker reports are committed:
 - `reports/vendor_blob_coverage_RPFS31_Q1_21_20_5_RETBR.md`
 - `reports/channel_sensitive_blob_review_RPFS31_Q1_21_20_5_RETBR.md`
 - `reports/offline_extraction_toolchain_gate.md`
+- `reports/offline_extraction_toolchain_readiness.md`
+- `reports/offline_extraction_toolchain_inventory.md`
 
 The yardstick for `vendor_blob_expectation_gap_<build>.md` already exists:
 `reports/proprietary_files_expectation_map.md` (built 2026-06-30 from the matched
@@ -200,8 +204,8 @@ Current route state after 2026-07-01:
 - **B.** provisional `-5` RETBR gate: acquisition-only opened and completed;
   offline ZIP extraction-only opened and completed; sparse/super filesystem
   extraction-only opened and blocked by missing local tools; extraction hold
-  continued while the offline toolchain gate was documented; blob use, build use,
-  and all phone actions still blocked.
+  continued while the offline toolchain gate and readiness inventory were
+  documented; blob use, build use, and all phone actions still blocked.
 - **C.** hold route: no longer the current acquisition state, but remains the
   fallback posture for any unapproved next step.
 

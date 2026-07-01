@@ -240,3 +240,14 @@ Continue hold on extraction. The next extraction attempt can proceed only after
 Jeremy approves or provides a known safe local toolchain and its integrity
 record. This document supports future planning; it is not tool acquisition,
 installation, extraction, blob import, build, or flashing approval.
+
+## Readiness follow-up
+
+The 2026-07-01 readiness pass is recorded in:
+
+- `reports/offline_extraction_toolchain_readiness.md`
+- `reports/offline_extraction_toolchain_inventory.md`
+
+That pass confirmed the hold state: 7-Zip, Python, tar, and hashing are
+available, but `simg2img`, `lpunpack`, EROFS tooling, and a complete read-only
+filesystem extraction path are still missing.

@@ -68,3 +68,8 @@ downloaded, and no unsafe workaround was attempted.
 Follow-up: extraction remains on hold until the local offline toolchain gate in
 `reports/offline_extraction_toolchain_gate.md` is satisfied by a separately
 approved toolchain source and integrity record.
+
+The Phase 2 readiness pass is recorded in
+`reports/offline_extraction_toolchain_readiness.md`; it confirmed the required
+toolchain is still incomplete, so no repo-local helper scripts or extraction
+retry were started.
