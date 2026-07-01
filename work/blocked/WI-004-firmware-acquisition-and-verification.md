@@ -64,6 +64,11 @@ Out of scope:
   `reports/route_b_retbr_proprietary_files_line_coverage_review.md`. This turns
   the broad delta plan into an import-gate checklist, but does not authorize
   blob import, build use, adb/fastboot, flashing, or live-device work.
+- Route B blob import authorization gate: opened as blocked authorization
+  criteria in `reports/route_b_retbr_blob_import_authorization_gate.md`. This
+  defines what would have to be true before import, but does not authorize
+  extraction, copying, blob import, build use, adb/fastboot, flashing, or
+  live-device work.
 
 ## Acceptance
 
