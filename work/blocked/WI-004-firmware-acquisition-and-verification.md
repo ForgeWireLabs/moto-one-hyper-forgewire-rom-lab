@@ -55,6 +55,10 @@ Out of scope:
   (`reports/route_b_retbr_wsl_evidence_closeout.md`). This closes only the
   local-only evidence phase and does not unblock exact retus acquisition, blob
   import, build use, adb/fastboot, flashing, or live-device work.
+- Route B vendor coverage delta planning: opened as report-only planning in
+  `reports/route_b_retbr_vendor_coverage_delta_plan.md`. This does not unblock
+  exact retus acquisition, RETBR substitution, blob import, build use,
+  adb/fastboot, flashing, or live-device work.
 
 ## Acceptance
 
