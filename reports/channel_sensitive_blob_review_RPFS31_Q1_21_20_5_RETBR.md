@@ -1,13 +1,13 @@
 # Channel-Sensitive Blob Review - RPFS31.Q1-21-20-5 RETBR
 
-Status: top-level channel-sensitive evidence only; filesystem coverage blocked
+Status: channel-sensitive vendor evidence found; live use still blocked
 
 Date: 2026-07-01
 
 ## Safety boundary
 
-This report reviews channel-sensitive evidence from already extracted local
-Route B package metadata only. It does not approve blob use, flashing, build
+This report reviews channel-sensitive evidence from the local-only Route B
+package and `vendor_a` inspection. It does not approve blob use, flashing, build
 use, or live-device use. No phone, adb, fastboot, LMSA/RSA, rescue, repair,
 root, new firmware download, blob import, or build action was performed.
 
@@ -30,15 +30,15 @@ The embedded package metadata says `def_retail` and
 
 | Family | Present? | Evidence | Review state |
 |---|---|---|---|
-| modem / NON-HLOS / radio | partial | `radio.img`; modem and FSG versions in info text | present as radio package image; no `NON-HLOS.bin` by that name |
-| qcril | unknown | expected inside logical partitions | blocked by missing super/filesystem extraction tools |
-| IMS | unknown | expected inside logical partitions | blocked by missing super/filesystem extraction tools |
-| TEE | unknown | expected inside logical partitions or firmware paths | blocked by missing super/filesystem extraction tools |
-| keymaster | unknown | expected inside logical partitions | blocked by missing super/filesystem extraction tools |
-| gatekeeper | unknown | expected inside logical partitions | blocked by missing super/filesystem extraction tools |
-| fingerprint trustlets | unknown | expected inside logical partitions or firmware paths | blocked by missing super/filesystem extraction tools |
-| DSP firmware | partial | `dspso.bin`; expected additional files inside logical partitions | top-level DSP image present; path-level coverage blocked |
-| camera signed firmware | unknown | expected inside logical partitions | blocked by missing super/filesystem extraction tools |
+| modem / NON-HLOS / radio | present | `radio.img`; modem/FSG versions; `vendor_a` radio directory and radio HAL libraries | channel-sensitive, RETBR not retus |
+| qcril | present | `qcrild`, `qcrild.rc`, `libqcrilFramework.so`, `qcrild_librilutils.so`, RIL/QTI radio libraries | channel-sensitive, not compared to retus |
+| IMS | present | IMS rc files; `lib-imscmservice.so`, `lib-ims*` libraries; `vendor.qti.hardware.radio.ims@*`; `vendor.qti.ims*` libraries | channel-sensitive, not compared to retus |
+| TEE | present | `vendor.qti.hardware.qseecom@1.0-service`, `vendor.qti.hardware.qteeconnector@1.0-service`, `libQSEEComAPI.so` | security-coupled, not compared to retus |
+| keymaster | present | keymaster service rc/binaries and `libkeymaster*`, `libqtikeymaster4.so` | security-coupled, not compared to retus |
+| gatekeeper | present | `android.hardware.gatekeeper@1.0-service-qti`, rc, and impl library | security-coupled, not compared to retus |
+| fingerprint trustlets | present at HAL/library level | Egistec fingerprint service and libraries; QTI fingerprint library | trustlet/version details still need deeper review |
+| DSP firmware | present | top-level `dspso.bin`; vendor `dsp`/`firmware` directories; QTI DSP services | signed firmware risk remains |
+| camera signed firmware | present at config/library/firmware level | `CAMERA_ICP.elf`, camera provider, QTI CHI libraries, camera/media config | signed firmware risk remains |
 
 ## RETBR-vs-retus comparison limit
 
@@ -76,12 +76,7 @@ The following remain unsafe and unauthorized:
 
 ## Current decision
 
-Channel-sensitive review remains metadata-only. The next step should be
-continued hold until a known safe local sparse/super extraction toolchain is
-approved or provided for a no-import extraction script dry run. The approval
-criteria are defined in `reports/offline_extraction_toolchain_gate.md`.
-
-The Phase 2 readiness pass in
-`reports/offline_extraction_toolchain_readiness.md` confirmed the missing
-toolchain, so qcril, IMS, TEE, keymaster, gatekeeper, fingerprint trustlets, DSP
-filesystem payloads, and camera signed firmware remain uninspected.
+Channel-sensitive artifacts are present in the RETBR `-5` vendor evidence, but
+none have been compared to exact retus `RPFS31.Q1-21-20-1-7-3` firmware. This
+does not disqualify `-5` as an offline evidence baseline, but it keeps flashing,
+blob import, build use, and live-device use blocked.

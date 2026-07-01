@@ -140,15 +140,18 @@ verified. No blob-use approval exists.
 
 ## Follow-up filesystem extraction attempt
 
-On 2026-07-01, the next approved slice opened offline sparse/super filesystem
-extraction and blob coverage inspection. Tool discovery found no usable local
-`simg2img`, `lpunpack`, EROFS, or ext filesystem inspection toolchain, and WSL
-did not expose a runnable installed distro/tool surface. The slice stopped
-without reconstructing `super.img`, unpacking logical partitions, or inspecting
-vendor/product/odm/system_ext paths.
+On 2026-07-01, a later local-only WSL handoff provided report-safe extraction
+evidence. `super.img_sparsechunk.0` through `.8` were reconstructed into a
+local-only raw super image, dynamic partition metadata was parsed, `system_a`,
+`system_b`, `vendor_a`, and `product_a` were carved, and `vendor_a` was inspected
+read-only through report-safe summaries.
 
 Follow-up reports:
 
 - `reports/firmware_filesystem_extraction_RPFS31_Q1_21_20_5_RETBR.md`
 - `reports/vendor_blob_coverage_RPFS31_Q1_21_20_5_RETBR.md`
 - `reports/channel_sensitive_blob_review_RPFS31_Q1_21_20_5_RETBR.md`
+
+Current reading: the package is now proven as a useful offline evidence source
+for `def` / `sm6150` vendor analysis, but full manifest path counts, blob import,
+build use, flashing, and live-device use remain blocked.

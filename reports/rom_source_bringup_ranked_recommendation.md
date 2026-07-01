@@ -20,6 +20,12 @@ coverage inspection were approved as the next slice, but local tool discovery
 found no usable `simg2img`, `lpunpack`, EROFS, or ext inspection toolchain. The
 slice stopped with blocker reports; no logical partitions were unpacked.
 
+Update 2026-07-01 WSL handoff: local-only WSL evidence later reconstructed
+`super`, carved `system_a`, `system_b`, `vendor_a`, and `product_a`, and
+confirmed report-safe `vendor_a` evidence for def/sm6150 vendor analysis. This
+improves the offline evidence baseline, but does not approve blob import, build
+use, flashing, or any phone action.
+
 ## Purpose
 
 Roll the existing committed source audits and the cross-layer evidence matrix
@@ -184,8 +190,9 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
 4. **No approved vendor blob use.** Route B offline extraction now shows a full
    `-5` package with `super.img_sparsechunk.*`, `radio.img`, `boot.img`,
    `recovery.img`, `dtbo.img`, and `vbmeta.img`, but path-level vendor coverage
-   is still unverified because sparse/super filesystem extraction is blocked by
-   missing local tools. Blob import and build use remain blocked.
+   is only partially summarized from local-only `vendor_a` evidence. Full
+   manifest path counts and import planning remain blocked. Blob import and
+   build use remain blocked.
 5. **No verified retus stock boot image / recovery anchor.** The RETBR `-5`
    package contains `boot.img` and standalone `recovery.img`, so it can serve as
    an offline reference anchor for that package only. It is not the phone's
@@ -260,7 +267,12 @@ supply. Use these to draft `proprietary-files` expectations; do not commit blobs
    no local `simg2img`, `lpunpack`, EROFS, or ext inspection toolchain was
    available, and WSL did not expose a runnable distro/tool surface. See
    `reports/firmware_filesystem_extraction_RPFS31_Q1_21_20_5_RETBR.md`.
-8. Keep the emulator/control-plane lane green (it already is) as the safe
+8. **Done locally, report-safe only (2026-07-01): WSL extraction handoff.**
+   `super` was reconstructed and `vendor_a` was inspected read-only outside Git.
+   Reports now summarize the evidence without committing logs, inventories,
+   images, filesystem trees, checksums, blobs, or helper scripts. Blob import,
+   build, flashing, and phone actions remain blocked.
+9. Keep the emulator/control-plane lane green (it already is) as the safe
    substrate; only add a new read-only inspection mode if a specific blocker
    above demands evidence the current modes cannot provide.
 

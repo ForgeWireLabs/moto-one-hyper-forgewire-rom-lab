@@ -25,6 +25,13 @@ discovery. No local `simg2img`, `lpunpack`, EROFS, or ext inspection toolchain
 was available, and WSL did not expose a runnable distro/tool surface. No logical
 partitions were unpacked.
 
+Update 2026-07-01 WSL handoff: later local-only WSL evidence reconstructed
+`super.raw.img`, carved `system_a`, `system_b`, `vendor_a`, and `product_a`, and
+produced a report-safe `vendor_a` inventory. The package is now proven as a
+useful offline evidence source for `def` / `sm6150` vendor analysis. It remains
+RETBR, not retus, and no blob import, build, flashing, or phone action is
+approved.
+
 ## Safety boundary
 
 This report defines firmware search, metadata review, and the Route B
@@ -448,7 +455,7 @@ Recommended next safe (still metadata-only) actions, in order:
    the explicit **RETBR** (Brazil) channel caveat — it is sorenlyulf's exact base.
 5. Do **not** pivot to aggregator/Google-Drive mirror downloads without a separate
    explicit approval.
-6. Sparse/super filesystem extraction for path-level blob coverage was approved
-   and attempted as a local-only tool discovery slice, but is blocked until a
-   known safe local toolchain is approved or provided. No phone action remains
-   authorized.
+6. Sparse/super filesystem extraction later succeeded locally via a WSL handoff,
+   producing report-safe evidence only. The next no-phone step is a concise
+   manifest/path coverage comparator or import-planning gate. No phone action,
+   blob import, build, or flashing remains authorized.

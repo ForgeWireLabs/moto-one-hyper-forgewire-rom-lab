@@ -1,14 +1,14 @@
 # Offline Extraction Toolchain Inventory
 
-Status: partial local inventory; required extraction tools missing
+Status: partial inventory plus local WSL handoff summary
 
 Date: 2026-07-01
 
 ## Safety boundary
 
-Inventory only. No tool installation, download, firmware extraction, sparse
-conversion, super unpacking, filesystem mounting, phone action, adb, fastboot,
-LMSA/RSA, flashing, blob import, or build attempt occurred.
+Inventory only for the Codex pre-handoff pass, plus summary of the later
+local-only WSL handoff. No phone action, adb, fastboot, LMSA/RSA, flashing, blob
+import, or build attempt occurred.
 
 Tool checksum records were written only under:
 
@@ -45,5 +45,8 @@ No local checksum file is committed to Git.
 
 ## Current decision
 
-The inventory is insufficient for filesystem extraction. `simg2img`, `lpunpack`,
-and filesystem extraction/listing support remain the blocking items.
+The original Windows-side inventory was insufficient for filesystem extraction.
+The later WSL handoff reports `simg2img` / `img2simg`, `file`,
+`debugfs` / `fsck.ext4`, `erofs-utils`, and `7zip` were available; `adb`,
+`fastboot`, `lpunpack`, `lpdump`, and `lpmake` were absent. The successful local
+pass used `simg2img` plus a local stdlib Python liblp helper, not `lpunpack`.

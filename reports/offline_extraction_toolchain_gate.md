@@ -1,6 +1,6 @@
 # Offline Extraction Toolchain Gate
 
-Status: hold; toolchain approval required before retry
+Status: local WSL extraction evidence received; future use still gated
 
 Date: 2026-07-01
 
@@ -10,9 +10,10 @@ Define the local offline toolchain required before retrying Route B RETBR
 `RPFS31.Q1-21-20-5` sparse/super filesystem extraction and blob coverage
 inspection.
 
-This is a gate document only. It does not install tools, download tools,
-extract firmware, convert sparse chunks, unpack `super`, mount filesystems,
-touch a phone, import blobs, or start a build.
+This is a gate document. The later local-only WSL handoff shows an approved
+offline extraction path was used outside Git, but this document still does not
+approve tool installation, downloads, phone action, blob import, flashing, or
+build work.
 
 ## Safety boundary
 
@@ -20,8 +21,8 @@ Reports only. No phone, adb, fastboot, LMSA/RSA, Rescue/Repair, flashing, root,
 new firmware download, firmware extraction, sparse conversion, super unpacking,
 mounting, blob import, or build attempt is authorized by this document.
 
-The next extraction attempt remains on hold until Jeremy approves a specific
-toolchain source and acquisition/install plan.
+Any next extraction attempt remains gated to local-only evidence work and must
+use the already documented safety constraints.
 
 ## Scope of any future tool-assisted retry
 
@@ -55,10 +56,10 @@ and proprietary payloads must stay outside Git.
 | Category | Required tool | Purpose | Current state |
 |---|---|---|---|
 | ZIP/archive | 7-Zip or PowerShell `Expand-Archive` | list or extract package archives | 7-Zip is already available; no new action needed if unchanged |
-| Android sparse conversion | `simg2img` or trusted equivalent | convert `super.img_sparsechunk.*` to a raw `super.img` | missing |
-| Dynamic partition unpacking | `lpunpack` or trusted equivalent | unpack logical partitions from raw `super.img` | missing |
-| Filesystem inspection | ext4 read-only inspection/extraction support | list/extract ext-family logical partitions without mutation | missing |
-| Filesystem inspection | EROFS read-only inspection/extraction support | list/extract EROFS logical partitions if encountered | missing |
+| Android sparse conversion | `simg2img` or trusted equivalent | convert `super.img_sparsechunk.*` to a raw `super.img` | satisfied in local WSL handoff via `android-sdk-libsparse-utils` |
+| Dynamic partition unpacking | `lpunpack` or trusted equivalent | unpack logical partitions from raw `super.img` | `lpunpack` absent; local stdlib Python helper parsed/carved liblp metadata |
+| Filesystem inspection | ext4 read-only inspection/extraction support | list/extract ext-family logical partitions without mutation | satisfied for report-safe `vendor_a` inspection via WSL `debugfs`/`fsck.ext4` |
+| Filesystem inspection | EROFS read-only inspection/extraction support | list/extract EROFS logical partitions if encountered | WSL `erofs-utils` installed; carved images identified as ext-family |
 | Checksum/logging | `Get-FileHash` | hash tools, inputs, generated local artifacts | available |
 | Checksum/logging | Python hashing/listing helpers | deterministic summaries when shell tooling is awkward | Python available |
 
@@ -236,10 +237,10 @@ git status --short
 
 ## Current decision
 
-Continue hold on extraction. The next extraction attempt can proceed only after
-Jeremy approves or provides a known safe local toolchain and its integrity
-record. This document supports future planning; it is not tool acquisition,
-installation, extraction, blob import, build, or flashing approval.
+Local-only filesystem inspection has produced report-safe evidence for the RETBR
+`-5` package. Any further extraction, full coverage comparison, blob import,
+build, or live-device step remains gated. This document is not blob import,
+build, or flashing approval.
 
 ## Readiness follow-up
 
@@ -248,6 +249,8 @@ The 2026-07-01 readiness pass is recorded in:
 - `reports/offline_extraction_toolchain_readiness.md`
 - `reports/offline_extraction_toolchain_inventory.md`
 
-That pass confirmed the hold state: 7-Zip, Python, tar, and hashing are
-available, but `simg2img`, `lpunpack`, EROFS tooling, and a complete read-only
-filesystem extraction path are still missing.
+That pass captured the pre-handoff hold state. A subsequent local-only WSL
+handoff provided report-safe extraction evidence summarized in
+`reports/firmware_filesystem_extraction_RPFS31_Q1_21_20_5_RETBR.md`. `lpunpack`
+remained absent during that WSL run; liblp metadata was parsed/carved by a local
+stdlib Python helper.

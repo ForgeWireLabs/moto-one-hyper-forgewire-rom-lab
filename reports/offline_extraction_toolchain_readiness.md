@@ -1,15 +1,15 @@
 # Offline Extraction Toolchain Readiness
 
-Status: incomplete; extraction remains blocked
+Status: superseded by local WSL handoff; see extraction report
 
 Date: 2026-07-01
 
 ## Safety boundary
 
-This is a read-only repository/environment re-anchor and toolchain discovery
-report. No tool was installed or downloaded. No firmware extraction, sparse
-conversion, super unpacking, filesystem mounting, phone action, adb, fastboot,
-LMSA/RSA, flashing, root, blob import, or build attempt occurred.
+This is the pre-handoff repository/environment re-anchor and toolchain discovery
+report. No tool was installed or downloaded by Codex in this pass. A later
+local-only WSL handoff produced extraction evidence summarized in
+`reports/firmware_filesystem_extraction_RPFS31_Q1_21_20_5_RETBR.md`.
 
 ## Phase 1 re-anchor
 
@@ -153,5 +153,7 @@ Stop conditions that remain active:
 
 ## Current decision
 
-Toolchain still incomplete; extraction still blocked. Continue hold until Jeremy
-approves a specific local toolchain acquisition/staging plan.
+This readiness report is retained as provenance for the pre-handoff blocker.
+The current extraction evidence state is now tracked in
+`reports/firmware_filesystem_extraction_RPFS31_Q1_21_20_5_RETBR.md`; blob
+import, build, flashing, and live use remain blocked.
