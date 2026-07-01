@@ -1,6 +1,6 @@
 # Firmware Acquisition & Extraction Gate
 
-Status: gate definition (no acquisition authorized)
+Status: Route B acquisition-only opened; extraction/use still blocked
 
 Date: 2026-06-30
 
@@ -14,14 +14,16 @@ storage layout, the extraction rules, and the committed-report shape that a
 *future, separately approved* artifact step would follow — so Jeremy can choose a
 route with the constraints already written down.
 
-This document is a gate, not a key. Nothing here is self-authorizing.
+This document is a gate, not a key. Nothing here is self-authorizing beyond the
+explicit Route B acquisition-only decision recorded on 2026-06-30.
 
 ## Safety boundary
 
-Reports only. This document authorizes no firmware download, no image download,
-no extraction, no blob handling, no LMSA execution, no device connection, no
-phone action, no flashing, and no mirror artifact acquisition. No proprietary
-artifact is committed. The physical Motorola One Hyper remains out of scope.
+Reports and the separately approved Route B acquisition-only download only. This
+document authorizes no extraction, no blob handling, no LMSA/RSA Rescue flow, no
+device connection, no phone action, no flashing, and no Route A/Route C side
+quest. No proprietary artifact is committed. The physical Motorola One Hyper
+remains out of scope.
 
 ## Current firmware state (input to the decision)
 
@@ -39,8 +41,9 @@ artifact is committed. The physical Motorola One Hyper remains out of scope.
 
 - **Purpose:** acquire the exact `RPFS31.Q1-21-20-1-7-3` / retus / XT2027-1
   package if LMSA exposes it.
-- **Status:** **preferred** route, but **blocked** until Jeremy explicitly opens a
-  physical-device / official-tooling gate.
+- **Status:** attempted safely 2026-06-30; **blocked** because Software Fix
+  identified the phone but exposed no firmware package metadata before the
+  write-coupled `Start Rescue` hard stop.
 - **Allowed only after separate approval:**
   - connect / identify the device in LMSA;
   - capture LMSA metadata;
@@ -54,12 +57,18 @@ artifact is committed. The physical Motorola One Hyper remains out of scope.
 
 - **Purpose:** acquire `RPFS31.Q1-21-20-5` / `1e3de` because it matches
   sorenlyulf's exact vendor base.
-- **Status:** best-corroborated non-retus fallback; **not preferred** over the
-  exact retus package.
-- **Allowed only after separate approval:**
+- **Status:** acquisition-only opened 2026-06-30. One selected artifact was
+  downloaded to local-only firmware storage and hashed; see
+  `reports/firmware_route_b_retbr_acquisition_report.md`.
+- **Allowed under this approval:**
   - download one selected artifact from the least-bad source;
   - compute local hashes;
-  - inspect package structure offline.
+  - commit reports only.
+- **Still not authorized:**
+  - inspect package structure;
+  - extract;
+  - import blobs;
+  - flash or boot anything.
 - **Required caveats:** RETBR, not retus; blob compatibility with the phone's
   `-1-7-3` is unproven; no flashing path is implied or authorized.
 
@@ -120,7 +129,8 @@ future extraction is diffed against that map.
 
 This document does **not** authorize:
 
-- firmware download
+- additional firmware download beyond the single Route B artifact recorded in
+  `reports/firmware_route_b_retbr_acquisition_report.md`
 - LMSA execution
 - device connection
 - phone extraction
@@ -129,16 +139,20 @@ This document does **not** authorize:
 - adb mutation
 - root attempts
 - proprietary blob import
+- offline extraction
 - build attempt
 
 Any of the above requires a separate, explicit, current-session gate from Jeremy.
 
 ## The decision
 
-Jeremy chooses one:
+Current route state after 2026-06-30:
 
-- **A.** open the LMSA exact-retus gate (Route A)
-- **B.** approve the provisional `-5` RETBR acquisition gate (Route B)
-- **C.** hold artifact acquisition (Route C — current default)
+- **A.** LMSA exact-retus gate: attempted safely; blocked by write-coupled
+  Rescue flow.
+- **B.** provisional `-5` RETBR acquisition gate: acquisition-only opened and
+  completed; extraction/use still blocked.
+- **C.** hold route: no longer the current acquisition state, but remains the
+  fallback posture for any unapproved next step.
 
-Until a choice is made, Route C (hold) is in effect and no artifact action occurs.
+No further artifact action occurs until Jeremy/GPT opens a new gate.

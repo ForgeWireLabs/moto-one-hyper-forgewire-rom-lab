@@ -1,21 +1,26 @@
 ﻿# Stock Firmware Search Matrix
 
-Status: refreshed with metadata-only discovery findings
+Status: Route B acquisition-only artifact captured; extraction/use still blocked
 
 Date: 2026-06-28 (framework); refreshed 2026-06-30 (discovery pass)
 
 Refresh note (2026-06-30): added a metadata-only discovery pass (web listings and
-source metadata only — no firmware/image downloads, no extraction, no blobs, no
-committed firmware artifacts). See "Discovered candidates" and "Discovery answers"
-below. The search framework above the refresh is unchanged.
+source metadata only — no extraction, no blobs, no committed firmware artifacts).
+After Route A was attempted safely and blocked by Software Fix's write-coupled
+`Start Rescue` path, Route B acquisition-only was opened and one provisional
+RETBR artifact was downloaded outside Git. See
+`reports/firmware_route_b_retbr_acquisition_report.md`. The search framework
+above the refresh is unchanged.
 
 ## Safety boundary
 
-This report defines firmware search and metadata review only.
+This report defines firmware search, metadata review, and the Route B
+acquisition-only record.
 
 No physical phone action is authorized.
 
-No firmware package is accepted by this report.
+No firmware package is accepted for flashing, extraction, blob import, or build
+use by this report.
 
 No firmware package should be downloaded into the Git repository.
 
@@ -30,6 +35,7 @@ Extracted firmware metadata, if later produced, must stay outside the repo under
     C:\Projects\moto-one-hyper-local\extracted
 
 Only scripts, manifests, checksums, and metadata reports may be committed.
+Route B's artifact remains local-only.
 
 ## Known target identity
 
@@ -318,10 +324,36 @@ Net: the mirror pass **improved confidence on identity/channel** (firmly placing
 package or any checksum. Per the stop rule, triangulation has reached its useful
 limit; further mirror searching is not warranted.
 
+## Route B acquisition-only result (2026-06-30)
+
+After the metadata-only track, Route A was attempted safely with Software Fix /
+LMSA-RSA. The tool identified the phone as `XT2027-1` on Android `11` with
+current version `RPFS31.Q1-21-20-1-7-3`, but it did not expose firmware package
+metadata before the `Start Rescue` hard stop. Route A is therefore blocked by a
+write-coupled Rescue flow.
+
+Jeremy/GPT opened Route B acquisition-only for the best-corroborated provisional
+RETBR package. One artifact was downloaded outside Git and hashed:
+
+| Field | Value |
+|---|---|
+| Filename | `stockrom.net_RETBR_DEF_RETAIL_RPFS31.Q1-21-20-5_subsidy-DEFAULT_regulatory-DEFAULT_CFC.xml.zip` |
+| Local-only path | `C:\Projects\moto-one-hyper-local\firmware\stockrom.net_RETBR_DEF_RETAIL_RPFS31.Q1-21-20-5_subsidy-DEFAULT_regulatory-DEFAULT_CFC.xml.zip` |
+| Size | `2426597680` bytes |
+| SHA256 | `BD781F671497ED3E34A6EBD38D4C7C82FF1B27312FDCBE9878B962348566163D` |
+| SHA1 | `E6AE4A227926983CFF4DE0583061186FB7E9E59E` |
+| MD5 | `466AA767542D92453371122577D76E42` |
+| Report | `reports/firmware_route_b_retbr_acquisition_report.md` |
+
+This acquisition does not change the source-side coherence finding: `-5`
+(`1e3de`) remains a provisional RETBR baseline, not a retus match and not a
+flashing/blob-use approval. No extraction occurred.
+
 ## Current decision
 
-No stock firmware package is accepted. No package was downloaded, extracted, or
-committed. Safety posture unchanged.
+No stock firmware package is accepted for use. One Route B provisional RETBR
+artifact was downloaded outside Git and hashed. No package was extracted or
+committed. Safety posture remains extraction/use blocked.
 
 lolinet did not expose a checksummed official `def` retus package (or any
 `RPFS31.Q1-21-20` def package) at standard paths; mirror triangulation found no
@@ -331,10 +363,12 @@ same-family metadata baseline remains `-5` (1e3de) — now confirmed **RETBR**, 
 exact base sorenlyulf builds on — and it is provisional (not retus, not the
 phone's `-1-7-3`).
 
-The metadata-only track is complete. The next decision is captured in the gate
-document `reports/firmware_acquisition_extraction_gate.md` (Route A LMSA
-exact-retus / Route B provisional `-5` RETBR / Route C hold); no artifact action
-occurs until Jeremy chooses a route.
+The metadata-only track is complete and Route B acquisition-only has been
+captured. The next decision is captured in the gate document
+`reports/firmware_acquisition_extraction_gate.md`: Route A is blocked by the
+write-coupled Rescue flow, Route B acquisition-only is complete, and Route B
+extraction/use remains unauthorized. No further artifact action occurs until
+Jeremy/GPT opens a new gate.
 
 State of the master blocker: the `RPFS31.Q1-21-20` family and the phone's exact
 `-1-7-3` build are **confirmed real**, and a reputable metadata dump exists for
